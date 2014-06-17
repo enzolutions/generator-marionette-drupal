@@ -1,0 +1,23 @@
+{
+  "name": "<%= _.slugify(appname) %>",
+  "version": "0.0.0",
+  "dependencies": {
+    "bootstrap-sass": "~3.0.2",
+    "jquery": "~1.9.0",
+    "requirejs": "~2.1.5",
+    "requirejs-text": "~2.0.5",
+    "underscore-amd": "~1.4.4",
+    "backbone-amd": "~1.1.0",
+    "modernizr": "~2.6.2",
+    "backbone.marionette": "~1.0.2",
+    "backbone.wreqr": "~0.2.0",
+    "backbone.babysitter": "~0.0.6",
+    "backbone.drupal": "~0.1.0-beta",
+    "twig.js": "~0.7.1",
+    "mocha": "~1.12.0",
+    "chai": "~1.7.2",
+    "sinon": "~1.7.3"
+  },
+  "devDependencies": {},
+  "directory": "<%= bowerDirectory %>"
+}

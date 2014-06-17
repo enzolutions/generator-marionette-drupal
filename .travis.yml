@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+  - '0.10'
+before_install:
+  - currentfolder=${PWD##*/}
+  - if [ "$currentfolder" != 'generator-marionette-drupal' ]; then cd .. && eval "mv $currentfolder generator-marionette-drupal" && cd generator-marionette-drupal; fi
+

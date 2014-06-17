@@ -24,14 +24,15 @@
     ├── favicon.ico
     ├── images
     ├── index.html
-	  ├── js
-	  ├── models
-	  ├── robots.txt
-	  ├── scripts
-	  ├── styles
-	  ├── templates
-	  ├── vendor ( Configurable: vendor is recommended)
-	  └── views
+    ├── js
+        ├── scripts (application scripts)   
+    ├── models
+    ├── robots.txt
+    ├── scripts
+    ├── styles
+    ├── templates
+    ├── vendor ( Configurable: vendor is recommended)
+    └── views
 ```
 
 ##Getting Started##

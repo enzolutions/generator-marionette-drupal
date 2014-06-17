@@ -65,13 +65,13 @@ $ npm install -g mocha-phantomjs
 Install mocha generator: 
 
 ```bash
-$ npm install (-g) generator-mocha-amd
+$ npm install -g generator-mocha-amd
 ```
 
 Install Marionette Drupal generator
 
 ```bash
-$ npm install (-g) generator-marionette-drupal
+$ npm install -g generator-marionette-drupal
 ```
 
 ### Create a Marionette Drupal project
@@ -85,6 +85,17 @@ $ yo marionette-drupal
 [![yeoman generator](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/yo_marionette_drupal_generator.png)
 
 You have to define where do you want the app installed *web* is recommended, also you have to define where do you want the Bower components installed *vendor* is recommended.
+
+### Execute sample application
+
+The generator create a simple sample application using an empty model, simple view and render without region.
+
+[![yeoman sample application](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/you_marionette_drupal_sample_app.png)
+
+
+The objetive of this sample application is just demostrate the environment is ready to work and you can use the [Scaffolding](#scaffolding) commands to build your application.
+
+
 
 ### Integration with Grunt
 
@@ -145,10 +156,27 @@ Monitor when SASS files are modified to generate new CSS files.
 ### Generate a template
 
 ```bash
-$ yo marionette-drupal:tmp name
+$ yo marionette-drupal:tmpl name
 ```
 
 This command will create an empty template inside application folder [app_folder]/*templates*
+
+### Generate a Model
+```bash
+$ yo marionette-drupal:model name
+```
+
+This command will create a simple Backbone module to be used in combination with a View
+
+### Generate a View
+```bash
+$ yo marionette-drupal:view name [--with-template]
+```
+
+This command will create a Marionette ItemView, optionally is possible create a template with the same name of view auto related with this template.
+
+When a template is related with a view, Twig.js is used to render the template.
+
 
 ##ToDO##
 

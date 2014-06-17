@@ -1,5 +1,9 @@
 - [Application Structure](#application-structure)
+- [Getting Started](#getting-started)
+- [Scaffolding](#scaffolding)
 - [ToDo](#todo)
+- [Known Issues](#known-issues)
+
 
 
 > [Yeoman](http://yeoman.io) [MarionetteJS](http://marionettejs.com) + [Drupal](drupical.org) generator
@@ -27,28 +31,43 @@
 	  └── views
 ```
 
-## Known Issues
-
-When  you are trying to create you application, the combination of dependencies between packages require you define what version os underscore you want to install and you will get a message similar to following image.
-
-[![yeoman generator](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/yo_marionette_drupal_resolving_conflict.png)]
-
-If you only see the question mark symbol, without any indication, you need to change the log level of npm using the folowing command.
-
-```
-$ npm config set loglevel error
-```
-
-## Getting Started
+##Getting Started##
 
 ### Install Generator
 
-Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
+First make sure you have Node, Npm, Yeoman, Bower, Mocha, phantomJS and Grunt installed.
 
-To install generator-marionette-drupal from npm, run:
+Visit nodejs.org to install node and NPM
+
+Install phantomJS with:
 
 ```bash
-$ npm install -g generator-marionette-drupal
+$ brew install phantomjs
+```
+Or visit http://phantomjs.org/
+
+
+To install Yeoman, Bower and Grunt run: 
+```bash
+$ npm install -g yo grunt-cli bower
+```
+
+Install mocha-phantomjs:
+
+```bash
+$ npm install -g mocha-phantomjs
+```
+
+Install mocha generator: 
+
+```bash
+$ npm install (-g) generator-mocha-amd
+```
+
+Install Marionette Drupal generator
+
+```bash
+$ npm install (-g) generator-marionette
 ```
 
 ### Create a Marionette Drupal project
@@ -124,3 +143,15 @@ $ yo marionette-drupal:tmp name
 This command will create an empty template inside application folder [app_folder]/*templates*
 
 ##ToDO##
+
+##Known Issues##
+
+When  you are trying to create you application, the combination of dependencies between packages require you define what version os underscore you want to install and you will get a message similar to following image.
+
+[![yeoman generator](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/yo_marionette_drupal_resolving_conflict.png)]
+
+If you only see the question mark symbol, without any indication, you need to change the log level of npm using the folowing command.
+
+```
+$ npm config set loglevel error
+```

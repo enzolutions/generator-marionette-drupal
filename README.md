@@ -189,6 +189,12 @@ When a template is related with a view, Twig.js is used to render the template.
 
 ##ToDO##
 
+- Improve Drupal Model Scaffolding command
+- Improve View Scaffolding command
+- Create Drupal Collection Scaffolding command
+- Create Region Scaffolding command
+- Create Layout Scaffolding command
+
 ##Known Issues##
 
 When  you are trying to create you application, the combination of dependencies between packages require you define what version os underscore you want to install and you will get a message similar to following image.

@@ -1,5 +1,12 @@
 [Yeoman](http://yeoman.io) [MarionetteJS](http://marionettejs.com) + [Drupal](drupical.org) generator
 
+This generator create a structured HTML 5 application generating modules using RequireJS, includes Grunt support to automate tasks. 
+
+Compass is used to generate CSS using bootstrap-sass. 
+
+The HTML 5 application is defined using a MVC pattern implemented with MarionetteJS and Backbone.Drupal for data model. 
+
+Includes scaffolding commands to create templates, models, collections, views and layouts.
 
 - [Application Structure](#application-structure)
 - [Getting Started](#getting-started)

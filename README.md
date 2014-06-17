@@ -1,12 +1,15 @@
+[Yeoman](http://yeoman.io) [MarionetteJS](http://marionettejs.com) + [Drupal](drupical.org) generator
+
+
 - [Application Structure](#application-structure)
 - [Getting Started](#getting-started)
+    - [Install Generator](#install-generator)
+    - [Create a Marionett + Drupal Project](#create-a-marionette-drupal-project)
+    - [Integration with Grunt](#integration-with-grunt)
 - [Scaffolding](#scaffolding)
 - [ToDo](#todo)
 - [Known Issues](#known-issues)
 
-
-
-> [Yeoman](http://yeoman.io) [MarionetteJS](http://marionettejs.com) + [Drupal](drupical.org) generator
 
 
 ##Application Structure##
@@ -16,19 +19,20 @@
 ├── bower.json
 ├── node_modules
 ├── package.json
-└── web
+└── web ( Configurable: web is recommended)
     ├── 404.html
     ├── favicon.ico
     ├── images
     ├── index.html
-	  ├── js
-	  ├── models
-	  ├── robots.txt
-	  ├── scripts
-	  ├── styles
-	  ├── templates
-	  ├── vendor
-	  └── views
+    ├── js
+        ├── scripts (application scripts)   
+    ├── models
+    ├── robots.txt
+    ├── scripts
+    ├── styles
+    ├── templates
+    ├── vendor ( Configurable: vendor is recommended)
+    └── views
 ```
 
 ##Getting Started##
@@ -67,7 +71,7 @@ $ npm install (-g) generator-mocha-amd
 Install Marionette Drupal generator
 
 ```bash
-$ npm install (-g) generator-marionette
+$ npm install (-g) generator-marionette-drupal
 ```
 
 ### Create a Marionette Drupal project
@@ -77,6 +81,10 @@ Finally, initiate the generator in a empty folder
 ```bash
 $ yo marionette-drupal
 ```
+
+[![yeoman generator](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/yo_marionette_drupal_generator.png)
+
+You have to define where do you want the app installed *web* is recommended, also you have to define where do you want the Bower components installed *vendor* is recommended.
 
 ### Integration with Grunt
 
@@ -148,7 +156,7 @@ This command will create an empty template inside application folder [app_folder
 
 When  you are trying to create you application, the combination of dependencies between packages require you define what version os underscore you want to install and you will get a message similar to following image.
 
-[![yeoman generator](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/yo_marionette_drupal_resolving_conflict.png)]
+[![yeoman generator conflicts](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/yo_marionette_drupal_resolving_conflict.png)]
 
 If you only see the question mark symbol, without any indication, you need to change the log level of npm using the folowing command.
 

@@ -81,8 +81,7 @@ Finally, initiate the generator in a empty folder
 $ yo marionette-drupal
 ```
 
-[![yeoman generator](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/yo_marionette_drupal_resolving_conflict.png)]
-
+[![yeoman generator](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/yo_marionette_drupal_generator.png)
 
 You have to define where do you want the app installed *web* is recommended, also you have to define where do you want the Bower components installed *vendor* is recommended.
 
@@ -156,7 +155,7 @@ This command will create an empty template inside application folder [app_folder
 
 When  you are trying to create you application, the combination of dependencies between packages require you define what version os underscore you want to install and you will get a message similar to following image.
 
-[![yeoman generator](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/yo_marionette_drupal_resolving_conflict.png)]
+[![yeoman generator conflicts](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/yo_marionette_drupal_resolving_conflict.png)]
 
 If you only see the question mark symbol, without any indication, you need to change the log level of npm using the folowing command.
 

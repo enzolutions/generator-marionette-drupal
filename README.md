@@ -1,64 +1,157 @@
-# generator-marionette-drupal [![Build Status](https://secure.travis-ci.org/enzolutions/generator-marionette-drupal.png?branch=master)](https://travis-ci.org/enzolutions/generator-marionette-drupal)
+- [Application Structure](#application-structure)
+- [Getting Started](#getting-started)
+- [Scaffolding](#scaffolding)
+- [ToDo](#todo)
+- [Known Issues](#known-issues)
 
-> [Yeoman](http://yeoman.io) generator
 
 
-## Known Issues
+> [Yeoman](http://yeoman.io) [MarionetteJS](http://marionettejs.com) + [Drupal](drupical.org) generator
+
+
+##Application Structure##
+
+```
+├── Gruntfile.js
+├── bower.json
+├── node_modules
+├── package.json
+└── web
+    ├── 404.html
+    ├── favicon.ico
+    ├── images
+    ├── index.html
+	  ├── js
+	  ├── models
+	  ├── robots.txt
+	  ├── scripts
+	  ├── styles
+	  ├── templates
+	  ├── vendor
+	  └── views
+```
+
+##Getting Started##
+
+### Install Generator
+
+First make sure you have Node, Npm, Yeoman, Bower, Mocha, phantomJS and Grunt installed.
+
+Visit nodejs.org to install node and NPM
+
+Install phantomJS with:
+
+```bash
+$ brew install phantomjs
+```
+Or visit http://phantomjs.org/
+
+
+To install Yeoman, Bower and Grunt run: 
+```bash
+$ npm install -g yo grunt-cli bower
+```
+
+Install mocha-phantomjs:
+
+```bash
+$ npm install -g mocha-phantomjs
+```
+
+Install mocha generator: 
+
+```bash
+$ npm install (-g) generator-mocha-amd
+```
+
+Install Marionette Drupal generator
+
+```bash
+$ npm install (-g) generator-marionette
+```
+
+### Create a Marionette Drupal project
+
+Finally, initiate the generator in a empty folder
+
+```bash
+$ yo marionette-drupal
+```
+
+### Integration with Grunt
+
+This generator provide a initial Grunt file to execute minimal tasks, you can run all tasks available with following command.
+
+```bash
+$ grunt
+```
+
+If you prefer you can execute any specific command among listed below.
+
+#### Concat
+
+```bash
+$ grunt contact
+```
+
+Enable concat all JS files.
+
+Todo: Configure the proper JS files and enable CSS files
+
+#### Uglify
+
+```bash
+$ grunt uglify
+```
+
+Minify JS file combined in Contact tasks.
+
+Todo: Configure minify for CSS files.
+
+#### Imagemin
+
+```bash
+$ grunt imagemin
+```
+
+Optimize images in your project.
+
+#### Compass
+
+```bash
+$ grunt compass
+```
+
+Enable process SASS files to generate CSS files in your project. This project include [bootstrap-sass](https://github.com/twbs/bootstrap-sass)
+
+#### Watch
+
+```bash
+$ grunt watch
+```
+
+Monitor when SASS files are modified to generate new CSS files.
+
+##Scaffolding##
+
+### Generate a template
+
+```bash
+$ yo marionette-drupal:tmp name
+```
+
+This command will create an empty template inside application folder [app_folder]/*templates*
+
+##ToDO##
+
+##Known Issues##
 
 When  you are trying to create you application, the combination of dependencies between packages require you define what version os underscore you want to install and you will get a message similar to following image.
 
-[![Build Status](https://secure.travis-ci.org/enzolutions/generator-marionette-drupal.png?branch=master)](https://travis-ci.org/enzolutions/generator-marionette-drupal)
+[![yeoman generator](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/yo_marionette_drupal_resolving_conflict.png)]
 
 If you only see the question mark symbol, without any indication, you need to change the log level of npm using the folowing command.
 
 ```
 $ npm config set loglevel error
 ```
-
-## Getting Started
-
-### What is Yeoman?
-
-Trick question. It's not a thing. It's this guy:
-
-![](http://i.imgur.com/JHaAlBJ.png)
-
-Basically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.
-
-Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](https://npmjs.org) package repository. You only have to ask for him once, then he packs up and moves into your hard drive. *Make sure you clean up, he likes new and shiny things.*
-
-```bash
-$ npm install -g yo
-```
-
-### Yeoman Generators
-
-Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
-
-To install generator-marionette-drupal from npm, run:
-
-```bash
-$ npm install -g generator-marionette-drupal
-```
-
-Finally, initiate the generator:
-
-```bash
-$ yo marionette-drupal
-```
-
-### Getting To Know Yeoman
-
-Yeoman has a heart of gold. He's a person with feelings and opinions, but he's very easy to work with. If you think he's too opinionated, he can be easily convinced.
-
-If you'd like to get to know Yeoman better and meet some of his friends, [Grunt](http://gruntjs.com) and [Bower](http://bower.io), check out the complete [Getting Started Guide](https://github.com/yeoman/yeoman/wiki/Getting-Started).
-
-
-## License
-
-MIT
-=======
-generator-marionette-drupal
-===========================
-
-Yeoman Marionette Drupal generator using AMD

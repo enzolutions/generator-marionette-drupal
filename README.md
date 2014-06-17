@@ -1,10 +1,11 @@
-![](http://i.imgur.com/JHaAlBJ.png)
+- [Application Structure](#application-structure)
+- [ToDo](#todo)
 
 
 > [Yeoman](http://yeoman.io) [MarionetteJS](http://marionettejs.com) + [Drupal](drupical.org) generator
 
 
-## Application Structure
+##Application Structure##
 
 ```
 ├── Gruntfile.js
@@ -112,7 +113,7 @@ $ grunt watch
 
 Monitor when SASS files are modified to generate new CSS files.
 
-## Scaffolding
+##Scaffolding##
 
 ### Generate a template
 
@@ -121,3 +122,5 @@ $ yo marionette-drupal:tmp name
 ```
 
 This command will create an empty template inside application folder [app_folder]/*templates*
+
+##ToDO##

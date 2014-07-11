@@ -5,13 +5,13 @@ define([
 	'../models/empty'
 ],
 
-function( Marionette, Communicator, MainView, EmptyModel ) {
-    'use strict';
+function (Marionette, Communicator, MainView, EmptyModel) {
+  'use strict';
 
   var emptyModel = new EmptyModel();
 
   // Set a custom data in model to show in template
-  emptyModel.set('success','Congrats Yeoman for Marionette + Drupal is Working');
+  emptyModel.set('success', 'Congrats Yeoman for Marionette + Drupal is Working');
 
 
 	var mainView = new MainView({model: emptyModel});
@@ -22,7 +22,7 @@ function( Marionette, Communicator, MainView, EmptyModel ) {
 	App.addRegions({});
 
 	/* Add initializers here */
-	App.addInitializer( function () {
+	App.addInitializer(function () {
 		// Using the render result because we don't have region yet to render
 		document.body.innerHTML = mainView.render().el.innerHTML;
 		Communicator.mediator.trigger('APP:START');

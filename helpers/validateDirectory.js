@@ -1,11 +1,11 @@
+'use strict';
 var fs = require('fs');
 
-
 module.exports = {
-	getValidatedFolder: function( path ){
+	getValidatedFolder: function (path) {
 		try {
-			var fsStat = fs.statSync( path );
-			if ( fsStat.isDirectory() ) {
+			var fsStat = fs.statSync(path);
+			if (fsStat.isDirectory()) {
 				return path;
 			}
 			else {

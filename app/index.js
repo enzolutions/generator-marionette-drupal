@@ -41,16 +41,30 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
       name: 'templatesDirectory',
       message: 'Where do you want the templates generated inside App Directory?',
       default: 'templates'
+    },
+    { type: 'string',
+      name: 'modelsDirectory',
+      message: 'Where do you want the models generated inside App Directory?',
+      default: 'models'
+    },
+    { type: 'string',
+      name: 'collectionsDirectory',
+      message: 'Where do you want the collections generated inside App Directory?',
+      default: 'collections'
     }];
 
     this.prompt(prompts, function (props) {
       this.appDirectory = props.appDirectory;
       this.bowerDirectory = props.bowerDirectory;
       this.templatesDirectory = props.templatesDirectory;
+      this.modelsDirectory = props.modelsDirectory;
+      this.collectionsDirectory = props.collectionsDirectory;
 
       this.config.set('appDirectory', this.appDirectory);
       this.config.set('bowerDirectory', this.bowerDirectory);
       this.config.set('templatesDirectory', this.appDirectory + '/' + this.templatesDirectory);
+      this.config.set('modelsDirectory', this.appDirectory + '/' + this.modelsDirectory);
+      this.config.set('collectionsDirectory', this.appDirectory + '/' + this.collectionsDirectory);
 
       done();
     }.bind(this));
@@ -116,11 +130,13 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
 
     // Marionette JS Structure
     this.mkdir(this.appDirectory + '/views');
-    this.mkdir(this.appDirectory + '/models');
+    this.mkdir(this.appDirectory + '/' + this.modelsDirectory);
+    this.mkdir(this.appDirectory + '/' + this.collectionsDirectory);
+
     var ext = 'js';
     var emptyModel = 'empty';
     var baseDir = validDir.getValidatedFolder(this.appDirectory);
-    this.template('../../model/templates/model.' + ext, path.join(baseDir + '/models', emptyModel + '.' + ext), {'name': emptyModel });
+    this.template('../../model/templates/model.' + ext, path.join(baseDir + '/' + this.modelsDirectory, emptyModel + '.' + ext), {'name': emptyModel });
 
     // App others
     this.mkdir(this.appDirectory + '/styles');

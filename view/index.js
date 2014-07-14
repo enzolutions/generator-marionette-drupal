@@ -17,9 +17,11 @@ function ViewGenerator(args, options, config) {
   this.tmpl = this.options['with-template'];
 
   if (this.tmpl) {
+    // Set tmpl variable to use template function
+    this.tmpl = this.name;
     this.hookFor('marionette-drupal', {
       as: 'tmpl',
-      args: [this.name]
+      args: [this.tmpl]
     });
   }
 }

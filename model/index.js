@@ -8,21 +8,33 @@ module.exports = ModelGenerator;
 
 function ModelGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
-  //this.option('with-template', { desc: 'Create a new empty template for this Model' });
+  this.option('drupal-node', { desc: 'Create a new empty model using Backbone Node definition' });
+  this.option('drupal-user', { desc: 'Create a new empty model using Backbone User definition' });
+  this.option('drupal-comment', { desc: 'Create a new empty model using Backbone Comment definition' });
+  this.option('drupal-file', { desc: 'Create a new empty model using Backbone File definition' });
 
   // To DO figure out why argument 0 is not available as property
 
   this.name = this.arguments[0];
 
-  /*this.tmpl = this.options['with-template'];
+  // Set backbone model empty to avoid error if wasn't provided
+  this.backbone_model = '';
 
-  if (this.tmpl) {
-    this.tmpl = this.name;
-    this.hookFor('marionette-drupal', {
-      as: 'tmpl',
-      args: [this.tmpl]
-    });
-  }*/
+  if (this.options['drupal-node']) {
+    this.backbone_model = 'node';
+  }
+
+  if (this.options['drupal-user']) {
+    this.backbone_model = 'user';
+  }
+
+  if (this.options['drupal-comment']) {
+    this.backbone_model = 'comment';
+  }
+
+  if (this.options['drupal-file']) {
+    this.backbone_model = 'file';
+  }
 }
 
 util.inherits(ModelGenerator, yeoman.generators.NamedBase);

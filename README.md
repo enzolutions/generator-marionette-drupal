@@ -1,10 +1,10 @@
 [Yeoman](http://yeoman.io) [MarionetteJS](http://marionettejs.com) + [Drupal](drupical.org) generator
 
-This generator create a structured HTML 5 application generating modules using RequireJS, includes Grunt support to automate tasks. 
+This generator create a structured HTML 5 application generating modules using RequireJS, includes Grunt support to automate tasks.
 
-Compass is used to generate CSS using bootstrap-sass. 
+Compass is used to generate CSS using bootstrap-sass.
 
-The HTML 5 application is defined using a MVC pattern implemented with MarionetteJS and Backbone.Drupal for data model. 
+The HTML 5 application is defined using a MVC pattern implemented with MarionetteJS and Backbone.Drupal for data model.
 
 Includes scaffolding commands to create templates, models, collections, views and layouts.
 
@@ -33,7 +33,7 @@ Includes scaffolding commands to create templates, models, collections, views an
     ├── images
     ├── index.html
     ├── js
-        ├── scripts (application scripts)   
+        ├── scripts (application scripts)
     ├── models
     ├── robots.txt
     ├── scripts
@@ -47,33 +47,9 @@ Includes scaffolding commands to create templates, models, collections, views an
 
 ### Install Generator
 
-First make sure you have Node, Npm, Yeoman, Bower, Mocha, phantomJS and Grunt installed.
-
-Visit nodejs.org to install node and NPM
-
-Install phantomJS with:
-
-```bash
-$ brew install phantomjs
-```
-Or visit http://phantomjs.org/
-
-
-To install Yeoman, Bower and Grunt run: 
+To install Yeoman, Bower and Grunt run:
 ```bash
 $ npm install -g yo grunt-cli bower
-```
-
-Install mocha-phantomjs:
-
-```bash
-$ npm install -g mocha-phantomjs
-```
-
-Install mocha generator: 
-
-```bash
-$ npm install -g generator-mocha-amd
 ```
 
 Install Marionette Drupal generator
@@ -182,9 +158,15 @@ This command will create an empty template inside application folder [app_folder
 $ yo marionette-drupal:model name
 ```
 
-This command will create a simple Backbone module to be used in combination with a View
+#### Generate a Model with integration with Backbone Drupal
+```bash
+$ yo marionette-drupal:model name [--drupal-node] [--drupal-user] [--drupal-comment] [--drupal-file]
+```
+You must select one of the option to integrate with Backbone Drupal, only one class must used.
+
 
 ### Generate a View
+This command will create a simple Backbone module to be used in combination with a View
 ```bash
 $ yo marionette-drupal:view name [--with-template]
 ```

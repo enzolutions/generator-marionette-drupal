@@ -3,4 +3,6 @@ temp
 dist
 .sass-cache
 <%= appDirectory %>/<%= bowerDirectory %>
+<%= appDirectory %>/styles/main.css
 .tmp/
+<%= appDirectory %>/js/

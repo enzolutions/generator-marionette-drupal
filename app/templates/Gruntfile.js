@@ -15,23 +15,24 @@ module.exports = function (grunt) {
             tasks: {
                 options: {
                     filter: 'exclude',
-                    tasks: ['availabletasks']
+                    tasks: ['availabletasks'],
                 }
             }               // target
         },
         concat: {
             dist: {
                 src: [
-                    yeomanConfig.app + '/js/libs/*.js', // All JS in the libs folder
+                    yeomanConfig.app + '/vendor/bootstrap-sass/dist/js/bootstrap.js', // Bootstrap JS
+                    yeomanConfig.app + '/js/*.js', // All JS in the libs folder
                     yeomanConfig.app + '/js/global.js'  // This specific file
                 ],
-                dest: yeomanConfig.app + '/js/build/production.js',
+                dest: yeomanConfig.app + '/js/dist/production.js',
             }
         },
         uglify: {
             build: {
-                src: yeomanConfig.app + '/js/build/production.js',
-                dest: yeomanConfig.app + '/js/build/production.min.js'
+                src: yeomanConfig.app + '/js/dist/production.js',
+                dest: yeomanConfig.app + '/js/dist/production.min.js'
             }
         },
         imagemin: {

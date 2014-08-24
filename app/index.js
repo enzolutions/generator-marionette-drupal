@@ -100,10 +100,6 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
     this.write(this.appDirectory + '/styles/sass/main.scss', '@import \'bootstrap-sass/lib/bootstrap\';\n\n.hero-unit {\n    margin: 50px auto 0 auto;\n    width: 400px;\n}');
   },
 
-  bootstrapJs: function bootstrapJs() {
-    this.copy('bootstrap.js',  this.appDirectory + '/scripts/vendor/bootstrap.js');
-  },
-
   app: function () {
     // App templates
     this.mkdir(this.appDirectory + '/' + this.templatesDirectory);

@@ -4,13 +4,21 @@ module.exports = function (grunt) {
 
     // configurable paths
     var yeomanConfig = {
-        app: '<%= appDirectory %>',
+        app: 'web',
         dist: 'dist'
       };
 
     grunt.initConfig({
         yeoman: yeomanConfig,
         pkg: grunt.file.readJSON('package.json'),
+        availabletasks: {           // task
+            tasks: {
+                options: {
+                    filter: 'exclude',
+                    tasks: ['availabletasks']
+                }
+            }               // target
+        },
         concat: {
             dist: {
                 src: [
@@ -41,7 +49,7 @@ module.exports = function (grunt) {
                 options: {
                     sassDir: yeomanConfig.app + '/styles/sass',
                     cssDir: yeomanConfig.app + '/styles',
-                    importPath: yeomanConfig.app + '/<%= bowerDirectory %>',
+                    importPath: yeomanConfig.app + '/vendor',
                     imagesDir: yeomanConfig.app + '/images',
                     javascriptsDir: yeomanConfig.app + '/scripts',
                     fontsDir: yeomanConfig.app + '/styles/fonts',
@@ -72,7 +80,10 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-available-tasks');
 
     // Where we tell Grunt what to do when we type "grunt" into the terminal.
     grunt.registerTask('default', ['concat', 'uglify', 'imagemin', 'compass', 'watch']);
+    grunt.registerTask('tasks', ['availabletasks']);
+
 };

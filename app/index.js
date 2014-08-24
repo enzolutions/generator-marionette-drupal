@@ -136,7 +136,7 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
     var ext = 'js';
     var emptyModel = 'empty';
     var baseDir = validDir.getValidatedFolder(this.appDirectory);
-    this.template('../../model/templates/model.' + ext, path.join(baseDir + '/' + this.modelsDirectory, emptyModel + '.' + ext), {'name': emptyModel });
+    this.template('../../model/templates/model.' + ext, path.join(baseDir + '/' + this.modelsDirectory, emptyModel + '.' + ext), {'name': emptyModel , 'backbone_model' : ''});
 
     // App others
     this.mkdir(this.appDirectory + '/styles');

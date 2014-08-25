@@ -15,7 +15,7 @@ module.exports = function (grunt) {
             tasks: {
                 options: {
                     filter: 'exclude',
-                    tasks: ['availabletasks'],
+                    tasks: ['availabletasks', 'tasks']
                 }
             }               // target
         },
@@ -39,9 +39,9 @@ module.exports = function (grunt) {
             dynamic: {
                 files: [{
                     expand: true,
-                    cwd: yeomanConfig.app + '/images/',
+                    cwd: yeomanConfig.app + '/images/src',
                     src: ['**/*.{png,jpg,gif}'],
-                    dest: yeomanConfig.app + '/images/build/'
+                    dest: yeomanConfig.app + '/images/dist/',
                 }]
             }
         },

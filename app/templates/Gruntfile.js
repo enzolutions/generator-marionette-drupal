@@ -72,7 +72,17 @@ module.exports = function (grunt) {
                     spawn: false,
                 }
             }
-        }
+        },
+        connect: {
+            server: {
+                options: {
+                    keepalive: true,
+                    hostname: 'localhost',
+                    port: 9001,
+                    base: yeomanConfig.app
+                }
+            }
+        },
     });
 
     // Where we tell Grunt we plan to use some plug-ins.
@@ -81,10 +91,12 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-available-tasks');
 
     // Where we tell Grunt what to do when we type "grunt" into the terminal.
-    grunt.registerTask('default', ['concat', 'uglify', 'imagemin', 'compass', 'watch']);
+    grunt.registerTask('default', ['concat', 'uglify', 'imagemin', 'compass', 'watch', 'connect:server']);
+    grunt.registerTask('server', ['connect:server']);
     grunt.registerTask('tasks', ['availabletasks']);
 
 };

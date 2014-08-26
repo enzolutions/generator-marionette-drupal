@@ -1,6 +1,6 @@
 {
   "name": "generator-marionette-drupal",
-  "version": "0.1.0-beta8",
+  "version": "0.1.0-beta9",
   "description": "Yeoman generator",
   "license": "BSD",
   "main": "app/index.js",

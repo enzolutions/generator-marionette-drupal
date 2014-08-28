@@ -51,7 +51,36 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
       name: 'collectionsDirectory',
       message: 'Where do you want the collections generated inside App Directory?',
       default: 'collections'
-    }];
+    },
+    { type: 'string',
+      name: 'backendServer',
+      message: 'What is your Drupal Backend Server?',
+      default: 'example.com'
+    },
+    { type: 'string',
+      name: 'backendPort',
+      message: 'What is your Drupal Backend Port?',
+      default: '80'
+    },
+    { type: 'confirm',
+      name: 'backendCORS',
+      message: 'Enable Cross-origin resource sharing (CORS)?',
+    },
+    { when: function (response) {
+        return response.backendCORS;
+      },
+      type: 'string',
+      name: 'backendUser',
+      message: 'What is your Backend user?',
+    },
+    {when: function (response) {
+        return response.backendCORS;
+      },
+      type: "password",
+      name: "backendPassword",
+      message: 'What is your Backend password?',
+    }
+    ];
 
     this.prompt(prompts, function (props) {
       this.appDirectory = props.appDirectory;

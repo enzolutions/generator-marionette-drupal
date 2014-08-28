@@ -19,5 +19,8 @@
     "sinon": "~1.7.3"
   },
   "devDependencies": {},
-  "directory": "<%= bowerDirectory %>"
+  "directory": "<%= bowerDirectory %>",
+  "resolutions": {
+    "underscore": ">=1.5.0"
+  }
 }

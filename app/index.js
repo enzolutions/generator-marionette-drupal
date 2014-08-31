@@ -88,6 +88,11 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
       this.templatesDirectory = props.templatesDirectory;
       this.modelsDirectory = props.modelsDirectory;
       this.collectionsDirectory = props.collectionsDirectory;
+      this.backendServer = props.backendServer;
+      this.backendPort = props.backendPort;
+      this.backendCORS = props.backendCORS;
+      this.backendUser = props.backendUser;
+      this.backendPassword = props.backendPassword;
 
       this.config.set('appDirectory', this.appDirectory);
       this.config.set('bowerDirectory', this.bowerDirectory);
@@ -150,7 +155,7 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
     this.template('web/init.js', this.appDirectory + '/scripts/init.js');
     this.copy('web/main.js', this.appDirectory + '/scripts/main.js');
     this.copy('web/regionManager.js', this.appDirectory + '/scripts/regionManager.js');
-    this.copy('web/application.js', this.appDirectory + '/scripts/application.js');
+    this.template('web/application.js', this.appDirectory + '/scripts/application.js');
     this.copy('web/communicator.js', this.appDirectory + '/scripts/communicator.js');
 
     // Marionette JS Structure

@@ -18,6 +18,28 @@ function (Marionette, Communicator, MainView, EmptyModel) {
 
 	var App = new Marionette.Application();
 
+  // Set Backend API Information
+  Backbone.Drupal.restEndpoint = {
+    root: 'http://<%= backendServer %>:<%= backendPort %>',
+    dataType: '.json'
+  };
+
+  <% if (backendCORS === true) { %>
+  // Define auth object, set crossDomain if is necessary
+  var Auth = new Backbone.Drupal.Auth({crossDomain: true});
+  <% } %>
+  // Request executed in sync mode
+  // If status is token further ajax will use the proper token
+  var auth_status = Auth.login('<%= backendUser %>', '<%= backendPassword %>');
+
+  if(auth_status) {
+    // Do something if login works
+    console.log('Auth Works');
+  }
+  else {
+    // Do something if login fails
+    console.log('Auth Error');
+  }
 	/* Add application regions here */
 	App.addRegions({});
 

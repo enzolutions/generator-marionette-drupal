@@ -14,7 +14,6 @@ require.config({
         },
         bootstrap: {
           deps: ['jquery'],
-          exports: 'jquery'
         },
         'backbone.drupal': {
           deps: ['backbone']

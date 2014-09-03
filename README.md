@@ -16,9 +16,6 @@ Includes scaffolding commands to create templates, models, collections, views an
     - [Integration with Grunt](#integration-with-grunt)
 - [Scaffolding](#scaffolding)
 - [ToDo](#todo)
-- [Known Issues](#known-issues)
-
-
 
 ##Application Structure##
 
@@ -183,15 +180,3 @@ When a template is related with a view, Twig.js is used to render the template.
 - Create Drupal Collection Scaffolding command
 - Create Region Scaffolding command
 - Create Layout Scaffolding command
-
-##Known Issues##
-
-When  you are trying to create you application, the combination of dependencies between packages require you define what version os underscore you want to install and you will get a message similar to following image.
-
-![yeoman generator conflicts](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/yo_marionette_drupal_resolving_conflict.png "yeoman generator conflicts")
-
-If you only see the question mark symbol, without any indication, you need to change the log level of npm using the folowing command.
-
-```
-$ npm config set loglevel error
-```

@@ -52,9 +52,13 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
       message: 'Where do you want the collections generated inside App Directory?',
       default: 'collections'
     },
+    { type: 'confirm',
+      name: 'backendVersion',
+      message: 'Your Backend server is Drupal 8 ?',
+    },
     { type: 'string',
       name: 'backendServer',
-      message: 'What is your Drupal Backend Server?',
+      message: 'What is your Drupal Backend URL?',
       default: 'example.com'
     },
     { type: 'string',
@@ -88,6 +92,7 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
       this.templatesDirectory = props.templatesDirectory;
       this.modelsDirectory = props.modelsDirectory;
       this.collectionsDirectory = props.collectionsDirectory;
+      this.backendVersion = props.backendVersion;
       this.backendServer = props.backendServer;
       this.backendPort = props.backendPort;
       this.backendCORS = props.backendCORS;

@@ -12,7 +12,7 @@
     "backbone.marionette": "~1.0.2",
     "backbone.wreqr": "~0.2.0",
     "backbone.babysitter": "~0.0.6",
-    "backbone.drupal": "~0.1.0-beta",
+    "backbone.drupal": "~0.2.0-alpha",
     "twig.js": "~0.7.1",
     "mocha": "~1.12.0",
     "chai": "~1.7.2",

@@ -20,13 +20,14 @@ function (Marionette, Communicator, MainView, EmptyModel) {
 
   // Set Backend API Information
   Backbone.Drupal.restEndpoint = {
-    root: 'http://<%= backendServer %>:<%= backendPort %>',
+    root: 'http://<%= backendServer %>:<%= backendPort %>' <% if (backendVersion === false) { %>,
     dataType: '.json'
+    <% } %>
   };
 
   <% if (backendCORS === true) { %>
   // Define auth object, set crossDomain if is necessary
-  var Auth = new Backbone.Drupal.Auth({crossDomain: true});
+  var Auth = new Backbone.Drupal.Auth({crossDomain: true <% if (backendVersion === false) { %>, drupal8: false <% } %>});
   <% } %>
   // Request executed in sync mode
   // If status is token further ajax will use the proper token

@@ -52,6 +52,16 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
       message: 'Where do you want the collections generated inside App Directory?',
       default: 'collections'
     },
+    { type: 'string',
+      name: 'viewsDirectory',
+      message: 'Where do you want the views generated inside App Directory?',
+      default: 'views'
+    },
+    { type: 'string',
+      name: 'actionsDirectory',
+      message: 'Where do you want the controller actions generated inside App Directory?',
+      default: 'actions'
+    },
     { type: 'confirm',
       name: 'backendVersion',
       message: 'Your Backend server is Drupal 8 ?',
@@ -90,8 +100,10 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
       this.appDirectory = props.appDirectory;
       this.bowerDirectory = props.bowerDirectory;
       this.templatesDirectory = props.templatesDirectory;
+      this.viewsDirectory = props.viewsDirectory;
       this.modelsDirectory = props.modelsDirectory;
       this.collectionsDirectory = props.collectionsDirectory;
+      this.actionsDirectory = props.actionsDirectory;
       this.backendVersion = props.backendVersion;
       this.backendServer = props.backendServer;
       this.backendPort = props.backendPort;
@@ -164,14 +176,15 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
     this.copy('web/communicator.js', this.appDirectory + '/scripts/communicator.js');
 
     // Marionette JS Structure
-    this.mkdir(this.appDirectory + '/views');
+    this.mkdir(this.appDirectory + '/' + this.viewsDirectory);
     this.mkdir(this.appDirectory + '/' + this.modelsDirectory);
     this.mkdir(this.appDirectory + '/' + this.collectionsDirectory);
+    this.mkdir(this.appDirectory + '/' + this.actionsDirectory);
 
     var ext = 'js';
     var emptyModel = 'empty';
     var baseDir = validDir.getValidatedFolder(this.appDirectory);
-    this.template('../../model/templates/model.' + ext, path.join(baseDir + '/' + this.modelsDirectory, emptyModel + '.' + ext), {'name': emptyModel , 'backbone_model' : ''});
+    this.template('../../model/templates/model.' + ext, path.join(baseDir + '/' + this.modelsDirectory, emptyModel + '.' + ext), {'name': emptyModel , 'backbone_model': ''});
 
     // App others
     this.mkdir(this.appDirectory + '/styles');
@@ -184,6 +197,19 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
     this.template('web/robots.txt');
     this.copy('web/htaccess', this.appDirectory + '/.htaccess');
 
+    //Store actions controllers with his route
+    this.routes = [{route: '', action: 'home'}];
+    this.config.set('actions', this.routes);
+
+    //Generate home controller action
+    var homeAction = 'home';
+    this.template('../../action/templates/action.' + ext, path.join(baseDir + '/' + this.actionsDirectory, homeAction + '.' + ext), {'name': homeAction});
+
+    //Generate controller for application
+    this.template('web/controller.js', this.appDirectory + '/scripts/controller.js');
+
+    //Generate router for application
+    this.template('web/router.js', this.appDirectory + '/scripts/router.js');
   },
 
 });

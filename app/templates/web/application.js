@@ -1,11 +1,12 @@
 define([
 	'backbone.marionette',
+  'router',
 	'communicator',
 	'../views/main',
 	'../models/empty'
 ],
 
-function (Marionette, Communicator, MainView, EmptyModel) {
+function (Marionette, Router, Communicator, MainView, EmptyModel) {
   'use strict';
 
   var emptyModel = new EmptyModel();
@@ -46,6 +47,9 @@ function (Marionette, Communicator, MainView, EmptyModel) {
 
 	/* Add initializers here */
 	App.addInitializer(function () {
+    // Start routing system
+    Backbone.history.start();
+
 		// Using the render result because we don't have region yet to render
 		document.body.innerHTML = mainView.render().el.innerHTML;
 		Communicator.mediator.trigger('APP:START');

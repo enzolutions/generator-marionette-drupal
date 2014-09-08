@@ -30,11 +30,12 @@ util.inherits(ViewGenerator, yeoman.generators.NamedBase);
 
 ViewGenerator.prototype.init = function () {
   this.appDirectory = this.config.get('appDirectory');
+  this.viewsDirectory = this.config.get('viewsDirectory');
 };
 
 ViewGenerator.prototype.files = function () {
 
     var ext = 'js';
     var baseDir = validDir.getValidatedFolder(this.appDirectory);
-    this.template('view.' + ext, path.join(baseDir + '/views', this.name + '.' + ext));
+    this.template('view.' + ext, path.join(baseDir + '/' + this.viewsDirectory, this.name + '.' + ext));
   };

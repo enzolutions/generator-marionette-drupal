@@ -116,6 +116,7 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
       this.config.set('templatesDirectory', this.appDirectory + '/' + this.templatesDirectory);
       this.config.set('modelsDirectory', this.appDirectory + '/' + this.modelsDirectory);
       this.config.set('collectionsDirectory', this.appDirectory + '/' + this.collectionsDirectory);
+      this.config.set('viewsDirectory', this.appDirectory + '/' + this.viewsDirectory);
 
       done();
     }.bind(this));

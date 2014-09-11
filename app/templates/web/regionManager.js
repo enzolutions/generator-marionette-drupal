@@ -42,5 +42,5 @@ function (Marionette, Communicator) {
 			}
 		});
 
-		return new RegionManager();
+		return RegionManager;
 	});

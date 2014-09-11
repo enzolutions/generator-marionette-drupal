@@ -5,13 +5,15 @@ define(
     function (Marionette, Controller) {
         'use strict';
 
-        var AppRouter = Marionette.AppRouter.extend({
-          controller: Controller
+        var Router = Marionette.AppRouter.extend({
+            controller: Controller,
+            initialize : function(options) {
+              // store a App that will be used to show the stuff rendered by this components
+              this.controller = new Controller({
+                App: options.App
+              });
+            },
         });
 
-        var Router = new AppRouter();
-        <% _.each(routes, function(router) { %>
-        Router.appRoute('<%= router.route %>', '<%= router.action %>');
-        <% }); %>
         return Router;
       });

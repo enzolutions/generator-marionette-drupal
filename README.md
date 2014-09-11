@@ -27,14 +27,15 @@ Includes scaffolding commands to create templates, models, collections, views an
 ├── package.json
 └── web ( Configurable: web is recommended)
     ├── 404.html
+    ├── actions
+    ├── collections
     ├── favicon.ico
     ├── images
     ├── index.html
     ├── js
-        ├── scripts (application scripts)
     ├── models
     ├── robots.txt
-    ├── scripts
+    ├── scripts (application scripts)
     ├── styles
     ├── templates
     ├── vendor ( Configurable: vendor is recommended)

@@ -9,12 +9,16 @@ define(
         <% }); %>) {
         'use strict';
 
-        var <%= _.classify(name) %> = function () {
+        var <%= _.classify(name) %> = function (App) {
+
+            // Get region to render
+            var region = App._regionManager.getRegion('<%= region %>');
+
            // statements go here
            console.log("initialize a <%= _.classify(name) %> Action");
            <% _.each(views, function (view) { %>
              var <%= view %>View = new <%= _.classify(view) %>View({model: null});
-             App.<%= region %>.show(<%= view %>View);
+             region.show(<%= view %>View);
            <% }); %>
         };
 

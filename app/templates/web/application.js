@@ -1,20 +1,15 @@
 define([
-	'backbone.marionette',
+  'backbone.marionette',
   'router',
-	'communicator',
+  'routes',
+  'communicator',
+  'regionManager',
 ],
 
-function (Marionette, Router, Communicator) {
+function (Marionette, Router, Routes, Communicator, RegionManager) {
   'use strict';
 
 	var App = new Marionette.Application();
-
-  /* Add application regions here */
-  App.addRegions({
-    mainMenuRegion: '#main-menu-region',
-    contentRegion: '#content-region',
-    footerRegion: '#footer-region'
-  });
 
   // Set Backend API Information
   Backbone.Drupal.restEndpoint = {
@@ -42,14 +37,24 @@ function (Marionette, Router, Communicator) {
 
 	/* Add initializers here */
 	App.addInitializer(function () {
+
+    this._regionManager = new RegionManager();
+
+    /* Add application regions here */
+    this._regionManager.addRegion('mainMenuRegion', '#main-menu-region');
+    this._regionManager.addRegion('contentRegion', '#content-region');
+    this._regionManager.addRegion('footerRegion', '#footer-region');
+
+    // Initialize Router
+    this._router = new Router({ App: this});
+
+    // Set routes in router
+    Routes.init(this._router);
     // Start routing system
     Backbone.history.start();
 
-		// Using the render result because we don't have region yet to render
-		//document.body.innerHTML = mainView.render().el.innerHTML;
 		Communicator.mediator.trigger('APP:START');
 	});
 
-  console.log("I'm in my app that I think is going to loop");
 	return App;
 });

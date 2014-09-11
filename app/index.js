@@ -175,6 +175,7 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
     this.copy('web/regionManager.js', this.appDirectory + '/scripts/regionManager.js');
     this.template('web/application.js', this.appDirectory + '/scripts/application.js');
     this.copy('web/communicator.js', this.appDirectory + '/scripts/communicator.js');
+    this.copy('web/router.js', this.appDirectory + '/scripts/router.js');
 
     // Marionette JS Structure
     this.mkdir(this.appDirectory + '/' + this.viewsDirectory);
@@ -198,21 +199,29 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
     this.template('web/robots.txt');
     this.copy('web/htaccess', this.appDirectory + '/.htaccess');
 
-    //Store actions controllers with his route
+    // Store actions controllers with his route
     this.routes = [{route: '', action: 'home', 'region': 'contentRegion', 'views': ['home']}];
     this.config.set('actions', this.routes);
 
-    //Generate home controller action
+    // Store regions
+    this.regions = [
+      {id: 'mainMenuRegion', selector: '#main-menu-region'},
+      {id: 'contentRegion', selector: '#content-region'},
+      {id: 'footerRegion', selector: '#footer-region'}
+    ];
+    this.config.set('regions', this.regions);
+
+    // Generate home controller action
     var homeAction = 'home';
     var homeViews = ['home'];
     var homeRegion = ['contentRegion'];
     this.template('../../action/templates/action.' + ext, path.join(baseDir + '/' + this.actionsDirectory, homeAction + '.' + ext), {'name': homeAction, 'views': homeViews, 'region': homeRegion});
 
-    //Generate controller for application
+    // Generate controller for application
     this.template('web/controller.js', this.appDirectory + '/scripts/controller.js');
 
-    //Generate router for application
-    this.template('web/router.js', this.appDirectory + '/scripts/router.js');
+    // Generate routes for application
+    this.template('web/routes.js', this.appDirectory + '/scripts/routes.js');
   },
 
 });

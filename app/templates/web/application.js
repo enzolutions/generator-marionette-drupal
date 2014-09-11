@@ -2,22 +2,19 @@ define([
 	'backbone.marionette',
   'router',
 	'communicator',
-	'../views/main',
-	'../models/empty'
 ],
 
-function (Marionette, Router, Communicator, MainView, EmptyModel) {
+function (Marionette, Router, Communicator) {
   'use strict';
 
-  var emptyModel = new EmptyModel();
-
-  // Set a custom data in model to show in template
-  emptyModel.set('success', 'Congrats Yeoman for Marionette + Drupal is Working');
-
-
-	var mainView = new MainView({model: emptyModel});
-
 	var App = new Marionette.Application();
+
+  /* Add application regions here */
+  App.addRegions({
+    mainMenuRegion: '#main-menu-region',
+    contentRegion: '#content-region',
+    footerRegion: '#footer-region'
+  });
 
   // Set Backend API Information
   Backbone.Drupal.restEndpoint = {
@@ -42,8 +39,6 @@ function (Marionette, Router, Communicator, MainView, EmptyModel) {
     // Do something if login fails
     console.log('Auth Error');
   }
-	/* Add application regions here */
-	App.addRegions({});
 
 	/* Add initializers here */
 	App.addInitializer(function () {
@@ -51,9 +46,10 @@ function (Marionette, Router, Communicator, MainView, EmptyModel) {
     Backbone.history.start();
 
 		// Using the render result because we don't have region yet to render
-		document.body.innerHTML = mainView.render().el.innerHTML;
+		//document.body.innerHTML = mainView.render().el.innerHTML;
 		Communicator.mediator.trigger('APP:START');
 	});
 
+  console.log("I'm in my app that I think is going to loop");
 	return App;
 });

@@ -155,15 +155,15 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
   app: function () {
     // App templates
     this.mkdir(this.appDirectory + '/' + this.templatesDirectory);
-    this.copy('web/main.html.twig', this.appDirectory + '/' + this.templatesDirectory + '/main.html.twig');
+    this.copy('web/home.html.twig', this.appDirectory + '/' + this.templatesDirectory + '/home.html.twig');
 
     // App Views
     this.mkdir(this.appDirectory + '/views');
     console.log(this.sourceRoot());
     var ext = 'js';
-    var mainView = 'main';
+    var mainView = 'home';
     var baseDir = validDir.getValidatedFolder(this.appDirectory);
-    this.template('../../view/templates/view.' + ext, path.join(baseDir + '/views', mainView + '.' + ext), {'name': mainView, 'tmpl': 'main'});
+    this.template('../../view/templates/view.' + ext, path.join(baseDir + '/views', mainView + '.' + ext), {'name': mainView, 'tmpl': 'home'});
 
     //App Main HTML
     this.template('web/index.html', this.appDirectory + '/index.html');
@@ -199,12 +199,14 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
     this.copy('web/htaccess', this.appDirectory + '/.htaccess');
 
     //Store actions controllers with his route
-    this.routes = [{route: '', action: 'home'}];
+    this.routes = [{route: '', action: 'home', 'region': 'contentRegion', 'views': ['home']}];
     this.config.set('actions', this.routes);
 
     //Generate home controller action
     var homeAction = 'home';
-    this.template('../../action/templates/action.' + ext, path.join(baseDir + '/' + this.actionsDirectory, homeAction + '.' + ext), {'name': homeAction});
+    var homeViews = ['home'];
+    var homeRegion = ['contentRegion'];
+    this.template('../../action/templates/action.' + ext, path.join(baseDir + '/' + this.actionsDirectory, homeAction + '.' + ext), {'name': homeAction, 'views': homeViews, 'region': homeRegion});
 
     //Generate controller for application
     this.template('web/controller.js', this.appDirectory + '/scripts/controller.js');

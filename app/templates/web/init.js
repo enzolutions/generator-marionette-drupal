@@ -47,5 +47,6 @@ require.config({
         text: '../<%= bowerDirectory %>/requirejs-text/text',
         tmpl: '../templates',
         action: '../actions',
+        view: '../views',
       },
     });

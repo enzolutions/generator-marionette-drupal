@@ -4,9 +4,10 @@ define([
   'routes',
   'communicator',
   'regionManager',
+  'regions',
 ],
 
-function (Marionette, Router, Routes, Communicator, RegionManager) {
+function (Marionette, Router, Routes, Communicator, RegionManager, Regions) {
   'use strict';
 
 	var App = new Marionette.Application();
@@ -40,11 +41,13 @@ function (Marionette, Router, Routes, Communicator, RegionManager) {
 
     this._regionManager = new RegionManager();
 
+    Regions.init(this._regionManager);
+
     /* Add application regions here */
-    this._regionManager.addRegion('mainMenuRegion', '#main-menu-region');
+    /*this._regionManager.addRegion('mainMenuRegion', '#main-menu-region');
     this._regionManager.addRegion('contentRegion', '#content-region');
     this._regionManager.addRegion('footerRegion', '#footer-region');
-
+*/
     // Initialize Router
     this._router = new Router({ App: this});
 

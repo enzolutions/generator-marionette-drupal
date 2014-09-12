@@ -200,16 +200,21 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
     this.copy('web/htaccess', this.appDirectory + '/.htaccess');
 
     // Store actions controllers with his route
-    this.routes = [{route: '', action: 'home', 'region': 'contentRegion', 'views': ['home']}];
+    this.routes = [
+      {route: '', action: 'home', 'region': 'contentRegion', 'views': ['home']}
+    ];
     this.config.set('actions', this.routes);
 
     // Store regions
     this.regions = [
-      {id: 'mainMenuRegion', selector: '#main-menu-region'},
-      {id: 'contentRegion', selector: '#content-region'},
-      {id: 'footerRegion', selector: '#footer-region'}
+      {name: 'mainMenuRegion', id: '#main-menu-region'},
+      {name: 'contentRegion', id: '#content-region'},
+      {name: 'footerRegion', id: '#footer-region'}
     ];
     this.config.set('regions', this.regions);
+
+    // Generate regins for application
+    this.template('../../region/templates/region.js', this.appDirectory + '/scripts/regions.js');
 
     // Generate home controller action
     var homeAction = 'home';

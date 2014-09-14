@@ -1,6 +1,4 @@
 'use strict';
-//var util = require('util');
-//var chalk = require('chalk');
 var path = require('path');
 var yeoman = require('yeoman-generator');
 var yosay = require('yosay');
@@ -117,6 +115,7 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
       this.config.set('modelsDirectory', this.appDirectory + '/' + this.modelsDirectory);
       this.config.set('collectionsDirectory', this.appDirectory + '/' + this.collectionsDirectory);
       this.config.set('viewsDirectory', this.appDirectory + '/' + this.viewsDirectory);
+      this.config.set('actionsDirectory', this.appDirectory + '/' + this.actionsDirectory);
 
       done();
     }.bind(this));
@@ -213,14 +212,12 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
     ];
     this.config.set('regions', this.regions);
 
-    // Generate regins for application
+    // Generate regions for application
     this.template('../../region/templates/regions.js', this.appDirectory + '/scripts/regions.js');
 
     // Generate home controller action
-    var homeAction = 'home';
-    var homeViews = ['home'];
-    var homeRegion = ['contentRegion'];
-    this.template('../../action/templates/action.' + ext, path.join(baseDir + '/' + this.actionsDirectory, homeAction + '.' + ext), {'name': homeAction, 'views': homeViews, 'region': homeRegion});
+    this.Action = {'action': 'home', 'views': ['home'], 'region': ['contentRegion']};
+    this.template('../../action/templates/action.' + ext, path.join(baseDir + '/' + this.actionsDirectory, this.Action.action + '.' + ext));
 
     // Generate controller for application
     this.template('web/controller.js', this.appDirectory + '/scripts/controller.js');

@@ -28,19 +28,20 @@ RegionGenerator.prototype.askFor = function () {
 
   this.regions =  this.config.get('regions');
 
+  this.conflictRegion = null;
+
   this.prompt(prompts, function (props) {
-    var conflictRegion = null;
 
     this.regions.forEach(function (region) {
       if (region.name === props.regionName || region.id === props.regionID) {
-        conflictRegion = region;
+        this.conflictRegion = region;
         return true;
       }
-    });
+    }.bind(this));
 
-    if (conflictRegion) {
-      console.log('Your request cannot be process because has conflicts with the follogin region');
-      console.log(conflictRegion);
+    if (this.conflictRegion) {
+      console.log('Your request cannot be process because has conflicts with the following region');
+      console.log('Region: ', this.conflictRegion);
     }
     else {
       this.appDirectory = this.config.get('appDirectory');
@@ -50,13 +51,15 @@ RegionGenerator.prototype.askFor = function () {
     }
 
     done();
-  }.bind(this).bind(yeoman));
+  }.bind(this));
 };
 
 RegionGenerator.prototype.generateRegions = function () {
-  this.appDirectory = this.config.get('appDirectory');
-  // Set force overwrite template to avoid ask to end user
-  this.conflicter.force = true;
-  this.regions =  this.config.get('regions');
-  this.template('regions.js', this.appDirectory + '/scripts/regions.js');
+  if (!this.conflictRegion) {
+    this.appDirectory = this.config.get('appDirectory');
+    // Set force overwrite template to avoid ask to end user
+    this.conflicter.force = true;
+    this.regions =  this.config.get('regions');
+    this.template('regions.js', this.appDirectory + '/scripts/regions.js');
+  }
 };

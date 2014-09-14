@@ -4,8 +4,7 @@ define(
         <% }); %>
   ],
 function (Marionette, <% _.each(routes, function (route) { %>
-          <%= _.classify(route.action) %>
-        <% }); %>)
+          <%= _.classify(route.action) %>,<% }); %>)
   {
     'use strict';
     var Controller = Marionette.Controller.extend({

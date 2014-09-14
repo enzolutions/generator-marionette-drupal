@@ -214,7 +214,7 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
     this.config.set('regions', this.regions);
 
     // Generate regins for application
-    this.template('../../region/templates/region.js', this.appDirectory + '/scripts/regions.js');
+    this.template('../../region/templates/regions.js', this.appDirectory + '/scripts/regions.js');
 
     // Generate home controller action
     var homeAction = 'home';

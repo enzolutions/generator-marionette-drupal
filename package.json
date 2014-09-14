@@ -1,6 +1,6 @@
 {
   "name": "generator-marionette-drupal",
-  "version": "0.1.1-beta",
+  "version": "0.1.1-beta2",
   "description": "Yeoman generator",
   "license": "BSD",
   "main": "app/index.js",
@@ -19,7 +19,15 @@
     "test": "mocha"
   },
   "files": [
-    "app", "helpers","model","tmpl","view"
+    "app",
+    "helpers",
+    "model",
+    "tmpl",
+    "view",
+    "action",
+    "region",
+    "regions",
+    "region"
   ],
   "keywords": [
     "yeoman-generator",
@@ -31,7 +39,7 @@
     "mvc"
   ],
   "dependencies": {
-    "yeoman-generator": "~0.16.0",
+    "yeoman-generator": "~0.17.5",
     "chalk": "~0.4.0",
     "yosay": "^0.1.0",
     "underscore.string": "~2.3.1",

@@ -200,7 +200,7 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
 
     // Store actions controllers with his route
     this.routes = [
-      {route: '', action: 'home', 'region': 'contentRegion', 'views': ['home']}
+      {route: '', action: 'home', 'regions': ['contentRegion'], 'views': ['home']}
     ];
     this.config.set('actions', this.routes);
 
@@ -216,7 +216,7 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
     this.template('../../region/templates/regions.js', this.appDirectory + '/scripts/regions.js');
 
     // Generate home controller action
-    this.Action = {'action': 'home', 'views': ['home'], 'region': ['contentRegion']};
+    this.Action = {'action': 'home', 'views': ['home'], 'regions': ['contentRegion']};
     this.template('../../action/templates/action.' + ext, path.join(baseDir + '/' + this.actionsDirectory, this.Action.action + '.' + ext));
 
     // Generate controller for application

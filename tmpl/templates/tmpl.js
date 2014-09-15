@@ -1,1 +1,1 @@
-{{!empty <%= _.classify(name) %> template}}
+!empty <%= _.classify(name) %> template

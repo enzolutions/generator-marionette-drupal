@@ -34,8 +34,6 @@ ViewGenerator.prototype.init = function () {
 };
 
 ViewGenerator.prototype.files = function () {
-
     var ext = 'js';
-    var baseDir = validDir.getValidatedFolder(this.appDirectory);
-    this.template('view.' + ext, path.join(baseDir + '/' + this.viewsDirectory, this.name + '.' + ext));
+    this.template('view.' + ext, path.join(this.viewsDirectory, this.name + '.' + ext));
   };

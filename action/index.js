@@ -75,7 +75,7 @@ ActionGenerator.prototype.askFor = function () {
     }
     else {
       this.appDirectory = this.config.get('appDirectory');
-      this.Action = {route: props.actionRoute, action: props.actionName, 'region': props.actionRegions, 'views': props.actionViews};
+      this.Action = {route: props.actionRoute, action: props.actionName, 'regions': props.actionRegions, 'views': props.actionViews};
       this.actions.push(this.Action);
       this.config.set('actions', this.actions);
       console.log('Action was added sucessfully');

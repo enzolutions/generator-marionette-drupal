@@ -17,12 +17,14 @@ RegionGenerator.prototype.askFor = function () {
     {
       type: 'string',
       name: 'regionName',
-      message: 'What is the name for new region? [defaultRegion]',
+      message: 'What is the name for new region?',
+      default: 'defaultRegion'
     },
     {
       type: 'string',
       name: 'regionID',
-      message: 'What is the HTML id for new region? [#default-region]',
+      message: 'What is the HTML id for new region?',
+      default: '#default-region'
     },
   ];
 
@@ -31,10 +33,7 @@ RegionGenerator.prototype.askFor = function () {
   this.conflictRegion = null;
 
   this.prompt(prompts, function (props) {
-
-    props.regionName = (props.regionName == '') ? 'defaultRegion' : props.regionName;
-    props.regionID = (props.regionID == '') ? '#default-region' : props.regionID;
-
+    
     this.regions.forEach(function (region) {
       if (region.name === props.regionName || region.id === props.regionID) {
         this.conflictRegion = region;

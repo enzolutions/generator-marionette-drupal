@@ -14,8 +14,8 @@ define(
            // statements go here
            console.log("initialize a <%= _.classify(Action.action) %> Action");
            <% _.each(Action.views, function (view) { %>
-             var <%= _.camelize(view) %>View = new <%= _.classify(view) %>View({model: null});
-             region.show(<%= view %>View);
+             var <%= _.underscored(view) %>View = new <%= _.classify(view) %>View({model: null});
+             region.show(<%= _.underscored(view) %>View);
            <% }); %>
          <% }); %>
         };

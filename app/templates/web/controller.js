@@ -1,7 +1,6 @@
 define(
   ['backbone.marionette', <% _.each(routes, function (route) { %>
-          '!action/<%= route.action %>',
-        <% }); %>
+          '!action/<%= route.action %>',<% }); %>
   ],
 function (Marionette<% _.each(routes, function (route) { %>,<%= _.classify(route.action) %><% }); %>)
   {

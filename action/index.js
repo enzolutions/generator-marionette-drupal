@@ -90,15 +90,15 @@ ActionGenerator.prototype.generateActions = function () {
 
     this.actionsDirectory = this.config.get('actionsDirectory');
 
-    // Set force overwrite template to avoid ask to end user
-    this.conflicter.force = true;
-
     var ext = "js";
     // Set force overwrite template to avoid ask to end user
     this.conflicter.force = true;
     this.regions =  this.config.get('regions');
     console.log(this.Action);
     this.template('action.js', this.actionsDirectory + '/' + this.Action.action + '.' + ext);
+
+    // Set force overwrite template to avoid ask to end user
+    this.conflicter.force = true;
 
     // Generate controller for application
     this.routes = this.config.get('actions');

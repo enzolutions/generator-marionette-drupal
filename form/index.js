@@ -1,6 +1,7 @@
 'use strict';
 var util = require('util');
 var yeoman = require('yeoman-generator');
+var yosay = require('yosay');
 var requestSync = require('sync-request');
 var validDir = require('../helpers/validateDirectory');
 var listDir = require('../helpers/listDirectory');
@@ -70,7 +71,13 @@ ActionGenerator.prototype.askFor = function () {
           return bundles;
         }
         catch (ex) {
-          console.log('Error code: ' + res.statusCode);
+          if (typeof(res) === 'undefined') {
+            this.log(yosay('Backend Server is not available, execute: $ yo marionette-drupal:server to update information'));
+          } else {
+            this.log(yosay('Backend Server Error code: ' + res.statusCode));
+          }
+
+          process.kill();
         }
 
         return values;
@@ -102,7 +109,13 @@ ActionGenerator.prototype.askFor = function () {
           return viewModes;
         }
         catch (ex) {
-          console.log('Error code: ' + res.statusCode);
+          if (typeof(res) === 'undefined') {
+            this.log(yosay('Backend Server is not available, execute: $ yo marionette-drupal:server to update information'));
+          } else {
+            this.log(yosay('Backend Server Error code: ' + res.statusCode));
+          }
+
+          process.kill();
         }
 
         return values;

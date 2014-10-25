@@ -19,6 +19,10 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
   askFor: function () {
     var done = this.async();
 
+    this.backendServer = this.config.get('backendServer');
+    this.backendPort = this.config.get('backendPort');
+    this.backendCORS = this.config.get('backendCORS');
+
     // Have Yeoman greet the user.
     this.log(yosay('Welcome to the marvelous Marionette Drupal generator!'));
 
@@ -56,6 +60,11 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
       default: 'views'
     },
     { type: 'string',
+      name: 'formsDirectory',
+      message: 'Where do you want the forms generated inside App Directory?',
+      default: 'forms'
+    },
+    { type: 'string',
       name: 'actionsDirectory',
       message: 'Where do you want the controller actions generated inside App Directory?',
       default: 'actions'
@@ -66,17 +75,18 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
     },
     { type: 'string',
       name: 'backendServer',
-      message: 'What is your Drupal Backend URL?',
-      default: 'example.com'
+      message: 'What is your Drupal Backend URL (include protocol)?',
+      default: this.backendServer ? this.backendServer: 'http://example.com'
     },
     { type: 'string',
       name: 'backendPort',
       message: 'What is your Drupal Backend Port?',
-      default: '80'
+      default: this.backendPort ? this.backendPort: '80'
     },
     { type: 'confirm',
       name: 'backendCORS',
       message: 'Enable Cross-origin resource sharing (CORS)?',
+      default: this.backendCORS
     },
     { when: function (response) {
         return response.backendCORS;
@@ -88,8 +98,8 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
     {when: function (response) {
         return response.backendCORS;
       },
-      type: "password",
-      name: "backendPassword",
+      type: 'password',
+      name: 'backendPassword',
       message: 'What is your Backend password?',
     }
     ];
@@ -99,6 +109,7 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
       this.bowerDirectory = props.bowerDirectory;
       this.templatesDirectory = props.templatesDirectory;
       this.viewsDirectory = props.viewsDirectory;
+      this.formsDirectory = props.formsDirectory;
       this.modelsDirectory = props.modelsDirectory;
       this.collectionsDirectory = props.collectionsDirectory;
       this.actionsDirectory = props.actionsDirectory;
@@ -109,12 +120,18 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
       this.backendUser = props.backendUser;
       this.backendPassword = props.backendPassword;
 
+      var authToken = new Buffer(this.backendUser + ':' + this.backendPassword).toString('base64');
+      this.config.set('backendServer', this.backendServer);
+      this.config.set('backendAuthToken', authToken);
+      this.config.set('backendPort', this.backendPort);
+      this.config.set('backendCORS', this.backendCORS);
       this.config.set('appDirectory', this.appDirectory);
       this.config.set('bowerDirectory', this.bowerDirectory);
       this.config.set('templatesDirectory', this.appDirectory + '/' + this.templatesDirectory);
       this.config.set('modelsDirectory', this.appDirectory + '/' + this.modelsDirectory);
       this.config.set('collectionsDirectory', this.appDirectory + '/' + this.collectionsDirectory);
       this.config.set('viewsDirectory', this.appDirectory + '/' + this.viewsDirectory);
+      this.config.set('formsDirectory', this.appDirectory + '/' + this.formsDirectory);
       this.config.set('actionsDirectory', this.appDirectory + '/' + this.actionsDirectory);
 
       done();
@@ -178,14 +195,14 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
 
     // Marionette JS Structure
     this.mkdir(this.appDirectory + '/' + this.viewsDirectory);
+    this.mkdir(this.appDirectory + '/' + this.formsDirectory);
     this.mkdir(this.appDirectory + '/' + this.modelsDirectory);
     this.mkdir(this.appDirectory + '/' + this.collectionsDirectory);
     this.mkdir(this.appDirectory + '/' + this.actionsDirectory);
 
-    var ext = 'js';
     var emptyModel = 'empty';
-    var baseDir = validDir.getValidatedFolder(this.appDirectory);
-    this.template('../../model/templates/model.' + ext, path.join(baseDir + '/' + this.modelsDirectory, emptyModel + '.' + ext), {'name': emptyModel , 'backbone_model': ''});
+    baseDir = validDir.getValidatedFolder(this.appDirectory);
+    this.template('../../model/templates/model.' + ext, path.join(baseDir + '/' + this.modelsDirectory, emptyModel + '.' + ext), {'name': emptyModel, 'backbone_model': ''});
 
     // App others
     this.mkdir(this.appDirectory + '/styles');

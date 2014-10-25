@@ -4,7 +4,9 @@
   "dependencies": {
     "request": "~2.21.0",
     "async": "~0.2.8",
-    "underscore": "~1.4.4"
+    "underscore": "~1.4.4",
+    "underscore.string": "~2.3.1",
+    "sync-request": "~1.0.1"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -35,6 +37,6 @@
     "time-grunt": "~0.1.1"
   },
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=0.10.32"
   }
 }

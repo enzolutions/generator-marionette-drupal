@@ -22,7 +22,7 @@ require.config({
           deps: ['backbone.drupal']
         },
         main: {
-              deps: ['backbone.drupal.services']
+          deps: ['backbone.drupal.services', 'backform']
         }
       },
       paths: {
@@ -37,16 +37,18 @@ require.config({
         /* backbone.drupal */
         'backbone.drupal': '../<%= bowerDirectory %>/backbone.drupal/backbone.drupal',
         'backbone.drupal.services': '../<%= bowerDirectory %>/backbone.drupal/backbone.drupal.services',
-
+        /* backform */
+        'backform': '../<%= bowerDirectory %>/backform/src/backform',
         /* twig.js */
         twig: '../<%= bowerDirectory %>/twig.js/twig',
         /* alias the bootstrap js lib */
         bootstrap: '../<%= bowerDirectory %>/bootstrap-sass/dist/js/bootstrap',
 
         /* Alias text.js for template loading and shortcut the templates dir to tmpl */
+        action: '../actions',
+        form: '../forms',
         text: '../<%= bowerDirectory %>/requirejs-text/text',
         tmpl: '../templates',
-        action: '../actions',
         view: '../views',
       },
     });

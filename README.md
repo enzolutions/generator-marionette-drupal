@@ -44,6 +44,12 @@ Includes scaffolding commands to create templates, models, collections, views an
 
 ##Getting Started##
 
+### Dependencies
+
+[Phantomjs](http://phantomjs.org/) is required to run Test units created with [Jasmine](http://jasmine.github.io).
+
+Follow the instructions for you OS at http://phantomjs.org/download.html
+
 ### Install Generator
 
 To install Yeoman, Bower and Grunt run:
@@ -180,5 +186,7 @@ When a template is related with a view, Twig.js is used to render the template.
 - Improve Drupal Model Scaffolding command
 - Improve View Scaffolding command
 - Create Drupal Collection Scaffolding command
-- Create Region Scaffolding command
 - Create Layout Scaffolding command
+- Create Test spec for Collection
+- Create Test spec for Action
+- Create Test spec for View

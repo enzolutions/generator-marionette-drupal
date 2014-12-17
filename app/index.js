@@ -3,6 +3,7 @@ var path = require('path');
 var yeoman = require('yeoman-generator');
 var yosay = require('yosay');
 var validDir = require('../helpers/validateDirectory');
+var _s = require('underscore.string');
 
 
 var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
@@ -22,6 +23,19 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
     this.backendServer = this.config.get('backendServer');
     this.backendPort = this.config.get('backendPort');
     this.backendCORS = this.config.get('backendCORS');
+    this.backendCORS = this.config.get('backendCORS');
+    this.appDirectory = this.config.get('appDirectory');
+    this.testDirectory = _s.strRight(this.config.get('testDirectory'), this.appDirectory + '/');
+    this.bowerDirectory = _s.strRight(this.config.get('bowerDirectory'), this.appDirectory + '/');
+    this.templatesDirectory = _s.strRight(this.config.get('templatesDirectory'), this.appDirectory + '/');
+    this.modelsDirectory = _s.strRight(this.config.get('modelsDirectory'), this.appDirectory + '/');
+    this.collectionsDirectory = _s.strRight(this.config.get('collectionsDirectory'), this.appDirectory + '/');
+    this.viewsDirectory = _s.strRight(this.config.get('viewsDirectory'), this.appDirectory + '/');
+    this.formsDirectory = _s.strRight(this.config.get('formsDirectory'), this.appDirectory + '/');
+    this.actionsDirectory = _s.strRight(this.config.get('actionsDirectory'), this.appDirectory + '/');
+    this.backendVersion = this.config.get('backendVersion');
+    this.backendAuthToken = new Buffer(this.config.get('backendAuthToken'), 'base64').toString('ascii');
+    this.backendUser = _s.strLeft(this.backendAuthToken, ':');
 
     // Have Yeoman greet the user.
     this.log(yosay('Welcome to the marvelous Marionette Drupal generator!'));
@@ -32,56 +46,62 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
       type: 'string',
       name: 'appDirectory',
       message: 'Where do you want the app installed?',
-      default: 'web'
+      default: this.appDirectory ? this.appDirectory : 'web'
     },
     { type: 'string',
       name: 'bowerDirectory',
       message: 'Where do you want the Bower components installed?',
-      default: 'vendor'
+      default: this.bowerDirectory ? this.bowerDirectory : 'vendor'
     },
     { type: 'string',
       name: 'templatesDirectory',
-      message: 'Where do you want the templates generated inside App Directory?',
-      default: 'templates'
+      message: 'Where do you want the templates be generated inside App Directory?',
+      default: this.templatesDirectory ? this.templatesDirectory : 'templates'
     },
     { type: 'string',
       name: 'modelsDirectory',
-      message: 'Where do you want the models generated inside App Directory?',
-      default: 'models'
+      message: 'Where do you want the models be generated inside App Directory?',
+      default: this.modelsDirectory ? this.modelsDirectory : 'models'
     },
     { type: 'string',
       name: 'collectionsDirectory',
-      message: 'Where do you want the collections generated inside App Directory?',
-      default: 'collections'
+      message: 'Where do you want the collections be generated inside App Directory?',
+      default: this.collectionsDirectory ? this.collectionsDirectory : 'collections'
     },
     { type: 'string',
       name: 'viewsDirectory',
-      message: 'Where do you want the views generated inside App Directory?',
-      default: 'views'
+      message: 'Where do you want the views be generated inside App Directory?',
+      default: this.viewsDirectory ? this.viewsDirectory : 'views'
     },
     { type: 'string',
       name: 'formsDirectory',
-      message: 'Where do you want the forms generated inside App Directory?',
-      default: 'forms'
+      message: 'Where do you want the forms be generated inside App Directory?',
+      default: this.formsDirectory ? this.formsDirectory : 'forms'
     },
     { type: 'string',
       name: 'actionsDirectory',
-      message: 'Where do you want the controller actions generated inside App Directory?',
-      default: 'actions'
+      message: 'Where do you want the controller actions be generated inside App Directory?',
+      default: this.actionsDirectory ? this.actionsDirectory : 'actions'
+    },
+    { type: 'string',
+      name: 'testDirectory',
+      message: 'Where do you want the test spec be generated inside App Directory?',
+      default: this.testDirectory ? this.testDirectory :'test'
     },
     { type: 'confirm',
       name: 'backendVersion',
       message: 'Your Backend server is Drupal 8 ?',
+      default: this.backendVersion
     },
     { type: 'string',
       name: 'backendServer',
       message: 'What is your Drupal Backend URL (include protocol)?',
-      default: this.backendServer ? this.backendServer: 'http://example.com'
+      default: this.backendServer ? this.backendServer : 'http://example.com'
     },
     { type: 'string',
       name: 'backendPort',
       message: 'What is your Drupal Backend Port?',
-      default: this.backendPort ? this.backendPort: '80'
+      default: this.backendPort ? this.backendPort : '80'
     },
     { type: 'confirm',
       name: 'backendCORS',
@@ -94,6 +114,7 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
       type: 'string',
       name: 'backendUser',
       message: 'What is your Backend user?',
+      default: this.backendUser ? this.backendUser : ''
     },
     {when: function (response) {
         return response.backendCORS;
@@ -113,6 +134,7 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
       this.modelsDirectory = props.modelsDirectory;
       this.collectionsDirectory = props.collectionsDirectory;
       this.actionsDirectory = props.actionsDirectory;
+      this.testDirectory = props.testDirectory;
       this.backendVersion = props.backendVersion;
       this.backendServer = props.backendServer;
       this.backendPort = props.backendPort;
@@ -133,6 +155,7 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
       this.config.set('viewsDirectory', this.appDirectory + '/' + this.viewsDirectory);
       this.config.set('formsDirectory', this.appDirectory + '/' + this.formsDirectory);
       this.config.set('actionsDirectory', this.appDirectory + '/' + this.actionsDirectory);
+      this.config.set('testDirectory', this.appDirectory + '/' + this.testDirectory);
 
       done();
     }.bind(this));
@@ -162,7 +185,9 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
 
   jasmine: function jasmine() {
     this.mkdir(this.appDirectory + '/test/lib');
-    this.copy('run-jasmine.js', 'test/lib/run-jasmine.js');
+    this.copy('run-jasmine.js', this.appDirectory + '/' + this.testDirectory + '/lib/run-jasmine.js');
+    this.template('_jasmine_index.html', this.appDirectory + '/' + this.testDirectory + '/index.html');
+    this.template('SpecRunner.js', this.appDirectory + '/' + this.testDirectory + '/SpecRunner.js');
   },
 
   packageJSON: function packageJSON() {
@@ -204,10 +229,18 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
     this.mkdir(this.appDirectory + '/' + this.modelsDirectory);
     this.mkdir(this.appDirectory + '/' + this.collectionsDirectory);
     this.mkdir(this.appDirectory + '/' + this.actionsDirectory);
+    this.mkdir(this.appDirectory + '/' + this.testDirectory);
+
+    // Jasmine Test unit folders
+    this.mkdir(this.appDirectory + '/' + this.testDirectory + '/spec/models');
+    this.mkdir(this.appDirectory + '/' + this.testDirectory + '/spec/collections');
+    this.mkdir(this.appDirectory + '/' + this.testDirectory + '/spec/templates');
+    this.mkdir(this.appDirectory + '/' + this.testDirectory + '/spec/views');
 
     var emptyModel = 'empty';
     baseDir = validDir.getValidatedFolder(this.appDirectory);
     this.template('../../model/templates/model.' + ext, path.join(baseDir + '/' + this.modelsDirectory, emptyModel + '.' + ext), {'name': emptyModel, 'backbone_model': ''});
+    this.template('../../model/templates/test_model.' + ext, path.join(baseDir + '/' + this.testDirectory + '/spec/' + this.modelsDirectory, emptyModel + '_spec.' + ext), {'name': emptyModel, 'backbone_model': ''});
 
     // App others
     this.mkdir(this.appDirectory + '/styles');
@@ -246,12 +279,6 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
 
     // Generate routes for application
     this.template('web/routes.js', this.appDirectory + '/scripts/routes.js');
-
-    // Jasmine Test unit folders
-    this.mkdir(this.appDirectory + '/test/spec/models');
-    this.mkdir(this.appDirectory + '/test/spec/collections');
-    this.mkdir(this.appDirectory + '/test/spec/templates');
-    this.mkdir(this.appDirectory + '/test/spec/views');
   },
 
 });

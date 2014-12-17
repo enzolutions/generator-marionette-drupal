@@ -131,6 +131,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-available-tasks');
+    grunt.loadNpmTasks('grunt-exec');
 
     // Where we tell Grunt what to do when we type "grunt" into the terminal.
     grunt.registerTask('default',[
@@ -139,9 +140,9 @@ module.exports = function (grunt) {
         'imagemin',
         'compass',
         'connect:livereload',
-        'exec',
-        'watch'
+        'watch',
+        'exec'
     ]);
     grunt.registerTask('tasks', ['availabletasks']);
-    grunt.registerTask('server', ['connect:livereload', 'exec', 'watch']);
+    grunt.registerTask('server', ['connect:livereload', 'watch']);
 };

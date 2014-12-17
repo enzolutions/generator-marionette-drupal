@@ -41,6 +41,7 @@ util.inherits(ModelGenerator, yeoman.generators.NamedBase);
 
 ModelGenerator.prototype.init = function () {
   this.modelsDirectory = this.config.get('modelsDirectory');
+  this.testDirectory = this.config.get('testDirectory');
 
 };
 
@@ -48,4 +49,5 @@ ModelGenerator.prototype.files = function () {
     var ext = 'js';
     var modelsDir = validDir.getValidatedFolder(this.modelsDirectory);
     this.template('model.' + ext, path.join(modelsDir, this.name + '.' + ext));
+    this.template('test_model.' + ext, path.join(this.testDirectory + '/spec/' + modelsDir, this.name + '_spec.' + ext));
   };

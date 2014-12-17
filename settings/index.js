@@ -1,6 +1,7 @@
 'use strict';
 var util = require('util');
 var yeoman = require('yeoman-generator');
+var _s = require('underscore.string');
 
 module.exports = ServerGenerator;
 
@@ -15,6 +16,8 @@ ServerGenerator.prototype.askFor = function () {
   this.backendServer = this.config.get('backendServer');
   this.backendPort = this.config.get('backendPort');
   this.backendCORS = this.config.get('backendCORS');
+  this.appDirectory = this.config.get('appDirectory');
+  this.testDirectory = _s.strRight(this.config.get('testDirectory'), this.appDirectory + '/');
 
   var prompts = [
     { type: 'string',

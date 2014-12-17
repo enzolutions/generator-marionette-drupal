@@ -78,6 +78,10 @@ module.exports = function (grunt) {
                     livereload:true
                 }
             },
+            test: {
+                files: ['test/spec/**/*.js', yeomanConfig.app + '/js/**/*.js', 'test/SpecRunner.js'],
+                tasks: 'exec'
+            },
             all: {
                 files: 'index.html',
                 options: {
@@ -94,6 +98,12 @@ module.exports = function (grunt) {
                     yeomanConfig.app + '/images/{,*/}*'
                 ]
             }
+        },
+        exec: {
+          jasmine: {
+            command: 'phantomjs test/lib/run-jasmine.js http://localhost:9001/test',
+            stdout: true
+          }
         },
         connect: {
             options: {
@@ -129,8 +139,9 @@ module.exports = function (grunt) {
         'imagemin',
         'compass',
         'connect:livereload',
+        'exec',
         'watch'
     ]);
     grunt.registerTask('tasks', ['availabletasks']);
-    grunt.registerTask('server', ['connect:livereload','watch']);
+    grunt.registerTask('server', ['connect:livereload', 'exec', 'watch']);
 };

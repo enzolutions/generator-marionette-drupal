@@ -160,6 +160,11 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
     this.template('Gruntfile.js');
   },
 
+  jasmine: function jasmine() {
+    this.mkdir(this.appDirectory + '/test/lib');
+    this.copy('run-jasmine.js', 'test/lib/run-jasmine.js');
+  },
+
   packageJSON: function packageJSON() {
     this.template('_package.json', 'package.json');
   },
@@ -241,6 +246,12 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
 
     // Generate routes for application
     this.template('web/routes.js', this.appDirectory + '/scripts/routes.js');
+
+    // Jasmine Test unit folders
+    this.mkdir(this.appDirectory + '/test/spec/models');
+    this.mkdir(this.appDirectory + '/test/spec/collections');
+    this.mkdir(this.appDirectory + '/test/spec/templates');
+    this.mkdir(this.appDirectory + '/test/spec/views');
   },
 
 });

@@ -63,18 +63,24 @@ ActionGenerator.prototype.askFor = function () {
         var res;
         try {
           res = requestSync('GET', this.backendServer + '/bundles/' + response.entity, options);
-          var bundles = [];
-          res = JSON.parse(res.body.toString());
-          for (var index in res ) {
-            bundles.push({value: index, name: res[index]});
+          if (res.statusCode === 200) {
+            var bundles = [];
+            res = JSON.parse(res.body.toString());
+            for (var index in res ) {
+              bundles.push({value: index, name: res[index]});
+            }
+            return bundles;
           }
-          return bundles;
+          else {
+            this.log(yosay('Backend Server ' + this.backendServer  + ' Error code: ' + res.statusCode));
+            process.kill();
+          }
         }
         catch (ex) {
           if (typeof(res) === 'undefined') {
             this.log(yosay('Backend Server is not available, execute: $ yo marionette-drupal:server to update information'));
           } else {
-            this.log(yosay('Backend Server Error code: ' + res.statusCode));
+            this.log(yosay('Backend Server ' + this.backendServer  + ' Error code: ' + res.statusCode));
           }
 
           process.kill();
@@ -101,18 +107,24 @@ ActionGenerator.prototype.askFor = function () {
         var res;
         try {
           res = requestSync('GET', this.backendServer + '/view_modes/' + response.entity + '/' + response.bundle, options);
-          var viewModes = [];
-          res = JSON.parse(res.body.toString());
-          for (var index in res ) {
-            viewModes.push({value: index, name: res[index]});
+          if (res.statusCode === 200) {
+            var viewModes = [];
+            res = JSON.parse(res.body.toString());
+            for (var index in res ) {
+              viewModes.push({value: index, name: res[index]});
+            }
+            return viewModes;
           }
-          return viewModes;
+          else {
+            this.log(yosay('Backend Server ' + this.backendServer  + ' Error code: ' + res.statusCode));
+            process.kill();
+          }
         }
         catch (ex) {
           if (typeof(res) === 'undefined') {
             this.log(yosay('Backend Server is not available, execute: $ yo marionette-drupal:server to update information'));
           } else {
-            this.log(yosay('Backend Server Error code: ' + res.statusCode));
+            this.log(yosay('Backend Server ' + this.backendServer  + ' Error code: ' + res.statusCode));
           }
 
           process.kill();
@@ -126,7 +138,7 @@ ActionGenerator.prototype.askFor = function () {
 
   this.prompt(prompts, function (props) {
 
-    var auth = 'Basic ' + new Buffer(this.backendCredentials.user + ':' + this.backendCredentials.pass).toString('base64');
+    var auth = 'Basic ' + this.backendAuthToken;
     var options = {
       headers: {
         'Authorization': auth,

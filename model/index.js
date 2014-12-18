@@ -1,53 +1,108 @@
-'use strict';
 var util = require('util');
 var yeoman = require('yeoman-generator');
+var path = require('path');
 var validDir = require('../helpers/validateDirectory');
-var path       = require('path');
+var listDir = require('../helpers/listDirectory');
+var _ = require('underscore');
+var _s = require('underscore.string');
 
 module.exports = ModelGenerator;
 
 function ModelGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
-  this.option('drupal-node', { desc: 'Create a new empty model using Backbone Node definition' });
-  this.option('drupal-user', { desc: 'Create a new empty model using Backbone User definition' });
-  this.option('drupal-comment', { desc: 'Create a new empty model using Backbone Comment definition' });
-  this.option('drupal-file', { desc: 'Create a new empty model using Backbone File definition' });
-
-  // To DO figure out why argument 0 is not available as property
-
-  this.name = this.arguments[0];
-
-  // Set backbone model empty to avoid error if wasn't provided
-  this.backbone_model = '';
-
-  if (this.options['drupal-node']) {
-    this.backbone_model = 'node';
-  }
-
-  if (this.options['drupal-user']) {
-    this.backbone_model = 'user';
-  }
-
-  if (this.options['drupal-comment']) {
-    this.backbone_model = 'comment';
-  }
-
-  if (this.options['drupal-file']) {
-    this.backbone_model = 'file';
-  }
-}
+};
 
 util.inherits(ModelGenerator, yeoman.generators.NamedBase);
 
-ModelGenerator.prototype.init = function () {
+
+ModelGenerator.prototype.askFor = function () {
+  var done = this.async();
+
+  this.appDirectory = this.config.get('appDirectory');
   this.modelsDirectory = this.config.get('modelsDirectory');
   this.testDirectory = this.config.get('testDirectory');
+  this.specs = this.config.get('specs');
 
+  this.modelDrupalTypes = ['Node', 'Comment', 'File', 'None'];
+  this.models =  this.config.get('models');
+
+  this.conflictModel = null;
+  this.Model = null;
+  this.backbone_model = '';
+
+  var prompts = [
+    {
+      type: 'string',
+      name: 'modelName',
+      message: 'What is the name for new model?',
+    },
+    {
+      type: 'checkbox',
+      name: 'drupalType',
+      message: 'Do you what to use a Drupal Type?',
+      choices: this.modelDrupalTypes,
+      default: 'none'
+    },
+    { type: 'confirm',
+      name: 'testUnit',
+      message: 'Do you want to create an empty Test Unit for new model?',
+      default: false
+    },
+  ];
+
+  this.prompt(prompts, function (props) {
+    this.models.forEach(function (model) {
+      if (model === props.modelName) {
+        this.conflictModel = props.modelName;
+        return true;
+      }
+    }.bind(this));
+
+    if (this.conflictModel) {
+      console.log('Your request cannot be process because has conflicts with the following model');
+      console.log('Model: ', this.conflictModel);
+    }
+    else {
+      this.appDirectory = this.config.get('appDirectory');
+      this.Model = props.modelName;
+      this.models.push(this.Model);
+      this.config.set('models', this.models);
+
+      if(props.drupalType != 'None') {
+        this.backbone_model = _.first(props.drupalType).toLowerCase();
+      }
+
+      this.testUnit = props.testUnit;
+      console.log('Model was added sucessfully');
+    }
+
+    done();
+  }.bind(this));
 };
 
-ModelGenerator.prototype.files = function () {
+
+ModelGenerator.prototype.generateModels = function () {
     var ext = 'js';
-    var modelsDir = validDir.getValidatedFolder(this.modelsDirectory);
-    this.template('model.' + ext, path.join(modelsDir, this.name + '.' + ext));
-    this.template('test_model.' + ext, path.join(this.testDirectory + '/spec/' + modelsDir, this.name + '_spec.' + ext));
+
+    if (!this.conflictModel) {
+
+      // Create model
+      var modelsDir = validDir.getValidatedFolder(this.modelsDirectory);
+      this.template('model.' + ext, path.join(modelsDir, this.Model + '.' + ext));
+
+      if (this.testUnit) {
+        // Crete test unit file
+        this.testDirectoyName = _s.strRight(this.testDirectory, this.appDirectory + '/');
+        this.modelDirectoyName = _s.strRight(this.modelsDirectory, this.appDirectory + '/');
+        this.template('test_model.' + ext, path.join(this.testDirectory + '/spec/' + this.modelDirectoyName, this.Model + '_spec.' + ext));
+        this.specs.push('/' + this.testDirectoyName + '/spec/' + this.modelDirectoyName + '/' + this.Model + '_spec.js');
+        this.config.set('specs', this.specs);
+
+        // Set force overwrite template to avoid ask to end user
+        this.conflicter.force = true;
+
+        // Regenerate list of test unit for Jasmine integration
+        this.template('../../app/templates/web/specs.js', this.testDirectory + '/specs.js');
+      }
+    }
   };

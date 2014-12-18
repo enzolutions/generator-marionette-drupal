@@ -71,7 +71,7 @@ ActionGenerator.prototype.askFor = function () {
 
     if (this.conflictAction) {
       console.log('Your request cannot be process because has conflicts with the following action');
-      console.log('Action: ', this.conflictRegion);
+      console.log('Action: ', this.conflictAction);
     }
     else {
       this.appDirectory = this.config.get('appDirectory');

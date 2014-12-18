@@ -5,7 +5,6 @@ var yosay = require('yosay');
 var validDir = require('../helpers/validateDirectory');
 var _s = require('underscore.string');
 
-
 var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
   init: function () {
     this.pkg = require('../package.json');
@@ -34,8 +33,12 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
     this.formsDirectory = _s.strRight(this.config.get('formsDirectory'), this.appDirectory + '/');
     this.actionsDirectory = _s.strRight(this.config.get('actionsDirectory'), this.appDirectory + '/');
     this.backendVersion = this.config.get('backendVersion');
-    this.backendAuthToken = new Buffer(this.config.get('backendAuthToken'), 'base64').toString('ascii');
-    this.backendUser = _s.strLeft(this.backendAuthToken, ':');
+
+    this.backendUser  = '';
+    if(this.config.get('backendAuthToken')) {
+      this.backendAuthToken = new Buffer(this.config.get('backendAuthToken'), 'base64').toString('ascii');
+      this.backendUser = _s.strLeft(this.backendAuthToken, ':');
+    }
 
     // Have Yeoman greet the user.
     this.log(yosay('Welcome to the marvelous Marionette Drupal generator!'));
@@ -114,7 +117,7 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
       type: 'string',
       name: 'backendUser',
       message: 'What is your Backend user?',
-      default: this.backendUser ? this.backendUser : ''
+      default: this.backendUser ? this.backendUser : 'admin'
     },
     {when: function (response) {
         return response.backendCORS;
@@ -184,10 +187,15 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
   },
 
   jasmine: function jasmine() {
-    this.mkdir(this.appDirectory + '/test/lib');
-    this.copy('run-jasmine.js', this.appDirectory + '/' + this.testDirectory + '/lib/run-jasmine.js');
-    this.template('_jasmine_index.html', this.appDirectory + '/' + this.testDirectory + '/index.html');
-    this.template('SpecRunner.js', this.appDirectory + '/' + this.testDirectory + '/SpecRunner.js');
+    this.template('web/_jasmine_index.html', this.appDirectory + '/' + this.testDirectory + '/index.html');
+    this.template('web/SpecRunner.js', this.appDirectory + '/' + this.testDirectory + '/SpecRunner.js');
+
+    // Store specs test units
+    this.specs = ['/' + this.testDirectory + '/spec/models/empty_spec.js'];
+    this.config.set('specs', this.specs);
+
+    this.template('web/specs.js', this.appDirectory + '/' + this.testDirectory + '/specs.js');
+
   },
 
   packageJSON: function packageJSON() {
@@ -238,9 +246,13 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
     this.mkdir(this.appDirectory + '/' + this.testDirectory + '/spec/views');
 
     var emptyModel = 'empty';
+
+    this.models = [emptyModel];
+    this.config.set('models', this.models);
+
     baseDir = validDir.getValidatedFolder(this.appDirectory);
-    this.template('../../model/templates/model.' + ext, path.join(baseDir + '/' + this.modelsDirectory, emptyModel + '.' + ext), {'name': emptyModel, 'backbone_model': ''});
-    this.template('../../model/templates/test_model.' + ext, path.join(baseDir + '/' + this.testDirectory + '/spec/' + this.modelsDirectory, emptyModel + '_spec.' + ext), {'name': emptyModel, 'backbone_model': ''});
+    this.template('../../model/templates/model.' + ext, path.join(baseDir + '/' + this.modelsDirectory, emptyModel + '.' + ext), {'Model': emptyModel, 'backbone_model': ''});
+    this.template('../../model/templates/test_model.' + ext, path.join(baseDir + '/' + this.testDirectory + '/spec/' + this.modelsDirectory, emptyModel + '_spec.' + ext), {'Model': emptyModel, 'backbone_model': ''});
 
     // App others
     this.mkdir(this.appDirectory + '/styles');

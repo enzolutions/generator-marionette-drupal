@@ -44,15 +44,10 @@ Includes scaffolding commands to create templates, models, collections, views an
 
 ##Getting Started##
 
-### Dependencies
 
-[Phantomjs](http://phantomjs.org/) is required to run Test units created with [Jasmine](http://jasmine.github.io).
+### Install Dependencies
 
-Follow the instructions for you OS at http://phantomjs.org/download.html
-
-### Install Generator
-
-To install Yeoman, Bower and Grunt run:
+In order to use the Marionette Drupal generator is required install  Yeoman, Bower and Grunt running the following command:
 ```bash
 $ npm install -g yo grunt-cli bower
 ```

@@ -99,12 +99,6 @@ module.exports = function (grunt) {
                 ]
             }
         },
-        exec: {
-          jasmine: {
-            command: 'phantomjs test/lib/run-jasmine.js http://localhost:9001/test',
-            stdout: true
-          }
-        },
         connect: {
             options: {
                 port: 9001,
@@ -131,7 +125,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-available-tasks');
-    grunt.loadNpmTasks('grunt-exec');
 
     // Where we tell Grunt what to do when we type "grunt" into the terminal.
     grunt.registerTask('default',[
@@ -140,8 +133,7 @@ module.exports = function (grunt) {
         'imagemin',
         'compass',
         'connect:livereload',
-        'watch',
-        'exec'
+        'watch'
     ]);
     grunt.registerTask('tasks', ['availabletasks']);
     grunt.registerTask('server', ['connect:livereload', 'watch']);

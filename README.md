@@ -1,13 +1,14 @@
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/enzolutions/generator-marionette-drupal?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [Yeoman](http://yeoman.io) [MarionetteJS](http://marionettejs.com) + [Drupal](drupical.org) generator
 
-This generator create a structured HTML 5 application generating modules using RequireJS, includes Grunt support to automate tasks.
+This generator create a structured HTML 5 application generating modules using RequireJS, includes [Grunt](http://gruntjs.com) support to automate tasks and [Jasmine](jasmine.github.io) for Unit Test.
 
 Compass is used to generate CSS using bootstrap-sass.
 
 The HTML 5 application is defined using a MVC pattern implemented with MarionetteJS and Backbone.Drupal for data model.
 
 Includes scaffolding commands to create templates, models, collections, views and layouts.
+
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/enzolutions/generator-marionette-drupal?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 - [Application Structure](#application-structure)
 - [Getting Started](#getting-started)
@@ -37,6 +38,7 @@ Includes scaffolding commands to create templates, models, collections, views an
     ├── robots.txt
     ├── scripts (application scripts)
     ├── styles
+    ├── test (Configurable: Unit Test folder)
     ├── templates
     ├── vendor ( Configurable: vendor is recommended)
     └── views
@@ -155,8 +157,14 @@ This command will create an empty template inside application folder [app_folder
 
 ### Generate a Model
 ```bash
-$ yo marionette-drupal:model name
+$ yo marionette-drupal:model
 ```
+The command above start an interactive interface to select Model Name, If Drupal Model is required and if a Jasmime Test unit must be created for new Model.
+
+In the following image you see how the command looks
+
+![Model Generation](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/generator_marionette_drupal_model.png "Model Generation")
+
 
 #### Generate a Model with integration with Backbone Drupal
 ```bash

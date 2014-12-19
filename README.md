@@ -87,6 +87,8 @@ This command above will open a your application in the following URL **http://lo
 
 ![MarionetteJS sample application](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/you_marionette_drupal_sample_app.png "MarionetteJS sample application")
 
+**No webserver is requiered.**
+
 The objetive of this sample application is just demostrate the environment is ready to work and you can use the [Scaffolding](#scaffolding) commands to build your application.
 
 

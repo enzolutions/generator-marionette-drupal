@@ -76,19 +76,18 @@ You have to define where do you want the app installed *web* is recommended, als
 
 The generator create a simple sample application using an empty model, simple view and render without region.
 
-To execute the sample application you can use the [PHP Built-in web server](http://php.net/manual/en/features.commandline.webserver.php) executing the following command.
+Your new project has integration with Grunt and more specifically  with [connect](https://github.com/gruntjs/grunt-contrib-connect) and [livereload](https://github.com/gruntjs/grunt-contrib-livereload) and [watch](https://github.com/gruntjs/grunt-contrib-watch). So to open your new project just execute grunt as you can see in the following command
 
 ```bash
-$ php -S localhost:8080
+$ grunt
+
+$ grunt watch
 ```
+This command above will open a your application in the following URL **http://localhost:9001** and you will see a similar result as shown in following image.
 
-After execute that command, you just need open the URL http://localhost:8080 and you will see a similar result as shown in following image.
-
-![yeoman sample application](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/you_marionette_drupal_sample_app.png "yeoman sample application")
-
+![MarionetteJS sample application](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/you_marionette_drupal_sample_app.png "MarionetteJS sample application")
 
 The objetive of this sample application is just demostrate the environment is ready to work and you can use the [Scaffolding](#scaffolding) commands to build your application.
-
 
 
 ### Integration with Grunt

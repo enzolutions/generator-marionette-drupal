@@ -110,36 +110,32 @@ This command is interactive as you can see in the follwing image
 ```bash
 $ yo marionette-drupal:model
 ```
-The command above start an interactive interface to select Model Name, If Drupal Model is required and if a Jasmime Test unit must be created for new Model.
+The command above start an interactive interface to provide a Model Name and if a Jasmime Test unit must be created for new Model.
 
 In the following image you see how the command looks
 
 ![Model Generation](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/generator_marionette_drupal_model.png "Model Generation")
 
-
-#### Generate a Model with integration with Backbone Drupal
-```bash
-$ yo marionette-drupal:model name [--drupal-node] [--drupal-user] [--drupal-comment] [--drupal-file]
-```
-You must select one of the option to integrate with Backbone Drupal, only one class must used.
-
-
 ### Generate a View
-This command will create a simple Backbone module to be used in combination with a View
+
 ```bash
-$ yo marionette-drupal:view name [--with-template]
+$ yo marionette-drupal:view
 ```
 
-This command will create a Marionette ItemView, optionally is possible create a template with the same name of view auto related with this template.
+The command above start an interactive interface to provide a View Name to create a Marionette ItemViewand defining what **Model** will be integrate with new view, also a custom **Template** with a custom name will be created.
 
-When a template is related with a view, Twig.js is used to render the template.
+Optionally Jasmime Test unit could be created for new Model.
+
+In the following image you see how the command looks
+
+![Model Generation](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/generator_marionette_drupal_view.png "Model Generation")
 
 ## Integration with Jasmine
 This generator enable the option to create simple unit test against model and views, this generation is optional in sub generators **model** and **view**.
 
 The idea is you can continue improving the unit test generated to meet the requirements of your application.
 
-To access the unit tesst access the URL http://localhost:9001/test/ remember the Unit Test folder is configurable via initial generator, but could updated via sub generator **settings**
+To access the unit tesst access the URL **http://localhost:9001/test/** remember the Unit Test **test** folder is configurable via initial generator, but could updated via sub generator **settings**
 
 Check how Unit Test page looks
 

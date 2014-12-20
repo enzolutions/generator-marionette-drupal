@@ -1,12 +1,12 @@
 [Yeoman](http://yeoman.io) [MarionetteJS](http://marionettejs.com) + [Drupal](drupical.org) generator
 
-This generator create a structured HTML 5 application generating modules using RequireJS, includes [Grunt](http://gruntjs.com) support to automate tasks and [Jasmine](jasmine.github.io) for Unit Test.
+This generator create a HTML 5 application using a MVC pattern implemented with MarionetteJS and Backbone.Drupal for data model.
+
+Also the HTML 5 application includes [Grunt](http://gruntjs.com) support to automate tasks and [Jasmine](jasmine.github.io) for Unit Tests.
+
+All Models, Collections, Views, Regions, Actions (Route + Controller) and Forms as generated as **RequireJS** modules encapsulated enabling the option to reuse each concepts in different areas of your application.
 
 Compass is used to generate CSS using bootstrap-sass.
-
-The HTML 5 application is defined using a MVC pattern implemented with MarionetteJS and Backbone.Drupal for data model.
-
-Includes scaffolding commands to create templates, models, collections, views and layouts.
 
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/enzolutions/generator-marionette-drupal?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
@@ -46,7 +46,6 @@ Includes scaffolding commands to create templates, models, collections, views an
 ```
 
 ##Getting Started##
-
 
 ### Install Dependencies
 
@@ -197,10 +196,8 @@ Monitor when SASS files are modified to generate new CSS files.
 
 ##ToDo##
 
-- Improve Drupal Model Scaffolding command
-- Improve View Scaffolding command
 - Create Drupal Collection Scaffolding command
 - Create Layout Scaffolding command
 - Create Test spec for Collection
 - Create Test spec for Action
-- Create Test spec for View
+- Update documentation for action and form sub generators

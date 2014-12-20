@@ -207,17 +207,11 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
   },
 
   app: function () {
+    var ext = 'js';
+
     // App templates
     this.mkdir(this.appDirectory + '/' + this.templatesDirectory);
     this.copy('web/home.html.twig', this.appDirectory + '/' + this.templatesDirectory + '/home.html.twig');
-
-    // App Views
-    this.mkdir(this.appDirectory + '/views');
-    console.log(this.sourceRoot());
-    var ext = 'js';
-    var mainView = 'home';
-    var baseDir = validDir.getValidatedFolder(this.appDirectory);
-    this.template('../../view/templates/view.' + ext, path.join(baseDir + '/views', mainView + '.' + ext), {'name': mainView, 'tmpl': 'home'});
 
     //App Main HTML
     this.template('web/index.html', this.appDirectory + '/index.html');
@@ -253,6 +247,12 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
     baseDir = validDir.getValidatedFolder(this.appDirectory);
     this.template('../../model/templates/model.' + ext, path.join(baseDir + '/' + this.modelsDirectory, emptyModel + '.' + ext), {'Model': emptyModel, 'backbone_model': ''});
     this.template('../../model/templates/test_model.' + ext, path.join(baseDir + '/' + this.testDirectory + '/spec/' + this.modelsDirectory, emptyModel + '_spec.' + ext), {'Model': emptyModel, 'backbone_model': ''});
+
+    // App Views
+    this.mkdir(this.appDirectory + '/views');
+    var mainView = 'home';
+    var baseDir = validDir.getValidatedFolder(this.appDirectory);
+    this.template('../../view/templates/view.' + ext, path.join(baseDir + '/views', mainView + '.' + ext), {'View': mainView, 'templateName': 'home', 'ViewModel': emptyModel});
 
     // App others
     this.mkdir(this.appDirectory + '/styles');

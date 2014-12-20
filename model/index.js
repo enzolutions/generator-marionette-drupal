@@ -1,3 +1,4 @@
+'use strict';
 var util = require('util');
 var yeoman = require('yeoman-generator');
 var path = require('path');
@@ -13,7 +14,6 @@ function ModelGenerator(args, options, config) {
 };
 
 util.inherits(ModelGenerator, yeoman.generators.NamedBase);
-
 
 ModelGenerator.prototype.askFor = function () {
   var done = this.async();
@@ -37,7 +37,7 @@ ModelGenerator.prototype.askFor = function () {
       message: 'What is the name for new model?',
     },
     {
-      type: 'checkbox',
+      type: 'list',
       name: 'drupalType',
       message: 'Do you what to use a Drupal Type?',
       choices: this.modelDrupalTypes,
@@ -68,8 +68,8 @@ ModelGenerator.prototype.askFor = function () {
       this.models.push(this.Model);
       this.config.set('models', this.models);
 
-      if(props.drupalType != 'None') {
-        this.backbone_model = _.first(props.drupalType).toLowerCase();
+      if (props.drupalType !== 'None') {
+        this.backbone_model = props.drupalType.toLowerCase();
       }
 
       this.testUnit = props.testUnit;

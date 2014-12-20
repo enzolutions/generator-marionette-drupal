@@ -103,7 +103,7 @@ The command above will create an empty template inside application folder app_fo
 
 This command is interactive as you can see in the follwing image
 
-![Template Generation](https://raw.githubusercontent.com/enzolutions/generator_marionette_drupal_template.png "Templaste Generation")
+![Template Generation](https://github.com/enzolutions/generator-marionette-drupal/blob/master/images/generator_marionette_drupal_template.png "Template Generation")
 
 ### Generate a Model
 ```bash

@@ -38,7 +38,7 @@ Includes scaffolding commands to create templates, models, collections, views an
     ├── robots.txt
     ├── scripts (application scripts)
     ├── styles
-    ├── test (Configurable: Unit Test folder)
+    ├── test (Configurable: Jasmine Unit Test folder)
     ├── templates
     ├── vendor ( Configurable: vendor is recommended)
     └── views
@@ -87,7 +87,7 @@ This command above will open a your application in the following URL **http://lo
 
 ![MarionetteJS sample application](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/you_marionette_drupal_sample_app.png "MarionetteJS sample application")
 
-**No webserver is requiered.**
+**No webserver is not requiered.**
 
 The objetive of this sample application is just demostrate the environment is ready to work and you can use the [Scaffolding](#scaffolding) commands to build your application.
 
@@ -96,10 +96,14 @@ The objetive of this sample application is just demostrate the environment is re
 ### Generate a template
 
 ```bash
-$ yo marionette-drupal:tmpl name
+$ yo marionette-drupal:template
 ```
 
-This command will create an empty template inside application folder [app_folder]/*templates*
+The command above will create an empty template inside application folder app_folder/templates_folder using [Twig.js](https://github.com/justjohn/twig.js)
+
+This command is interactive as you can see in the follwing image
+
+![Template Generation](https://raw.githubusercontent.com/enzolutions/generator_marionette_drupal_template.png "Templaste Generation")
 
 ### Generate a Model
 ```bash

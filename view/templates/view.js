@@ -4,8 +4,11 @@ define([
   'twig',
   'text!template/<%= templateName %>.html.twig'<% } %>
 ],
-function(<%= _.classify('marionette') %>, <%= _.classify(ViewModel) %>_Model<% if (!_.isEmpty(templateName)) { %>, Twig, <%= _.classify(templateName)%>_Template<% } %>){
+function(<%= _.classify('marionette') %>, <%= _.classify(ViewModel) %>Model<% if (!_.isEmpty(templateName)) { %>, Twig, <%= _.classify(templateName)%>_Template<% } %>){
     'use strict';
+
+  // Pass to Model constructor the proper id to fetch infomation like {uid: 1}
+  var <%= _.underscored(ViewModel) %>Model  = new <%= _.classify(ViewModel) %>Model({});
 
   var <%= _.classify(View) %>View = Marionette.ItemView.extend({
     initialize: function() {
@@ -30,7 +33,7 @@ function(<%= _.classify('marionette') %>, <%= _.classify(ViewModel) %>_Model<% i
       });
       return template.render(data);
     },
-    model: <%= _.classify(ViewModel) %>_Model
+    model: <%= _.underscored(ViewModel)%>Model
 
     <% } %>
   });

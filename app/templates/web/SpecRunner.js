@@ -4,10 +4,18 @@ require.config({
   paths: {
     jquery: '../../<%= bowerDirectory %>/jquery/jquery',
     backbone: '../../<%= bowerDirectory %>/backbone-amd/backbone',
+    'backbone.wreqr': '../../<%= bowerDirectory %>//backbone.wreqr/lib/backbone.wreqr',
+    'backbone.babysitter': '../../<%= bowerDirectory %>//backbone.babysitter/lib/backbone.babysitter',
     underscore: '../../<%= bowerDirectory %>/underscore-amd/underscore',
+    /* alias all marionette libs */
+    'backbone.marionette': '../../<%= bowerDirectory %>/backbone.marionette/lib/core/backbone.marionette',
     'jasmine': '../../<%= bowerDirectory %>/jasmine/lib/jasmine-core/jasmine',
     'jasmine-html': '../../<%= bowerDirectory %>/jasmine/lib/jasmine-core/jasmine-html',
     'boot': '../../<%= bowerDirectory %>/jasmine/lib/jasmine-core/boot',
+    /* twig.js */
+    twig: '../../<%= bowerDirectory %>//twig.js/twig',
+    text: '../../<%= bowerDirectory %>/requirejs-text/text',
+    template: '../../templates',
     specs: '../specs',
     view: '../../views',
     model: '../../models'

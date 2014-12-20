@@ -4,6 +4,8 @@ var yeoman = require('yeoman-generator');
 var path = require('path');
 var validDir = require('../helpers/validateDirectory');
 var listDir = require('../helpers/listDirectory');
+var _ = require('underscore');
+var _s = require('underscore.string');
 
 module.exports = ViewGenerator;
 
@@ -16,7 +18,10 @@ util.inherits(ViewGenerator, yeoman.generators.NamedBase);
 ViewGenerator.prototype.askFor = function () {
   var done = this.async();
 
+  this.appDirectory = this.config.get('appDirectory');
   this.modelsDirectory = this.config.get('modelsDirectory');
+  this.testDirectory = this.config.get('testDirectory');
+  this.specs = this.config.get('specs');
 
   var modelsDir = validDir.getValidatedFolder(this.modelsDirectory);
   var models = listDir.getListFolder(modelsDir);
@@ -76,6 +81,17 @@ ViewGenerator.prototype.generateView = function () {
 
   if (this.testUnit) {
     // Crete test unit file
+    this.testDirectoyName = _s.strRight(this.testDirectory, this.appDirectory + '/');
+    this.viewsDirectoyName = _s.strRight(this.viewsDirectory, this.appDirectory + '/');
+    this.template('test_view.' + ext, path.join(this.testDirectory + '/spec/' + this.viewsDirectoyName, this.View + '_spec.' + ext));
+    this.specs.push('/' + this.testDirectoyName + '/spec/' + this.viewsDirectoyName + '/' + this.View + '_spec.js');
+    this.config.set('specs', this.specs);
+
+    // Set force overwrite template to avoid ask to end user
+    this.conflicter.force = true;
+
+    // Regenerate list of test unit for Jasmine integration
+    this.template('../../app/templates/web/specs.js', this.testDirectory + '/specs.js');
   }
 
   this.template('view.' + ext, path.join(this.viewsDirectory, this.View + '.' + ext));

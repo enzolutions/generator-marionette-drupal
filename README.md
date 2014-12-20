@@ -16,6 +16,7 @@ Includes scaffolding commands to create templates, models, collections, views an
     - [Create a Marionett + Drupal Project](#create-a-marionette-drupal-project)
     - [Execute Sample Application](#execute-sample-application)
 - [Scaffolding](#scaffolding)
+- [Integration with Jasmine](#integration-with-jasmine)
 - [Integration with Grunt](#integration-with-grunt)
 - [ToDo](#todo)
 
@@ -132,6 +133,17 @@ $ yo marionette-drupal:view name [--with-template]
 This command will create a Marionette ItemView, optionally is possible create a template with the same name of view auto related with this template.
 
 When a template is related with a view, Twig.js is used to render the template.
+
+## Integration with Jasmine
+This generator enable the option to create simple unit test against model and views, this generation is optional in sub generators **model** and **view**.
+
+The idea is you can continue improving the unit test generated to meet the requirements of your application.
+
+To access the unit tesst access the URL http://localhost:9001/test/ remember the Unit Test folder is configurable via initial generator, but could updated via sub generator **settings**
+
+Check how Unit Test page looks
+
+![Unit Test](https://github.com/enzolutions/generator-marionette-drupal/blob/master/images/generator_maronette_drupal_jasmine_unit_test.png "Unit Test")
 
 ## Integration with Grunt
 

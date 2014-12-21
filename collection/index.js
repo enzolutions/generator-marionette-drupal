@@ -1,42 +1,96 @@
 'use strict';
 var util = require('util');
 var yeoman = require('yeoman-generator');
+var path = require('path');
 var validDir = require('../helpers/validateDirectory');
-var path       = require('path');
+var listDir = require('../helpers/listDirectory');
+var _ = require('underscore');
+var _s = require('underscore.string');
 
-module.exports = ViewGenerator;
+module.exports = CollectionGenerator;
 
-function ViewGenerator(args, options, config) {
+function CollectionGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
-
-  this.argument('model', { type: String, required: false, desc: 'Create a new empty model for this collection' });
-  this.argument('inherit', { type: String, required: false, desc: 'Inherit from other collection' });
-
-  // To DO figure out why argument 0 is not available as property
-  this.name = this.arguments[0];
-
-  //console.log(this);
-  //this.tmpl = this.options['with-template'];
-
-  if (this.model) {
-    // Set tmpl variable to use template function
-    //this.tmpl = this.name;
-    this.hookFor('marionette-drupal', {
-      as: 'model',
-      args: [this.model]
-    });
-  }
 }
 
-util.inherits(ViewGenerator, yeoman.generators.NamedBase);
+util.inherits(CollectionGenerator, yeoman.generators.NamedBase);
 
-ViewGenerator.prototype.init = function () {
+CollectionGenerator.prototype.askFor = function () {
+  var done = this.async();
+
+  this.appDirectory = this.config.get('appDirectory');
+  this.modelsDirectory = this.config.get('modelsDirectory');
   this.collectionsDirectory = this.config.get('collectionsDirectory');
+  this.testDirectory = this.config.get('testDirectory');
+  this.specs = this.config.get('specs');
+
+  var modelsDir = validDir.getValidatedFolder(this.modelsDirectory);
+  var models = listDir.getListFolder(modelsDir);
+
+  var collectionsDir = validDir.getValidatedFolder(this.collectionsDirectory);
+  var collections = listDir.getListFolder(collectionsDir);
+
+  var prompts = [
+    {
+      type: 'string',
+      name: 'collectionName',
+      message: 'What is the name for new collection?',
+    },
+    {
+      type: 'list',
+      name: 'collectionModel',
+      message: 'Choose what model must be included in new collection?',
+      choices: models
+    },
+    { when: function () {
+        return !_.isEmpty(collections);
+      },
+      type: 'confirm',
+      name: 'collectionInherit',
+      message: 'Collection inherit from other collection?',
+      default: false
+    },
+    { when: function (response) {
+        return response.collectionInherit;
+      },
+      type: 'list',
+      name: 'collectionInheritName',
+      message: 'What is the collection inherit?',
+      choices: collections
+    },
+    { type: 'confirm',
+      name: 'testUnit',
+      message: 'Do you want to create an empty Test Unit for new collection?',
+      default: false
+    },
+  ];
+
+  this.prompt(prompts, function (props) {
+    this.Collection = props.collectionName;
+    this.collectionModel = props.collectionModel;
+    this.testUnit = props.testUnit;
+    this.collectionInheritName = props.collectionInheritName;
+    done();
+  }.bind(this));
 };
 
-ViewGenerator.prototype.files = function () {
+CollectionGenerator.prototype.generateCollection = function () {
+  var ext = 'js';
 
-    var ext = 'js';
-    var collectionsDir = validDir.getValidatedFolder(this.collectionsDirectory);
-    this.template('collections.' + ext, path.join(collectionsDir, this.name + '.' + ext));
-  };
+  if (this.testUnit) {
+    // Crete test unit file
+    this.testDirectoyName = _s.strRight(this.testDirectory, this.appDirectory + '/');
+    this.collectionsDirectoryName = _s.strRight(this.collectionsDirectory, this.appDirectory + '/');
+    this.template('test_collection.' + ext, path.join(this.testDirectory + '/spec/' + this.collectionsDirectoryName, this.Collection + '_spec.' + ext));
+    this.specs.push('/' + this.testDirectoyName + '/spec/' + this.collectionsDirectoryName + '/' + this.Collection + '_spec.js');
+    this.config.set('specs', this.specs);
+
+    // Set force overwrite template to avoid ask to end user
+    this.conflicter.force = true;
+
+    // Regenerate list of test unit for Jasmine integration
+    this.template('../../app/templates/web/specs.js', this.testDirectory + '/specs.js');
+  }
+
+  this.template('collections.' + ext, path.join(this.collectionsDirectory, this.Collection + '.' + ext));
+};

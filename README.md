@@ -115,6 +115,16 @@ In the following image you see how the command looks
 
 ![Model Generation](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/generator_marionette_drupal_model.png "Model Generation")
 
+### Generate a Collection
+```bash
+$ yo marionette-drupal:collection
+```
+The command above start an interactive interface to provide a Collection Name, select **Model** to be used in collection items and if a Jasmime Test unit must be created for new Model.
+
+In the following image you see how the command looks
+
+![Collection Generation](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/generator_marionette_drupal_collection.png "Collection Generation")
+
 ### Generate a View
 
 ```bash
@@ -196,8 +206,6 @@ Monitor when SASS files are modified to generate new CSS files.
 
 ##ToDo##
 
-- Create Drupal Collection Scaffolding command
 - Create Layout Scaffolding command
-- Create Test spec for Collection
 - Create Test spec for Action
-- Update documentation for action and form sub generators
+- Update documentation for action, region and form sub generators

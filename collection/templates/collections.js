@@ -1,18 +1,18 @@
 define([
-  'backbone'<% if (!_.isEmpty(model)) { %>,
-  'models/<%= model %>'<% } %><% if (!_.isEmpty(inherit)) { %>,
-  'collections/<%= inherit %>'<% } %>
+  'backbone'<% if (!_.isEmpty(collectionModel)) { %>,
+  'model/<%= collectionModel %>'<% } %><% if (!_.isEmpty(collectionInheritName)) { %>,
+  'collections/<%= collectionInheritName %>'<% } %>
 ],
-function( <%=_.classify('backbone')%><% if (!_.isEmpty(model)) { %>, <%=_.classify(model)%><% } %><% if (!_.isEmpty(inherit)) { %>, <%=_.classify(inherit)%><% } %> ) {
+function( <%=_.classify('backbone')%><% if (!_.isEmpty(collectionModel)) { %>, <%=_.classify(collectionModel)%><% } %><% if (!_.isEmpty(collectionInheritName)) { %>, <%=_.classify(collectionInheritName)%><% } %> ) {
     'use strict';
 
   /* Return a collection class definition */
-  return <% if (!_.isEmpty(inherit)) { %><%=_.classify(inherit)%>.extend <% } else { %>Backbone.Collection.extend<% } %>({
+  return <% if (!_.isEmpty(collectionInheritName)) { %><%=_.classify(collectionInheritName)%>.extend <% } else { %>Backbone.Collection.extend<% } %>({
     initialize: function() {
-      console.log("initialize a <%= _.classify(name) %> collection");
-    }<% if (!_.isEmpty(model)) { %>,
+      console.log("initialize a <%= _.classify(Collection) %> collection");
+    }<% if (!_.isEmpty(collectionModel)) { %>,
 
-    model: <%= _.classify(model) %>
+    model: <%= _.classify(collectionModel) %>
     <% } %>
   });
 });

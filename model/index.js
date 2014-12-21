@@ -23,7 +23,7 @@ ModelGenerator.prototype.askFor = function () {
   this.testDirectory = this.config.get('testDirectory');
   this.specs = this.config.get('specs');
 
-  this.modelDrupalTypes = ['Node', 'Comment', 'File', 'None'];
+  this.modelDrupalTypes = ['Comment', 'File', 'Node', 'User', 'None'];
   this.models =  this.config.get('models');
 
   this.conflictModel = null;

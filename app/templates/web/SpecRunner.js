@@ -18,8 +18,9 @@ require.config({
     template: '../../templates',
     specs: '../specs',
     view: '../../views',
-    model: '../../models'
-    },
+    model: '../../models',
+    collection: '../../collections'
+  },
   shim: {
     jasmine: {
         exports: 'jasmine'

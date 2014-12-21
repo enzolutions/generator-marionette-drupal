@@ -132,9 +132,9 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
       this.appDirectory = props.appDirectory;
       this.bowerDirectory = props.bowerDirectory;
       this.templatesDirectory = props.templatesDirectory;
+      this.modelsDirectory = props.modelsDirectory;
       this.viewsDirectory = props.viewsDirectory;
       this.formsDirectory = props.formsDirectory;
-      this.modelsDirectory = props.modelsDirectory;
       this.collectionsDirectory = props.collectionsDirectory;
       this.actionsDirectory = props.actionsDirectory;
       this.testDirectory = props.testDirectory;
@@ -146,14 +146,14 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
       this.backendPassword = props.backendPassword;
 
       var authToken = new Buffer(this.backendUser + ':' + this.backendPassword).toString('base64');
-      this.config.set('backendServer', this.backendServer);
-      this.config.set('backendAuthToken', authToken);
-      this.config.set('backendPort', this.backendPort);
-      this.config.set('backendCORS', this.backendCORS);
       this.config.set('appDirectory', this.appDirectory);
       this.config.set('bowerDirectory', this.bowerDirectory);
       this.config.set('templatesDirectory', this.appDirectory + '/' + this.templatesDirectory);
       this.config.set('modelsDirectory', this.appDirectory + '/' + this.modelsDirectory);
+      this.config.set('backendServer', this.backendServer);
+      this.config.set('backendAuthToken', authToken);
+      this.config.set('backendPort', this.backendPort);
+      this.config.set('backendCORS', this.backendCORS);
       this.config.set('collectionsDirectory', this.appDirectory + '/' + this.collectionsDirectory);
       this.config.set('viewsDirectory', this.appDirectory + '/' + this.viewsDirectory);
       this.config.set('formsDirectory', this.appDirectory + '/' + this.formsDirectory);

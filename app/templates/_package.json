@@ -4,6 +4,7 @@
   "dependencies": {
     "request": "~2.21.0",
     "async": "~0.2.8",
+    "inquirer": "^0.8.0",
     "underscore": "~1.4.4",
     "underscore.string": "~2.3.1",
     "sync-request": "~1.0.1"

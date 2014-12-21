@@ -126,6 +126,7 @@ In the following image you see how the command looks
 ![Collection Generation](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/generator_marionette_drupal_collection.png "Collection Generation")
 
 Also in this sub generator is possible create a collection extending from other collection like **students** extending from **people**.
+
 ### Generate a View
 
 ```bash
@@ -139,6 +140,21 @@ Optionally Jasmime Test unit could be created for new Model.
 In the following image you see how the command looks
 
 ![Model Generation](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/generator_marionette_drupal_view.png "Model Generation")
+
+### Update settings
+This generator store some information ina hidden file **.yo-rc.json** about where must be located templates, models, views etc and Drupal conection.
+
+If you need change one of this information there is a sub generator to allow you to that to avoid edit that sensitive file, just use the following command.
+
+```bash
+$ yo marionette-drupal:view
+```
+
+In the following image you see how the command looks
+
+![Update Settings](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/generator_marionette_drupal_settings.png "Update Settings")
+
+I use [Inquirer](https://github.com/SBoudrias/Inquirer.js) to create the interactive menu, but even the documentation say you can navigate with keyword arrows doen't work, I have a reported [issue](https://github.com/SBoudrias/Inquirer.js/issues/199) so use the numbers to navigate
 
 ## Integration with Jasmine
 This generator enable the option to create simple unit test against model and views, this generation is optional in sub generators **model** and **view**.
@@ -205,11 +221,11 @@ $ grunt watch
 
 Monitor when SASS files are modified to generate new CSS files.
 
-##ToDo##
+##ToDo
 
-- Update documentation for action, region, settings and form sub generators
-- Update documentation about list of commands implemented in grunt
-- Create RoadMap
-- Update Forms project to enable image fields
-- Link form to Drupal POST actions and test the results
-- Create Layout Scaffolding command
+- [] Update documentation for action, region and form sub generators
+- [] Update documentation about list of commands implemented in grunt
+- [] Create RoadMap
+- [] Update Forms project to enable image fields
+- [] Link form to Drupal POST actions and test the results
+- [] Create Layout Scaffolding command

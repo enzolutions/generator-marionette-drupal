@@ -133,7 +133,7 @@ Also in this sub generator is possible create a collection extending from other 
 $ yo marionette-drupal:view
 ```
 
-The command above start an interactive interface to provide a View Name to create a Marionette ItemViewand defining what **Model** will be integrate with new view, also a custom **Template** with a custom name will be created.
+The command above start an interactive interface to provide a View Name to create a Marionette ItemViewand defining what **Model** or **Collection** will be integrate with the new view, also a what **Template** will be associated with view ( a new template could be generated or choose one from templates available)
 
 Optionally Jasmime Test unit could be created for new Model.
 
@@ -142,7 +142,7 @@ In the following image you see how the command looks
 ![Model Generation](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/generator_marionette_drupal_view.png "Model Generation")
 
 ### Update settings
-This generator store some information ina hidden file **.yo-rc.json** about where must be located templates, models, views etc and Drupal conection.
+This generator store some information in a hidden file **.yo-rc.json** about where must be located templates, models, views etc and Drupal conection.
 
 If you need change one of this information there is a sub generator to allow you to that to avoid edit that sensitive file, just use the following command.
 
@@ -154,7 +154,7 @@ In the following image you see how the command looks
 
 ![Update Settings](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/generator_marionette_drupal_settings.png "Update Settings")
 
-I use [Inquirer](https://github.com/SBoudrias/Inquirer.js) to create the interactive menu, but even the documentation say you can navigate with keyword arrows doen't work, I have a reported [issue](https://github.com/SBoudrias/Inquirer.js/issues/199) so use the numbers to navigate
+I use [Inquirer](https://github.com/SBoudrias/Inquirer.js) to create the interactive menu, but even the documentation say you can navigate with keyword arrows doen't work, I have a reported [issue](https://github.com/SBoudrias/Inquirer.js/issues/199). So use the numbers to navigate
 
 ## Integration with Jasmine
 This generator enable the option to create simple unit test against model and views, this generation is optional in sub generators **model** and **view**.
@@ -223,9 +223,10 @@ Monitor when SASS files are modified to generate new CSS files.
 
 ##ToDo
 
-- [] Update documentation for action, region and form sub generators
-- [] Update documentation about list of commands implemented in grunt
-- [] Create RoadMap
-- [] Update Forms project to enable image fields
-- [] Link form to Drupal POST actions and test the results
-- [] Create Layout Scaffolding command
+- Update view command to enable select template for templates available
+- Update documentation for action, region and form sub generators
+- Update documentation about list of commands implemented in grunt
+- Create RoadMap
+- Update Forms project to enable image fields
+- Link form to Drupal POST actions and test the results
+- Create Layout Scaffolding command

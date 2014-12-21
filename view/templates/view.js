@@ -1,14 +1,22 @@
 define([
-  'backbone.marionette',
-  'model/<%= ViewModel %>'<% if (!_.isEmpty(templateName)) { %>,
+  'backbone.marionette'<% if (!_.isEmpty(ViewModel)) { %>,
+  'model/<%= ViewModel %>'<% } %><% if (!_.isEmpty(ViewCollection)) { %>,
+  'collection/<%= ViewCollection %>'<% } %><% if (!_.isEmpty(templateName)) { %>,
   'twig',
   'text!template/<%= templateName %>.html.twig'<% } %>
 ],
-function(<%= _.classify('marionette') %>, <%= _.classify(ViewModel) %>Model<% if (!_.isEmpty(templateName)) { %>, Twig, <%= _.classify(templateName)%>_Template<% } %>){
+function(<%= _.classify('marionette') %><% if (!_.isEmpty(ViewModel)) { %>, <%= _.classify(ViewModel) %>Model<% } %><% if (!_.isEmpty(ViewCollection)) { %>, <%= _.classify(ViewCollection) %>Collection<% } %><% if (!_.isEmpty(templateName)) { %>, Twig, <%= _.classify(templateName)%>_Template<% } %>){
     'use strict';
 
-  // Pass to Model constructor the proper id to fetch infomation like {uid: 1}
-  var <%= _.underscored(ViewModel) %>Model  = new <%= _.classify(ViewModel) %>Model({});
+  <% if (!_.isEmpty(ViewModel)) { %>
+    // Pass to Model constructor the proper id to fetch infomation like {uid: 1}
+    var <%= _.underscored(ViewModel) %>Model  = new <%= _.classify(ViewModel) %>Model({});
+  <% } %>
+
+  <% if (!_.isEmpty(ViewCollection)) { %>
+    // Pass to Collection constructor the proper collection endpoint to fetch infomation like {name: 'users'}
+    var <%= _.underscored(ViewCollection) %>Collection  = new <%= _.classify(ViewCollection) %>Collection({});
+  <% } %>
 
   var <%= _.classify(View) %>View = Marionette.ItemView.extend({
     initialize: function() {
@@ -32,8 +40,10 @@ function(<%= _.classify('marionette') %>, <%= _.classify(ViewModel) %>Model<% if
           data: <%= _.classify(View) %>_Template
       });
       return template.render(data);
-    },
-    model: <%= _.underscored(ViewModel)%>Model
+    },<% if (!_.isEmpty(ViewModel)) { %>
+    model: <%= _.underscored(ViewModel)%>Model<% } %>
+    <% if (!_.isEmpty(ViewCollection)) { %>
+    collection: <%= _.underscored(ViewCollection)%>Collection<% } %>
 
     <% } %>
   });

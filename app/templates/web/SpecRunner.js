@@ -1,6 +1,8 @@
 require.config({
   baseUrl: "web",
   urlArgs: 'cb=' + Math.random(),
+  /* starting point for application */
+  deps: ['backbone.marionette', 'backbone.drupal.services'],
   paths: {
     jquery: '../../<%= bowerDirectory %>/jquery/jquery',
     backbone: '../../<%= bowerDirectory %>/backbone-amd/backbone',
@@ -9,6 +11,9 @@ require.config({
     underscore: '../../<%= bowerDirectory %>/underscore-amd/underscore',
     /* alias all marionette libs */
     'backbone.marionette': '../../<%= bowerDirectory %>/backbone.marionette/lib/core/backbone.marionette',
+    /* backbone.drupal */
+    'backbone.drupal': '../../<%= bowerDirectory %>/backbone.drupal/backbone.drupal',
+    'backbone.drupal.services': '../../<%= bowerDirectory %>/backbone.drupal/backbone.drupal.services',
     'jasmine': '../../<%= bowerDirectory %>/jasmine/lib/jasmine-core/jasmine',
     'jasmine-html': '../../<%= bowerDirectory %>/jasmine/lib/jasmine-core/jasmine-html',
     'boot': '../../<%= bowerDirectory %>/jasmine/lib/jasmine-core/boot',
@@ -32,7 +37,13 @@ require.config({
     'boot': {
         deps: ['jasmine', 'jasmine-html'],
         exports: 'jasmine'
-      }
+    },
+    'backbone.drupal': {
+      deps: ['backbone']
+    },
+    'backbone.drupal.services': {
+      deps: ['backbone.drupal']
+    },
   }
 });
 

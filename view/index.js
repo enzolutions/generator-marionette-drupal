@@ -4,6 +4,7 @@ var yeoman = require('yeoman-generator');
 var path = require('path');
 var validDir = require('../helpers/validateDirectory');
 var listDir = require('../helpers/listDirectory');
+var inquirer = require("inquirer");
 var _ = require('underscore');
 var _s = require('underscore.string');
 
@@ -20,11 +21,28 @@ ViewGenerator.prototype.askFor = function () {
 
   this.appDirectory = this.config.get('appDirectory');
   this.modelsDirectory = this.config.get('modelsDirectory');
+  this.collectionsDirectory = this.config.get('collectionsDirectory');
   this.testDirectory = this.config.get('testDirectory');
   this.specs = this.config.get('specs');
 
   var modelsDir = validDir.getValidatedFolder(this.modelsDirectory);
   var models = listDir.getListFolder(modelsDir);
+
+  var collectionsDir = validDir.getValidatedFolder(this.collectionsDirectory);
+  var collections = listDir.getListFolder(collectionsDir);
+
+  var modelCollection = [];
+
+  models.forEach(function (model) {
+    modelCollection.push({'name': 'Model: ' + model, 'value': 'model:' + model});
+  }.bind(this));
+
+  if (collections) {
+    modelCollection.push(new inquirer.Separator());
+    collections.forEach(function (collection) {
+      modelCollection.push({'name': 'Collection: ' + collection, 'value': 'collection:' + collection});
+    }.bind(this));
+  }
 
   var prompts = [
     {
@@ -34,9 +52,9 @@ ViewGenerator.prototype.askFor = function () {
     },
     {
       type: 'list',
-      name: 'viewModel',
-      message: 'Choose what model must be included in new view?',
-      choices: models
+      name: 'viewModelCollection',
+      message: 'Choose what model/collection must be included in new view?',
+      choices: modelCollection
     },
     { type: 'confirm',
       name: 'viewTemplate',
@@ -60,6 +78,16 @@ ViewGenerator.prototype.askFor = function () {
   ];
 
   this.prompt(prompts, function (props) {
+    var viewModelCollection = props.viewModelCollection.split(':');
+    this.ViewModel = '';
+    this.ViewCollection = '';
+    if (viewModelCollection[0] === 'model') {
+      this.ViewModel = viewModelCollection[1];
+    }
+    else {
+      this.ViewCollection = viewModelCollection[1];
+    }
+
     this.View = props.viewName;
     this.ViewModel = props.viewModel;
     this.testUnit = props.testUnit;

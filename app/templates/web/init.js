@@ -54,5 +54,6 @@ require.config({
         template: '../templates',
         view: '../views',
         model: '../models',
+        collection: '../collections',
       },
     });

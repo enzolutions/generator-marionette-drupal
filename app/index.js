@@ -255,7 +255,7 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
     // App Views
     this.mkdir(this.appDirectory + '/views');
     var mainView = 'home';
-    this.template('../../view/templates/view.' + ext, path.join(baseDir + '/views', mainView + '.' + ext), {'View': mainView, 'templateName': 'home', 'ViewModel': emptyModel});
+    this.template('../../view/templates/view.' + ext, path.join(baseDir + '/views', mainView + '.' + ext), {'View': mainView, 'templateName': 'home', 'ViewModel': emptyModel, 'ViewCollection': ''});
     this.template('../../view/templates/test_view.' + ext, path.join(baseDir + '/' + this.testDirectory + '/spec/' + this.viewsDirectory, mainView + '_spec.' + ext), {'View': mainView});
 
     // App others

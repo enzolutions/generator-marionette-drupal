@@ -125,6 +125,7 @@ In the following image you see how the command looks
 
 ![Collection Generation](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/generator_marionette_drupal_collection.png "Collection Generation")
 
+Also in this sub generator is possible create a collection extending from other collection like **students** extending from **people**.
 ### Generate a View
 
 ```bash
@@ -208,4 +209,8 @@ Monitor when SASS files are modified to generate new CSS files.
 
 - Create Layout Scaffolding command
 - Create Test spec for Action
-- Update documentation for action, region and form sub generators
+- Update documentation for action, region, settings and form sub generators
+- Update documentation about list of commands implemented in grunt
+- Create RoadMap
+- Update Forms project to enable image fields
+- Link form to Drupal POST actions and test the results

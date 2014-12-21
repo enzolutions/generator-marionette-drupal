@@ -1,4 +1,4 @@
-[Yeoman](http://yeoman.io) [MarionetteJS](http://marionettejs.com) + [Drupal](drupical.org) generator
+[Yeoman](http://yeoman.io) [MarionetteJS](http://marionettejs.com) + [Drupal](http://drupal.org) generator
 
 This generator create a HTML 5 application using a MVC pattern implemented with MarionetteJS and Backbone.Drupal for data model.
 
@@ -230,3 +230,4 @@ Monitor when SASS files are modified to generate new CSS files.
 - Update Forms project to enable image fields
 - Link form to Drupal POST actions and test the results
 - Create Layout Scaffolding command
+- Improve commands to avoid empty entries

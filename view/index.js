@@ -22,6 +22,7 @@ ViewGenerator.prototype.askFor = function () {
   this.appDirectory = this.config.get('appDirectory');
   this.modelsDirectory = this.config.get('modelsDirectory');
   this.collectionsDirectory = this.config.get('collectionsDirectory');
+  this.templatesDirectory = this.config.get('templatesDirectory');
   this.testDirectory = this.config.get('testDirectory');
   this.specs = this.config.get('specs');
 
@@ -30,6 +31,9 @@ ViewGenerator.prototype.askFor = function () {
 
   var collectionsDir = validDir.getValidatedFolder(this.collectionsDirectory);
   var collections = listDir.getListFolder(collectionsDir);
+
+  var templatesDir = validDir.getValidatedFolder(this.templatesDirectory);
+  var templates = listDir.getListFolder(templatesDir, -10);
 
   var modelCollection = [];
 
@@ -57,11 +61,11 @@ ViewGenerator.prototype.askFor = function () {
       choices: modelCollection
     },
     { type: 'confirm',
-      name: 'viewTemplate',
+      name: 'viewTemplateNew',
       message: 'Create a new template for view?',
     },
     { when: function (response) {
-        return response.viewTemplate;
+        return response.viewTemplateNew;
       },
       type: 'string',
       name: 'viewTemplateName',
@@ -69,6 +73,14 @@ ViewGenerator.prototype.askFor = function () {
       default: function (response) {
         return response.viewName;
       }
+    },
+    { when: function (response) {
+        return !response.viewTemplateNew;
+      },
+      type: 'list',
+      name: 'viewTemplateName',
+      message: 'Choose template must be included in new view?',
+      choices: templates
     },
     { type: 'confirm',
       name: 'testUnit',
@@ -91,7 +103,7 @@ ViewGenerator.prototype.askFor = function () {
     this.View = props.viewName;
     this.ViewModel = props.viewModel;
     this.testUnit = props.testUnit;
-    this.viewTemplate = props.viewTemplate;
+    this.viewTemplateNew = props.viewTemplateNew;
     this.templateName = props.viewTemplateName;
     done();
   }.bind(this));
@@ -103,7 +115,7 @@ ViewGenerator.prototype.generateView = function () {
   this.appDirectory = this.config.get('appDirectory');
   this.viewsDirectory = this.config.get('viewsDirectory');
 
-  if (this.viewTemplate) {
+  if (this.viewTemplateNew) {
     this.invoke('marionette-drupal:template', {options: {templateName: this.templateName}});
   }
 

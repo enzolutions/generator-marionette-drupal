@@ -207,10 +207,9 @@ Monitor when SASS files are modified to generate new CSS files.
 
 ##ToDo##
 
-- Create Layout Scaffolding command
-- Create Test spec for Action
 - Update documentation for action, region, settings and form sub generators
 - Update documentation about list of commands implemented in grunt
 - Create RoadMap
 - Update Forms project to enable image fields
 - Link form to Drupal POST actions and test the results
+- Create Layout Scaffolding command

@@ -223,7 +223,6 @@ Monitor when SASS files are modified to generate new CSS files.
 
 ##ToDo
 
-- Update view command to enable select template for templates available
 - Update documentation for action, region and form sub generators
 - Update documentation about list of commands implemented in grunt
 - Create RoadMap

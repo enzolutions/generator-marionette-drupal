@@ -141,13 +141,27 @@ In the following image you see how the command looks
 
 ![Model Generation](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/generator_marionette_drupal_view.png "Model Generation")
 
+### Generate an Action
+
+This generator took some terms from Symfony Application where they have the concepts of Routing, Class Controller and Actions methods. These terms match with Backnone routing and controller and actions are functions in controller associated to routes.
+
+Intead to create three commands I decided to combine in a single command named **Action**
+
+This command enable you to add dynamically a new Route to your application and associate to a Controller function to response to routing. Instead of create an inline a function in controller a new RequireJS module **action** is generated and is invoke inside the controller enable a complete separate logic between actions.
+
+Beside the route and controller, the action require a views or views to be render in a region specified.
+
+In the following image you see how the command looks
+
+![Action Generator](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/generator_marionette_drupal_action.png "Action Generatior")
+
 ### Update settings
 This generator store some information in a hidden file **.yo-rc.json** about where must be located templates, models, views etc and Drupal conection.
 
 If you need change one of this information there is a sub generator to allow you to that to avoid edit that sensitive file, just use the following command.
 
 ```bash
-$ yo marionette-drupal:view
+$ yo marionette-drupal:settings
 ```
 
 In the following image you see how the command looks
@@ -223,10 +237,10 @@ Monitor when SASS files are modified to generate new CSS files.
 
 ##ToDo
 
-- Update documentation for action, region and form sub generators
-- Update documentation about list of commands implemented in grunt
-- Create RoadMap
-- Update Forms project to enable image fields
-- Link form to Drupal POST actions and test the results
-- Create Layout Scaffolding command
-- Improve commands to avoid empty entries
+- [ ] Update documentation for region and form sub generators
+- [ ] Update documentation about list of commands implemented in grunt
+- [ ] Create RoadMap
+- [ ] Update Forms project to enable image fields
+- [ ] Link form to Drupal POST actions and test the results
+- [ ] Create Layout Scaffolding command
+- [ ] Improve commands to avoid empty entries

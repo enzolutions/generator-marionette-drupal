@@ -141,6 +141,24 @@ In the following image you see how the command looks
 
 ![Model Generation](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/generator_marionette_drupal_view.png "Model Generation")
 
+### Add a Region
+
+```bash
+$ yo marionette-drupal:region
+```
+
+Regions are HTML containers where views are render, an you can create as many regions your design require.
+
+Each region match with and HTML element where the view is render inside.
+
+![Add Region](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/generator_marionette_drupal_region.png "Add Region")
+
+After add a region you must to add inside yout HTML file to match with ID, let me show an example
+
+```
+<div id="sidebar"></div>
+```
+
 ### Generate an Action
 
 This generator took some terms from Symfony Application where they have the concepts of Routing, Class Controller and Actions methods. These terms match with Backnone routing and controller and actions are functions in controller associated to routes.
@@ -237,7 +255,7 @@ Monitor when SASS files are modified to generate new CSS files.
 
 ##ToDo
 
-- [ ] Update documentation for region and form sub generators
+- [ ] Update documentation for form sub generator
 - [ ] Update documentation about list of commands implemented in grunt
 - [ ] Create RoadMap
 - [ ] Update Forms project to enable image fields

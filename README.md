@@ -74,7 +74,7 @@ You have to define where do you want the app installed *web* is recommended, als
 
 ### Execute sample application
 
-The generator create a simple sample application using an empty model, simple view and render without region.
+The generator create a simple sample application using an empty model, simple view and render inside a content region.
 
 Your new project has integration with Grunt and more specifically  with [connect](https://github.com/gruntjs/grunt-contrib-connect) and [livereload](https://github.com/gruntjs/grunt-contrib-livereload) and [watch](https://github.com/gruntjs/grunt-contrib-watch). So to open your new project just execute grunt using one of the following commands.
 

@@ -43,7 +43,7 @@ ActionGenerator.prototype.askFor = function () {
       type: 'list',
       name: 'entity',
       message: 'What entity you want to use to generate a form?',
-      choices: [ 'Node', 'Comment'],
+      choices: [ 'Comment', 'Node' ],
       filter: function (val) { return val.toLowerCase(); }
     },
     {

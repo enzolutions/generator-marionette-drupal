@@ -221,6 +221,12 @@ Check how Unit Test page looks
 
 ![Unit Test](https://github.com/enzolutions/generator-marionette-drupal/blob/master/images/generator_maronette_drupal_jasmine_unit_test.png "Unit Test")
 
+You must select what entity you want create a form between Nodes and Comments, after that the generator create a list of Bundles available and after select the bundle the view modes for the bundle selected.
+
+The form is generated using the fields present in bundle view mode.
+
+If you update your content type bundle in Drupal 8 maybe you wanna re run the form generator.
+
 ## Integration with Grunt
 
 This generator provide a initial Grunt file to execute minimal tasks, you can run all tasks available with following command.
@@ -277,7 +283,7 @@ Monitor when SASS files are modified to generate new CSS files.
 
 ##ToDo
 
-- [ ] Update documentation for form sub generator
+- [ ] Update form sub generator so review image fields and body fields
 - [ ] Update documentation about list of commands implemented in grunt
 - [ ] Create RoadMap
 - [ ] Update Forms project to enable image fields

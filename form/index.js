@@ -72,7 +72,7 @@ ActionGenerator.prototype.askFor = function () {
             return bundles;
           }
           else {
-            this.log(yosay('Backend Server ' + this.backendServer  + ' Error code: ' + res.statusCode));
+            this.log(yosay('Backend Server ' + this.backendServer + '/bundles/' + response.entity  + ' Error code: ' + res.statusCode));
             process.kill();
           }
         }
@@ -116,7 +116,7 @@ ActionGenerator.prototype.askFor = function () {
             return viewModes;
           }
           else {
-            this.log(yosay('Backend Server ' + this.backendServer  + ' Error code: ' + res.statusCode));
+            this.log(yosay('Backend Server ' + this.backendServer + '/view_modes/' + response.entity  + ' Error code: ' + res.statusCode));
             process.kill();
           }
         }

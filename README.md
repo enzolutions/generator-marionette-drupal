@@ -175,6 +175,26 @@ In the following image you see how the command looks
 
 ![Action Generator](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/generator_marionette_drupal_action.png "Action Generatior")
 
+### Generate a Form
+
+```bash
+$ yo marionette-drupal:form
+```
+
+**Only available for Drupal 8**
+
+In order to use this command the Drupal 8 Module [Entity REST extra](https://github.com/enzolutions/entity_rest_extra) must be installed and enabled in your Drupal 8 Backed Server.
+
+Be sure the user you provide to connect to server have permissions to fetch extra information.
+
+This generator enable integration with Drupal to fetch information about entities to create an HTML 5 Form to enable end users push information to Drupal Server.
+
+This generator fetch entity information and create form matching entity fields and linked with proper REST Post to save information.
+
+In the following image you see how the command looks
+
+![Form Generator](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/generator_marionette_drupal_form.png "Form Generatior")
+
 ### Update settings
 This generator store some information in a hidden file **.yo-rc.json** about where must be located templates, models, views etc and Drupal conection.
 

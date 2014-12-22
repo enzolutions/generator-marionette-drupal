@@ -153,11 +153,13 @@ Each region match with and HTML element where the view is render inside.
 
 ![Add Region](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/generator_marionette_drupal_region.png "Add Region")
 
-After add a region you must to add inside yout HTML file to match with ID, let me show an example
+After add a region you must to add inside your HTML app file to match with ID, let me show an example.
 
 ```
 <div id="sidebar"></div>
 ```
+
+In our App example is located in **web/index.html**, remember **web** could change if you choose a different location for App.
 
 ### Generate an Action
 

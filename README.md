@@ -194,11 +194,15 @@ In the following image you see how the command looks
 
 ![Form Generator](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/generator_marionette_drupal_form.png "Form Generatior")
 
-#### Drupal 8 Setup to Enabel Form Generator
+#### Drupal 8 Setup to Enable Form Generator
 
 In order to use this command the Drupal 8 Module [Entity REST extra](https://github.com/enzolutions/entity_rest_extra) must be installed and enabled in your Drupal 8 Backed Server.
 
 Right now there is an issue in Drupal 8 to enable Config Entities via REST, but we did a patch [here](https://www.drupal.org/node/2300677#comment-9456919) to fix that problem so just apply the patch.
+
+Drupal 8 will not support CORS until 8.1 release, for that reason if you are need your Marionette JS App runs in a different domain apply the patch [https://www.drupal.org/node/1869548#comment-9120317](https://www.drupal.org/node/1869548#comment-9120317) recommended by [Backbone.Drupal](https://github.com/enzolutions/backbone.drupal#cross-origin)
+
+Remember enable [mod_headers](http://httpd.apache.org/docs/current/mod/mod_headers.html) if you are using Apache.
 
 In addition you must enable the REST Resource **Entity form display** and add permission **Access GET on Entity form display resource** to your backend user role.
 
@@ -292,6 +296,7 @@ Monitor when SASS files are modified to generate new CSS files.
 
 ##ToDo
 
+- [ ] Debug Drupal 8 to fix error 406 after form submit
 - [ ] Update form sub generator to review image fields
 - [ ] Update documentation about list of commands implemented in grunt
 - [ ] Create RoadMap

@@ -279,7 +279,8 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
     this.regions = [
       {name: 'mainMenuRegion', id: '#main-menu-region'},
       {name: 'contentRegion', id: '#content-region'},
-      {name: 'footerRegion', id: '#footer-region'}
+      {name: 'footerRegion', id: '#footer-region'},
+      {name: 'messages', id: '#messages'}
     ];
     this.config.set('regions', this.regions);
 

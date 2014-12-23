@@ -169,6 +169,7 @@ ActionGenerator.prototype.askFor = function () {
               fields.push({id: field, type: inputTypes[res.content[field].type], settings: res.content[field]});
             }
           }
+
           this.model = props.entity;
           this.name = props.entity + '_' + props.bundle;
           this.fields = fields;
@@ -195,5 +196,6 @@ ActionGenerator.prototype.generateActions = function () {
 
   if (!this.conflictAction) {
     this.actionsDirectory = this.config.get('actionsDirectory');
+
   }
 };

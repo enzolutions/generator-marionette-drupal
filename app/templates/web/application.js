@@ -10,6 +10,9 @@ define([
 function (Marionette, Router, Routes, Communicator, RegionManager, Regions) {
   'use strict';
 
+  // Enable Backform support for Bootstrap 2.3
+  Backform.bootstrap2();
+
 	var App = new Marionette.Application();
 
   // Set Backend API Information

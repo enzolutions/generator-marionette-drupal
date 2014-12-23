@@ -149,28 +149,37 @@ ActionGenerator.prototype.askFor = function () {
     var res;
     try {
       res = requestSync('GET', this.backendServer + '/entity/entity_form_display/' + props.viewMode, options);
-      var fields = [];
-      var ignoreFields = ['uid', 'created', 'comment', 'path'];
+       if (res.statusCode === 200) {
+          console.log(this.backendServer + '/entity/entity_form_display/' + props.viewMode);
+          console.log(res);
+          var fields = [];
+          var ignoreFields = ['uid', 'created', 'comment', 'path'];
 
-      var inputTypes = {
-        string_textfield: 'input',
-        taxonomy_autocomplete: 'input',
-        text_textarea_with_summary: 'textarea',
-        boolean_checkbox: 'boolean',
-        datetime_timestamp: 'datepicker',
-        image_image: 'button',
-        //'select', 'radio', 'spacer', 'button'
-      };
+          var inputTypes = {
+            string_textfield: 'input',
+            taxonomy_autocomplete: 'input',
+            text_textarea_with_summary: 'textarea',
+            boolean_checkbox: 'boolean',
+            datetime_timestamp: 'datepicker',
+            image_image: 'button',
+            //'select', 'radio', 'spacer', 'button'
+          };
 
-      res = JSON.parse(res.body.toString());
-      for (var field in res.content ) {
-        if (ignoreFields.indexOf(field) < 0) {
-          fields.push({id: field, type: inputTypes[res.content[field].type], settings: res.content[field]});
-        }
-      }
-      this.model = props.entity;
-      this.name = props.entity + '_' + props.bundle;
-      this.fields = fields;
+          res = JSON.parse(res.body.toString());
+          console.log(res);
+          for (var field in res.content ) {
+            if (ignoreFields.indexOf(field) < 0) {
+              fields.push({id: field, type: inputTypes[res.content[field].type], settings: res.content[field]});
+            }
+          }
+          this.model = props.entity;
+          this.name = props.entity + '_' + props.bundle;
+          this.fields = fields;
+       }
+       else {
+            this.log(yosay('Backend Server ' + this.backendServer + '/entity/entity_form_display/' + props.viewMode  + ' Error code: ' + res.statusCode));
+            process.kill();
+          }
     }
     catch (ex) {
       console.log('Error code: ' + res.statusCode);

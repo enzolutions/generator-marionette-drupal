@@ -183,9 +183,7 @@ $ yo marionette-drupal:form
 
 **Only available for Drupal 8**
 
-In order to use this command the Drupal 8 Module [Entity REST extra](https://github.com/enzolutions/entity_rest_extra) must be installed and enabled in your Drupal 8 Backed Server.
-
-Be sure the user you provide to connect to server have permissions to fetch extra information.
+This command generate forms implementing library [Backform](http://amiliaapp.github.io/backform/index.html).
 
 This generator enable integration with Drupal to fetch information about entities to create an HTML 5 Form to enable end users push information to Drupal Server.
 
@@ -194,6 +192,16 @@ This generator fetch entity information and create form matching entity fields a
 In the following image you see how the command looks
 
 ![Form Generator](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/generator_marionette_drupal_form.png "Form Generatior")
+
+#### Drupal 8 Setup to Enabel Form Generator
+
+In order to use this command the Drupal 8 Module [Entity REST extra](https://github.com/enzolutions/entity_rest_extra) must be installed and enabled in your Drupal 8 Backed Server.
+
+Right now there is an issue in Drupal 8 to enable Config Entities via REST, but we did a patch [here](https://www.drupal.org/node/2300677#comment-9456919) to fix that problem so just apply the patch.
+
+In addition you must enable the REST Resource **Entity form display** and add permission **Access GET on Entity form display resource** to your backend user role.
+
+Be sure the user you provide to connect to server have permissions to fetch extra information.
 
 ### Update settings
 This generator store some information in a hidden file **.yo-rc.json** about where must be located templates, models, views etc and Drupal conection.
@@ -283,7 +291,7 @@ Monitor when SASS files are modified to generate new CSS files.
 
 ##ToDo
 
-- [ ] Update form sub generator so review image fields and body fields
+- [ ] Update form sub generator to review image fields
 - [ ] Update documentation about list of commands implemented in grunt
 - [ ] Create RoadMap
 - [ ] Update Forms project to enable image fields

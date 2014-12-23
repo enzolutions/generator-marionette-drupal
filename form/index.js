@@ -150,8 +150,6 @@ ActionGenerator.prototype.askFor = function () {
     try {
       res = requestSync('GET', this.backendServer + '/entity/entity_form_display/' + props.viewMode, options);
        if (res.statusCode === 200) {
-          console.log(this.backendServer + '/entity/entity_form_display/' + props.viewMode);
-          console.log(res);
           var fields = [];
           var ignoreFields = ['uid', 'created', 'comment', 'path'];
 
@@ -166,7 +164,6 @@ ActionGenerator.prototype.askFor = function () {
           };
 
           res = JSON.parse(res.body.toString());
-          console.log(res);
           for (var field in res.content ) {
             if (ignoreFields.indexOf(field) < 0) {
               fields.push({id: field, type: inputTypes[res.content[field].type], settings: res.content[field]});
@@ -198,23 +195,5 @@ ActionGenerator.prototype.generateActions = function () {
 
   if (!this.conflictAction) {
     this.actionsDirectory = this.config.get('actionsDirectory');
-
-    /*var ext = "js";
-    // Set force overwrite template to avoid ask to end user
-    this.conflicter.force = true;
-    this.regions =  this.config.get('regions');
-    console.log(this.Action);
-    this.template('action.js', this.actionsDirectory + '/' + this.Action.action + '.' + ext);
-
-    // Set force overwrite template to avoid ask to end user
-    this.conflicter.force = true;
-
-    // Generate controller for application
-    this.routes = this.config.get('actions');
-    this.template('../../app/templates/web/controller.js', this.appDirectory + '/scripts/controller.js');
-
-    // Generate routes for application
-    this.template('../../app/templates/web/routes.js', this.appDirectory + '/scripts/routes.js');
-    */
   }
 };

@@ -207,7 +207,7 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
   },
 
   mailStylesheet: function mainStylesheet() {
-    this.write(this.appDirectory + '/styles/sass/main.scss', '@import \'bootstrap-sass/lib/bootstrap\';\n\n.hero-unit {\n    margin: 50px auto 0 auto;\n    width: 400px;\n}');
+    this.write(this.appDirectory + '/styles/sass/main.scss', '@import \'bootstrap-sass-official/assets/stylesheets/_bootstrap\';\n\n.hero-unit {\n    margin: 50px auto 0 auto;\n    width: 400px;\n}');
   },
 
   app: function () {

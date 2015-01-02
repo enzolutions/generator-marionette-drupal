@@ -8,10 +8,22 @@ function (<%= _.classify('marionette') %>){
     The model should be passed when the object is instantiated.
     For example:
 
-    new NodeContactForm({
+    // New model
+    new <%= _.classify(name) %>Form({
       // Don't send model parameters for new items
       model: new Backbone.Drupal.Models.<%= _.classify(model) %>({nid:1})
     });
+
+    //Edit / Fetch models
+    var viewModel = new Backbone.Drupal.Models.<%= _.classify(model) %>({nid:1})
+
+    viewModel.fetch({
+      success: function (model) {
+        var <%= _.underscored(name) %>Form = new <%= _.classify(name) %>Form({model: viewModel});
+        region.show(<%= _.underscored(name) %>Form);
+      }
+    });
+
    */
 
   var <%= _.classify(name) %>Form = Backform.Form.extend({
@@ -23,7 +35,7 @@ function (<%= _.classify('marionette') %>){
     fields: [<% _.each(fields, function (field) { %>
       {name: "<%= field.id %>", label: "<%= _.classify(field.id) %>", control: "<%= _.classify(field.type) %>"},<% }); %>
       // Add submit button
-      {name: 'Submit', id: 'submit', control: 'button', label: 'Submit'}
+      {name: 'Submit', id: 'submit', control: 'button'}
     ],
     events: {
           'submit': 'saveForm',
@@ -31,7 +43,7 @@ function (<%= _.classify('marionette') %>){
     saveForm: function (ev) {
       this.model.save(null, {
         success: function (response) {
-          router.navigate('', {trigger:true});
+          $("#messages").html('<div class="section clearfix"><div class="messages">' + response.statusText + '</div></div>');
         },
         error: function (user, response) {
           // Set the erros in Messages region

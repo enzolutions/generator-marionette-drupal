@@ -4,7 +4,8 @@ module.exports = function (grunt) {
 
     // configurable paths
     var yeomanConfig = {
-        app: 'web',
+        app: '<%= appDirectory %>',
+        vendor: '<%= bowerDirectory %>',
         dist: 'dist'
       };
 
@@ -22,7 +23,7 @@ module.exports = function (grunt) {
         concat: {
             dist: {
                 src: [
-                    yeomanConfig.app + '/vendor/bootstrap-sass/dist/js/bootstrap.js', // Bootstrap JS
+                    yeomanConfig.app + '/' + yeomanConfig.vendor + '/bootstrap-sass-official/assets/javascripts/bootstrap.js', // Bootstrap JS
                     yeomanConfig.app + '/js/*.js', // All JS in the libs folder
                     yeomanConfig.app + '/js/global.js'  // This specific file
                 ],
@@ -50,7 +51,7 @@ module.exports = function (grunt) {
                 options: {
                     sassDir: yeomanConfig.app + '/styles/sass',
                     cssDir: yeomanConfig.app + '/styles',
-                    importPath: yeomanConfig.app + '/vendor',
+                    importPath: yeomanConfig.app + '/' + yeomanConfig.vendor,
                     imagesDir: yeomanConfig.app + '/images',
                     javascriptsDir: yeomanConfig.app + '/scripts',
                     fontsDir: yeomanConfig.app + '/styles/fonts',

@@ -2,7 +2,7 @@ require.config({
     baseUrl: '/scripts',
 
     /* starting point for application */
-    deps: ['backbone.marionette', 'bootstrap', 'main'],
+    deps: ['backbone.marionette', 'main'],
 
     shim: {
         backbone: {
@@ -12,7 +12,7 @@ require.config({
           ],
           exports: 'Backbone'
         },
-        bootstrap: {
+        productionjs: {
           deps: ['jquery'],
         },
         'backbone.drupal': {
@@ -25,7 +25,7 @@ require.config({
           deps: ['backbone']
         },
         main: {
-          deps: ['backbone.drupal.services', 'backform']
+          deps: ['backbone.drupal.services', 'productionjs', 'backform']
         }
       },
       paths: {
@@ -44,16 +44,17 @@ require.config({
         backform : '../<%= bowerDirectory %>/backform/src/backform',
         /* twig.js */
         twig: '../<%= bowerDirectory %>/twig.js/twig',
-        /* alias the bootstrap js lib */
-        bootstrap: '../<%= bowerDirectory %>/bootstrap-sass/dist/js/bootstrap',
 
         /* Alias text.js for template loading and shortcut the templates dir to tmpl */
-        action: '../actions',
-        form: '../forms',
         text: '../<%= bowerDirectory %>/requirejs-text/text',
         template: '../templates',
-        view: '../views',
         model: '../models',
         collection: '../collections',
+        view: '../views',
+        form: '../forms',
+        action: '../actions',
+
+        /* Production minified JS*/
+        productionjs: '/js/dist/production.min'
       },
     });

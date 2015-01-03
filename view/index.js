@@ -4,8 +4,7 @@ var yeoman = require('yeoman-generator');
 var path = require('path');
 var validDir = require('../helpers/validateDirectory');
 var listDir = require('../helpers/listDirectory');
-var inquirer = require("inquirer");
-var _ = require('underscore');
+var inquirer = require('inquirer');
 var _s = require('underscore.string');
 
 module.exports = ViewGenerator;
@@ -22,15 +21,22 @@ ViewGenerator.prototype.askFor = function () {
   this.appDirectory = this.config.get('appDirectory');
   this.modelsDirectory = this.config.get('modelsDirectory');
   this.collectionsDirectory = this.config.get('collectionsDirectory');
+  this.viewsDirectory = this.config.get('viewsDirectory');
   this.templatesDirectory = this.config.get('templatesDirectory');
   this.testDirectory = this.config.get('testDirectory');
   this.specs = this.config.get('specs');
+  this.MVC = this.config.get('MVC');
+
+   this.conflictView = null;
 
   var modelsDir = validDir.getValidatedFolder(this.modelsDirectory);
   var models = listDir.getListFolder(modelsDir);
 
   var collectionsDir = validDir.getValidatedFolder(this.collectionsDirectory);
   var collections = listDir.getListFolder(collectionsDir);
+
+  var viewsDir = validDir.getValidatedFolder(this.viewsDirectory);
+  this.views = listDir.getListFolder(viewsDir);
 
   var templatesDir = validDir.getValidatedFolder(this.templatesDirectory);
   var templates = listDir.getListFolder(templatesDir, -10);
@@ -90,21 +96,46 @@ ViewGenerator.prototype.askFor = function () {
   ];
 
   this.prompt(prompts, function (props) {
-    var viewModelCollection = props.viewModelCollection.split(':');
-    this.ViewModel = '';
-    this.ViewCollection = '';
-    if (viewModelCollection[0] === 'model') {
-      this.ViewModel = viewModelCollection[1];
+
+    this.views.forEach(function (view) {
+      if (view === _s.underscored(_s.camelize(props.viewName))) {
+        this.conflictView = view;
+        return true;
+      }
+    }.bind(this));
+
+    if (this.conflictView) {
+      console.log('Your request cannot be process because has conflicts with the following view');
+      console.log('View: ', this.conflictView);
+      process.exit();
     }
     else {
-      this.ViewCollection = viewModelCollection[1];
+      var viewModelCollection = props.viewModelCollection.split(':');
+      this.ViewModel = '';
+      this.ViewCollection = '';
+
+      if (viewModelCollection[0] === 'model') {
+        this.ViewModel = viewModelCollection[1];
+      }
+      else {
+        this.ViewCollection = viewModelCollection[1];
+      }
+
+      this.View = _s.underscored(_s.camelize(props.viewName));
+
+      //Set MVC
+
+      this.MVC.push({model: this.ViewModel, collection: this.ViewCollection, view: this.View});
+      this.config.set('MVC', this.MVC);
+
+      // Set Unit  TEst
+      this.testUnit = props.testUnit;
+
+      // Set Template
+      this.viewTemplateNew = _s.underscored(_s.camelize(props.viewTemplateNew));
+      this.templateName = _s.underscored(_s.camelize(props.viewTemplateName));
     }
 
-    this.View = props.viewName;
-    this.ViewModel = props.viewModel;
-    this.testUnit = props.testUnit;
-    this.viewTemplateNew = props.viewTemplateNew;
-    this.templateName = props.viewTemplateName;
     done();
   }.bind(this));
 };

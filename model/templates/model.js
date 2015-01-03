@@ -7,6 +7,9 @@ define(["backbone"<% if (!_.isEmpty(backbone_model)) { %>, 'backbone.drupal'<% }
     <% } %>
       initialize: function() {
         console.log("initialize a <%= _.classify(Model) %> model");
+        <% if (!_.isEmpty(modelEndPoint)) { %>
+        this.url = "<%= modelEndPoint %>";
+        <% } %>
       },
 
       defaults: {},

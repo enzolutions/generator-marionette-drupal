@@ -84,11 +84,11 @@ $ grunt
 
 $ grunt watch
 ```
-This command above will open a your application in the following URL **http://localhost:9001** and you will see a similar result as shown in following image.
+This command above will open your application in the following URL **http://localhost:9001** and you will see a similar result as shown in following image.
 
 ![MarionetteJS sample application](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/you_marionette_drupal_sample_app.png "MarionetteJS sample application")
 
-**No webserver is not requiered.**
+**No webserver is requiered.**
 
 The objetive of this sample application is just demostrate the environment is ready to work and you can use the [Scaffolding](#scaffolding) commands to build your application.
 
@@ -116,13 +116,17 @@ In the following image you see how the command looks
 
 ![Model Generation](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/generator_marionette_drupal_model.png "Model Generation")
 
+If you choose **None** you can define a custom end point for your model
+
 ### Generate a Collection
 ```bash
 $ yo marionette-drupal:collection
 ```
 The command above start an interactive interface to provide a Collection Name, select **Model** to be used in collection items and if a Jasmime Test unit must be created for new Model.
 
-In the following image you see how the command looks
+Right now you must to set the end point URL relative to Drupal Backend Server.
+
+In the following image you see how the command looks like.
 
 ![Collection Generation](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/generator_marionette_drupal_collection.png "Collection Generation")
 
@@ -141,6 +145,8 @@ Optionally Jasmime Test unit could be created for new Model.
 In the following image you see how the command looks
 
 ![Model Generation](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/generator_marionette_drupal_view.png "Model Generation")
+
+Internally the generator store the MVC relation between view and model/collection to be used in **Action** Subgenerator.
 
 ### Add a Region
 
@@ -166,16 +172,33 @@ In our App example is located in **web/index.html**, remember **web** could chan
 
 This generator took some terms from Symfony Application where they have the concepts of Routing, Class Controller and Actions methods. These terms match with Backnone routing and controller and actions are functions in controller associated to routes.
 
-Intead to create three commands I decided to combine in a single command named **Action**
+Instead of create three commands, I decided to combine in a single command named **Action**
 
-This command enable you to add dynamically a new Route to your application and associate to a Controller function to response to routing. Instead of create an inline a function in controller a new RequireJS module **action** is generated and is invoke inside the controller enable a complete separate logic between actions.
+This command enable you to add dynamically a new Route to your application and associate to a Controller function to response to the routing.
 
-Beside the route and controller, the action require a views or views to be render in a region specified.
+Also the system avoid to create an inline function in controller, a new RequireJS module **Action** is generated and is invoked inside the controller.
+
+The saparation in Controller enable a complete isolate logic between actions.
+
+Besides the route and controller, the action require a view to be render inside the region specified.
 
 In the following image you see how the command looks
 
 ![Action Generator](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/generator_marionette_drupal_action.png "Action Generatior")
 
+The action will provide code to fetch the information for model/collection, is your reposability to chage the proper ID as you can see in following example.
+
+```
+var best_exchange  = new BestExchangeCollection({});
+
+// Load Collection
+best_exchange.fetch({
+success: function (Collection) {
+  var best_exchanges = new BestExchangesView({collection: Collection});
+  region.show();
+}
+});
+```
 ### Generate a Form
 
 ```bash
@@ -193,6 +216,8 @@ This generator fetch entity information and create form matching entity fields a
 In the following image you see how the command looks
 
 ![Form Generator](https://raw.githubusercontent.com/enzolutions/generator-marionette-drupal/master/images/generator_marionette_drupal_form.png "Form Generatior")
+
+This subgenerator is still in progress, and the process to push back info to Drupal 8 is in progress, we will use the REST Method PATCH becuase PUT won't be implemented in Drupal 8.
 
 #### Drupal 8 Setup to Enable Form Generator
 
@@ -296,11 +321,10 @@ Monitor when SASS files are modified to generate new CSS files.
 
 ##ToDo
 
-- [ ] Debug Drupal 8 to fix error 406 after form submit
+- [ ] Implemente PATCH method in forms submit against Drupal 8
 - [ ] Update form sub generator to review image fields
 - [ ] Update documentation about list of commands implemented in grunt
 - [ ] Create RoadMap
 - [ ] Update Forms project to enable image fields
-- [ ] Link form to Drupal POST actions and test the results
 - [ ] Create Layout Scaffolding command
-- [ ] Improve commands to avoid empty entries
+- [ ] Add validation in inquirer command to avoid empty values

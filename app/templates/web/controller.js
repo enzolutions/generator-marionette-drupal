@@ -1,8 +1,8 @@
 define(
   ['backbone.marionette', <% _.each(routes, function (route) { %>
-          '!action/<%= route.action %>',<% }); %>
+          '!action/<%= route.Action %>',<% }); %>
   ],
-function (Marionette<% _.each(routes, function (route) { %>,<%= _.classify(route.action) %><% }); %>)
+function (Marionette<% _.each(routes, function (route) { %>,<%= _.classify(route.Action) %><% }); %>)
   {
     'use strict';
     var Controller = Marionette.Controller.extend({
@@ -11,8 +11,8 @@ function (Marionette<% _.each(routes, function (route) { %>,<%= _.classify(route
         this.App = options.App;
        },
       <% _.each(routes, function (route) { %>
-       <%= route.action %>: function() {
-        return <%= _.classify(route.action) %>(this.App);
+       <%= route.Action %>: function() {
+        return <%= _.classify(route.Action) %>(this.App);
         },
       <% }); %>
     });

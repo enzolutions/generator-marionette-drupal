@@ -17,7 +17,7 @@ function (Marionette, Router, Routes, Communicator, RegionManager, Regions) {
 
   // Set Backend API Information
   Backbone.Drupal.restEndpoint = {
-    root: 'http://<%= backendServer %>:<%= backendPort %>' <% if (backendVersion === false) { %>,
+    root: '<%= backendServer %>:<%= backendPort %>' <% if (backendVersion === false) { %>,
     dataType: '.json'
     <% } %>
   };

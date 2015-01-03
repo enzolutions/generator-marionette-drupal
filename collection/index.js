@@ -58,6 +58,15 @@ CollectionGenerator.prototype.askFor = function () {
       message: 'What is the collection inherit?',
       choices: collections
     },
+    {
+      when: function (response) {
+        return (!response.collectionInherit);
+      },
+      type: 'string',
+      name: 'collectionEndPoint',
+      message: 'Please provide the collection point relative to Drupal?',
+      default: 'none'
+    },
     { type: 'confirm',
       name: 'testUnit',
       message: 'Do you want to create an empty Test Unit for new collection?',
@@ -66,10 +75,11 @@ CollectionGenerator.prototype.askFor = function () {
   ];
 
   this.prompt(prompts, function (props) {
-    this.Collection = props.collectionName;
+    this.Collection = _s.underscored(_s.camelize(props.collectionName));
     this.collectionModel = props.collectionModel;
     this.testUnit = props.testUnit;
     this.collectionInheritName = props.collectionInheritName;
+    this.collectionEndPoint = props.collectionEndPoint;
     done();
   }.bind(this));
 };

@@ -4,7 +4,6 @@ var yeoman = require('yeoman-generator');
 var path = require('path');
 var validDir = require('../helpers/validateDirectory');
 var listDir = require('../helpers/listDirectory');
-var _ = require('underscore');
 var _s = require('underscore.string');
 
 module.exports = ModelGenerator;
@@ -24,7 +23,10 @@ ModelGenerator.prototype.askFor = function () {
   this.specs = this.config.get('specs');
 
   this.modelDrupalTypes = ['Comment', 'File', 'Node', 'User', 'None'];
-  this.models =  this.config.get('models');
+
+  // Generate a list of modules avaiable base in files insde model directory
+  var modelsDir = validDir.getValidatedFolder(this.modelsDirectory);
+  this.models = listDir.getListFolder(modelsDir);
 
   this.conflictModel = null;
   this.Model = null;
@@ -41,8 +43,18 @@ ModelGenerator.prototype.askFor = function () {
       name: 'drupalType',
       message: 'Do you what to use a Drupal Type?',
       choices: this.modelDrupalTypes,
+      default: 'None'
+    },
+    {
+      when: function (response) {
+        return (response.drupalType === 'None');
+      },
+      type: 'string',
+      name: 'modelEndPoint',
+      message: 'Please provide the custom model end point (enter to not define)?',
       default: 'none'
     },
+
     { type: 'confirm',
       name: 'testUnit',
       message: 'Do you want to create an empty Test Unit for new model?',
@@ -52,8 +64,8 @@ ModelGenerator.prototype.askFor = function () {
 
   this.prompt(prompts, function (props) {
     this.models.forEach(function (model) {
-      if (model === props.modelName) {
-        this.conflictModel = props.modelName;
+      if (model === _s.underscored(_s.camelize(props.modelName))) {
+        this.conflictModel = model;
         return true;
       }
     }.bind(this));
@@ -61,15 +73,19 @@ ModelGenerator.prototype.askFor = function () {
     if (this.conflictModel) {
       console.log('Your request cannot be process because has conflicts with the following model');
       console.log('Model: ', this.conflictModel);
+      process.exit();
     }
     else {
       this.appDirectory = this.config.get('appDirectory');
-      this.Model = props.modelName;
+      this.Model = _s.underscored(_s.camelize(props.modelName));
       this.models.push(this.Model);
       this.config.set('models', this.models);
 
       if (props.drupalType !== 'None') {
         this.backbone_model = props.drupalType.toLowerCase();
+      }
+      else {
+        this.modelEndPoint = props.modelEndPoint;
       }
 
       this.testUnit = props.testUnit;
@@ -84,25 +100,22 @@ ModelGenerator.prototype.askFor = function () {
 ModelGenerator.prototype.generateModels = function () {
     var ext = 'js';
 
-    if (!this.conflictModel) {
+    // Create model
+    var modelsDir = validDir.getValidatedFolder(this.modelsDirectory);
+    this.template('model.' + ext, path.join(modelsDir, this.Model + '.' + ext));
 
-      // Create model
-      var modelsDir = validDir.getValidatedFolder(this.modelsDirectory);
-      this.template('model.' + ext, path.join(modelsDir, this.Model + '.' + ext));
+    if (this.testUnit) {
+      // Crete test unit file
+      this.testDirectoyName = _s.strRight(this.testDirectory, this.appDirectory + '/');
+      this.modelDirectoyName = _s.strRight(this.modelsDirectory, this.appDirectory + '/');
+      this.template('test_model.' + ext, path.join(this.testDirectory + '/spec/' + this.modelDirectoyName, this.Model + '_spec.' + ext));
+      this.specs.push('/' + this.testDirectoyName + '/spec/' + this.modelDirectoyName + '/' + this.Model + '_spec.js');
+      this.config.set('specs', this.specs);
 
-      if (this.testUnit) {
-        // Crete test unit file
-        this.testDirectoyName = _s.strRight(this.testDirectory, this.appDirectory + '/');
-        this.modelDirectoyName = _s.strRight(this.modelsDirectory, this.appDirectory + '/');
-        this.template('test_model.' + ext, path.join(this.testDirectory + '/spec/' + this.modelDirectoyName, this.Model + '_spec.' + ext));
-        this.specs.push('/' + this.testDirectoyName + '/spec/' + this.modelDirectoyName + '/' + this.Model + '_spec.js');
-        this.config.set('specs', this.specs);
+      // Set force overwrite template to avoid ask to end user
+      this.conflicter.force = true;
 
-        // Set force overwrite template to avoid ask to end user
-        this.conflicter.force = true;
-
-        // Regenerate list of test unit for Jasmine integration
-        this.template('../../app/templates/web/specs.js', this.testDirectory + '/specs.js');
-      }
+      // Regenerate list of test unit for Jasmine integration
+      this.template('../../app/templates/web/specs.js', this.testDirectory + '/specs.js');
     }
   };

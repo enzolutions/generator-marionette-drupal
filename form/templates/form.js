@@ -5,8 +5,8 @@ function (<%= _.classify('marionette') %>){
     'use strict';
 
   /*
-    The model should be passed when the object is instantiated.
-    For example:
+    The model should be passed when the form is instantiated in action.
+     For instance copy inside the action:
 
     // New model
     new <%= _.classify(name) %>Form({
@@ -14,7 +14,7 @@ function (<%= _.classify('marionette') %>){
       model: new Backbone.Drupal.Models.<%= _.classify(model) %>({nid:1})
     });
 
-    //Edit / Fetch models
+    //Edit / Fetch model
     var viewModel = new Backbone.Drupal.Models.<%= _.classify(model) %>({nid:1})
 
     viewModel.fetch({
@@ -23,7 +23,6 @@ function (<%= _.classify('marionette') %>){
         region.show(<%= _.underscored(name) %>Form);
       }
     });
-
    */
 
   var <%= _.classify(name) %>Form = Backform.Form.extend({

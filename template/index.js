@@ -3,6 +3,8 @@ var util = require('util');
 var yeoman = require('yeoman-generator');
 var path = require('path');
 var validDir = require('../helpers/validateDirectory');
+var _ = require('underscore');
+var _s = require('underscore.string');
 
 function TemplateGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
@@ -25,7 +27,7 @@ TemplateGenerator.prototype.askFor = function () {
     ];
 
     this.prompt(prompts, function (props) {
-      this.templateName = props.templateName;
+      this.templateName = _s.underscored(_s.camelize(props.templateName));
       done();
     }.bind(this));
   }

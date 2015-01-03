@@ -244,12 +244,10 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
 
     var emptyModel = 'empty';
 
-    this.models = [emptyModel];
-    this.config.set('models', this.models);
-
     var baseDir = validDir.getValidatedFolder(this.appDirectory);
     baseDir = validDir.getValidatedFolder(this.appDirectory);
-    this.template('../../model/templates/model.' + ext, path.join(baseDir + '/' + this.modelsDirectory, emptyModel + '.' + ext), {'Model': emptyModel, 'backbone_model': ''});
+    this.template('../../model/templates/model.' + ext, path.join(baseDir + '/' + this.modelsDirectory, emptyModel + '.' + ext), {'Model': emptyModel, 'backbone_model': '', 'modelEndPoint': ''});
+
     this.template('../../model/templates/test_model.' + ext, path.join(baseDir + '/' + this.testDirectory + '/spec/' + this.modelsDirectory, emptyModel + '_spec.' + ext), {'Model': emptyModel, 'backbone_model': ''});
 
     // App Views
@@ -257,6 +255,9 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
     var mainView = 'home';
     this.template('../../view/templates/view.' + ext, path.join(baseDir + '/views', mainView + '.' + ext), {'View': mainView, 'templateName': 'home', 'ViewModel': emptyModel, 'ViewCollection': ''});
     this.template('../../view/templates/test_view.' + ext, path.join(baseDir + '/' + this.testDirectory + '/spec/' + this.viewsDirectory, mainView + '_spec.' + ext), {'View': mainView});
+
+    // Set MVC
+    this.config.set('MVC', [{model: emptyModel, view: mainView}]);
 
     // App others
     this.mkdir(this.appDirectory + '/styles');
@@ -271,7 +272,7 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
 
     // Store actions controllers with his route
     this.routes = [
-      {route: '', action: 'home', 'regions': ['contentRegion'], 'views': ['home']}
+      {Route: '', Action: 'home', 'region': 'contentRegion', 'view': 'home'}
     ];
     this.config.set('actions', this.routes);
 
@@ -287,9 +288,9 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
     // Generate regions for application
     this.template('../../region/templates/regions.js', this.appDirectory + '/scripts/regions.js');
 
-    // Generate home controller action
-    this.Action = {'action': 'home', 'views': ['home'], 'regions': ['contentRegion']};
-    this.template('../../action/templates/action.' + ext, path.join(baseDir + '/' + this.actionsDirectory, this.Action.action + '.' + ext));
+    // Generate home controller action witout model to skip the fetch process
+    this.Action = {'Action': 'home', 'View': 'home', 'Region': 'contentRegion'};
+    this.template('../../action/templates/action.' + ext, path.join(baseDir + '/' + this.actionsDirectory, this.Action.Action + '.' + ext));
 
     // Generate controller for application
     this.template('web/controller.js', this.appDirectory + '/scripts/controller.js');

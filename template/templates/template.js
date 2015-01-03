@@ -1,1 +1,1 @@
-!empty <%= _.classify(templateName) %> template
+!empty <%= _.humanize(templateName) %> template

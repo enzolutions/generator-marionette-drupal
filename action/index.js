@@ -1,9 +1,9 @@
 'use strict';
 var util = require('util');
 var yeoman = require('yeoman-generator');
-var path = require('path');
 var validDir = require('../helpers/validateDirectory');
 var listDir = require('../helpers/listDirectory');
+var _ = require('underscore');
 
 module.exports = ActionGenerator;
 
@@ -47,14 +47,14 @@ ActionGenerator.prototype.askFor = function () {
       message: 'What is the name of function for new action?',
     },
     {
-      type: 'checkbox',
-      name: 'actionViews',
-      message: 'Choose what view must be included?',
+      type: 'list',
+      name: 'actionView',
+      message: 'Choose what view must be included in new action?',
       choices: views
     },
     {
-      type: 'checkbox',
-      name: 'actionRegions',
+      type: 'list',
+      name: 'actionRegion',
       message: 'Choose what region must be included to render View?',
       choices: this.regionsName
     },
@@ -72,12 +72,22 @@ ActionGenerator.prototype.askFor = function () {
     if (this.conflictAction) {
       console.log('Your request cannot be process because has conflicts with the following action');
       console.log('Action: ', this.conflictAction);
+      process.exit();
     }
     else {
       this.appDirectory = this.config.get('appDirectory');
-      this.Action = {route: props.actionRoute, action: props.actionName, 'regions': props.actionRegions, 'views': props.actionViews};
+
+      this.MVC = this.config.get('MVC');
+      this.selectedMVC = _.findWhere(this.MVC, {view: props.actionView});
+
+      this.Action = {'Route': props.actionRoute, 'Action': props.actionName, 'Region': props.actionRegion, 'View': props.actionView};
+
+      this.Action.Model = this.selectedMVC.model;
+      this.Action.Collection = this.selectedMVC.collection;
+
       this.actions.push(this.Action);
       this.config.set('actions', this.actions);
+
       console.log('Action was added sucessfully');
     }
 
@@ -94,7 +104,7 @@ ActionGenerator.prototype.generateActions = function () {
     // Set force overwrite template to avoid ask to end user
     this.conflicter.force = true;
     this.regions =  this.config.get('regions');
-    this.template('action.js', this.actionsDirectory + '/' + this.Action.action + '.' + ext);
+    this.template('action.js', this.actionsDirectory + '/' + this.Action.Action + '.' + ext);
 
     // Set force overwrite template to avoid ask to end user
     this.conflicter.force = true;

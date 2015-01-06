@@ -9,6 +9,11 @@ var _s = require('underscore.string');
 function TemplateGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
   this.templatesDirectory = this.config.get('templatesDirectory');
+  this.structureType = ['Model', 'Collection', 'None'];
+  this.modelDrupalTypes = ['Comment', 'File', 'Node', 'User', 'None']
+  this.templateType = 'none';
+  this.drupalType = 'none';
+
 }
 
 util.inherits(TemplateGenerator, yeoman.generators.NamedBase);
@@ -23,16 +28,43 @@ TemplateGenerator.prototype.askFor = function () {
         type: 'string',
         name: 'templateName',
         message: 'What is the name for new template?',
-      }
+      },
+      {
+        type: 'list',
+        name: 'structureType',
+        message: 'What type of Structure will be render in template?',
+        choices: this.structureType,
+      },
+      {
+        when: function (response) {
+          return (response.structureType === 'Model');
+        },
+        type: 'list',
+        name: 'drupalType',
+        message: 'Do you what to use a Drupal Type?',
+        choices: this.modelDrupalTypes,
+      },
     ];
 
     this.prompt(prompts, function (props) {
+      console.log
       this.templateName = _s.underscored(_s.camelize(props.templateName));
+
+      if(props.structureType) {
+        this.templateType = props.structureType.toLowerCase();
+      }
+
+      if(props.drupalType) {
+       this.drupalType = props.drupalType.toLowerCase();
+     }
+
       done();
     }.bind(this));
   }
   else {
     this.templateName = this.options.templateName;
+    this.templateType = this.options.templateType;
+    this.drupalType = this.options.drupalType;
     done();
   }
 };

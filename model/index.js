@@ -78,11 +78,12 @@ ModelGenerator.prototype.askFor = function () {
     else {
       this.appDirectory = this.config.get('appDirectory');
       this.Model = _s.underscored(_s.camelize(props.modelName));
-      this.models.push(this.Model);
+      this.models.push({name: this.Model, type: props.drupalType.toLowerCase()});
       this.config.set('models', this.models);
 
       if (props.drupalType !== 'None') {
         this.backbone_model = props.drupalType.toLowerCase();
+        this.modelEndPoint = '';
       }
       else {
         this.modelEndPoint = props.modelEndPoint;

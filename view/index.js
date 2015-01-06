@@ -5,6 +5,7 @@ var path = require('path');
 var validDir = require('../helpers/validateDirectory');
 var listDir = require('../helpers/listDirectory');
 var inquirer = require('inquirer');
+var _ = require('underscore');
 var _s = require('underscore.string');
 
 module.exports = ViewGenerator;
@@ -20,6 +21,7 @@ ViewGenerator.prototype.askFor = function () {
 
   this.appDirectory = this.config.get('appDirectory');
   this.modelsDirectory = this.config.get('modelsDirectory');
+  this.models = this.config.get('models');
   this.collectionsDirectory = this.config.get('collectionsDirectory');
   this.viewsDirectory = this.config.get('viewsDirectory');
   this.templatesDirectory = this.config.get('templatesDirectory');
@@ -27,7 +29,9 @@ ViewGenerator.prototype.askFor = function () {
   this.specs = this.config.get('specs');
   this.MVC = this.config.get('MVC');
 
-   this.conflictView = null;
+
+
+  this.conflictView = null;
 
   var modelsDir = validDir.getValidatedFolder(this.modelsDirectory);
   var models = listDir.getListFolder(modelsDir);
@@ -41,7 +45,7 @@ ViewGenerator.prototype.askFor = function () {
   var templatesDir = validDir.getValidatedFolder(this.templatesDirectory);
   var templates = listDir.getListFolder(templatesDir, -10);
 
-  var modelCollection = [];
+  var modelCollection = [{'name': 'None', 'value': 'none'}];
 
   models.forEach(function (model) {
     modelCollection.push({'name': 'Model: ' + model, 'value': 'model:' + model});
@@ -116,9 +120,15 @@ ViewGenerator.prototype.askFor = function () {
 
       if (viewModelCollection[0] === 'model') {
         this.ViewModel = viewModelCollection[1];
-      }
-      else {
+        this.templateType = 'model';
+
+        this.model = _.findWhere(this.models, {name: this.ViewModel});
+        this.drupalType = this.model.type;
+      } else if (viewModelCollection[0] === 'collection') {
         this.ViewCollection = viewModelCollection[1];
+        this.templateType = 'collection';
+      } else {
+        this.templateType = 'none';
       }
 
       this.View = _s.underscored(_s.camelize(props.viewName));
@@ -143,11 +153,8 @@ ViewGenerator.prototype.askFor = function () {
 ViewGenerator.prototype.generateView = function () {
   var ext = 'js';
 
-  this.appDirectory = this.config.get('appDirectory');
-  this.viewsDirectory = this.config.get('viewsDirectory');
-
   if (this.viewTemplateNew) {
-    this.invoke('marionette-drupal:template', {options: {templateName: this.templateName}});
+    this.invoke('marionette-drupal:template', {options: {templateName: this.templateName, templateType: this.templateType, drupalType: this.drupalType}});
   }
 
   if (this.testUnit) {

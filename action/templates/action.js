@@ -47,7 +47,7 @@ define(
       <%= _.underscored(Action.Collection) %>.fetch({
         success: function (Collection) {
           var <%= _.underscored(Action.View) %> = new <%= _.classify(Action.View) %>View({collection: Collection});
-          region.show(<%= _.underscored(Action.view) %>);
+          region.show(<%= _.underscored(Action.View) %>);
         }
       });
       <% } %>

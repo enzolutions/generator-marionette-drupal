@@ -21,8 +21,14 @@ require.config({
         'backbone.drupal.services': {
           deps: ['backbone.drupal']
         },
+        'bootstrap2.3': {
+            deps: ['backbone']
+        },
+        'bootstrap-datepicker': {
+            deps: ['bootstrap2.3']
+        },
         backform: {
-          deps: ['backbone', 'bootstrap2.3', 'bootstrap-datepicker']
+          deps: [ 'bootstrap-datepicker']
         },
         main: {
           deps: ['backbone.drupal.services', 'productionjs', 'backform']

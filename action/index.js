@@ -104,13 +104,10 @@ ActionGenerator.prototype.askFor = function () {
       }
       else {
         this.actionForm = actionViewForm[1];
-        console.log(this.MVC);
-        console.log({ type:'form', view: this.actionForm});
         this.selectedMVC = _.findWhere(this.MVC, { type:'form', form: this.actionForm});
         this.Action = {'Route': props.actionRoute, 'Action': props.actionName, 'Region': props.actionRegion, 'Form': this.actionForm};
       }
 
-      console.log(this.selectedMVC);
       this.Action.Model = this.selectedMVC.model;
       this.Action.Collection = this.selectedMVC.collection;
 

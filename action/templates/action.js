@@ -40,7 +40,7 @@ define(
       });*/
 
       //Edit / Fetch model to render in a specific region. You must change the ID
-      var viewModel = new <%= _.classify(Action.Model) %>Model({nid:1});
+      var viewModel = new <%= _.classify(Action.Model) %>Model({nid:1<% if (!_.isEmpty(Action.Form)) { %>, backform: true<% } %>});
 
       viewModel.fetch({
         success: function (Model) {

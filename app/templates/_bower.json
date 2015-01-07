@@ -12,7 +12,7 @@
     "backbone.marionette": "~2.1.0",
     "backbone.wreqr": "~1.3.1",
     "backbone.babysitter": "~0.1.0",
-    "backbone.drupal": "~0.2.1-alpha",
+    "backbone.drupal": "~0.2.1-beta",
     "backform": "~0.0.1",
     "twig.js": "~0.7.2",
     "jasmine": "~2.1.3"

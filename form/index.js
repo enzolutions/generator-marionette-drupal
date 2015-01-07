@@ -158,20 +158,23 @@ ActionGenerator.prototype.askFor = function () {
           var inputTypes = {
             string_textfield: 'input',
             taxonomy_autocomplete: 'input',
+            email_default: 'input',
+            number: 'input',
+            text_textfield: 'textarea',
+            text_textarea: 'textarea',
             text_textarea_with_summary: 'textarea',
             boolean_checkbox: 'boolean',
             datetime_timestamp: 'datepicker',
             datetime_default: 'datepicker',
             image_image: 'button',
-            email_default: 'input',
-            number: 'input',
             options_select: 'select'
-            //'select', 'radio', 'spacer', 'button'
+            //'radio', 'spacer', 'button'
           };
 
           res = JSON.parse(res.body.toString());
           for (var field in res.content ) {
             if (ignoreFields.indexOf(field) < 0) {
+              console.log(res.content[field].type);
               if(typeof(inputTypes[res.content[field].type]) != 'undefined') {
                 fields.push({id: field, label: _s.humanize(_s.strRight(field, 'field_')), type: inputTypes[res.content[field].type], options: JSON.stringify({}), settings: res.content[field]});
               }

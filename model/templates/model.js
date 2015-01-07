@@ -5,8 +5,9 @@ define(["backbone"<% if (!_.isEmpty(backbone_model)) { %>, 'backbone.drupal'<% }
     <% } else { %>
       var <%= _.classify(Model) %> = Backbone.Model.extend({
     <% } %>
-      initialize: function() {
+      initialize: function(options) {
         console.log("initialize a <%= _.classify(Model) %> model");
+        this.backform = options.backform;
         <% if (!_.isEmpty(modelEndPoint)) { %>
         this.url = "<%= modelEndPoint %>";
         <% } %>

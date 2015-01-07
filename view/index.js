@@ -51,7 +51,7 @@ ViewGenerator.prototype.askFor = function () {
     modelCollection.push({'name': 'Model: ' + model, 'value': 'model:' + model});
   }.bind(this));
 
-  if (collections) {
+  if (!_.isEmpty(collections)) {
     modelCollection.push(new inquirer.Separator());
     collections.forEach(function (collection) {
       modelCollection.push({'name': 'Collection: ' + collection, 'value': 'collection:' + collection});
@@ -134,8 +134,7 @@ ViewGenerator.prototype.askFor = function () {
       this.View = _s.underscored(_s.camelize(props.viewName));
 
       //Set MVC
-
-      this.MVC.push({model: this.ViewModel, collection: this.ViewCollection, view: this.View});
+      this.MVC.push({type: 'view', model: this.ViewModel, collection: this.ViewCollection, view: this.View});
       this.config.set('MVC', this.MVC);
 
       // Set Unit  TEst

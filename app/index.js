@@ -246,12 +246,25 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
 
     var baseDir = validDir.getValidatedFolder(this.appDirectory);
     baseDir = validDir.getValidatedFolder(this.appDirectory);
+
+    // Generate default models
     this.template('../../model/templates/model.' + ext, path.join(baseDir + '/' + this.modelsDirectory, emptyModel + '.' + ext), {'Model': emptyModel, 'backbone_model': '', 'modelEndPoint': ''});
+    this.template('../../model/templates/model.' + ext, path.join(baseDir + '/' + this.modelsDirectory, 'node' + '.' + ext), {'Model': emptyModel, 'backbone_model': 'Node', 'modelEndPoint': ''});
+    this.template('../../model/templates/model.' + ext, path.join(baseDir + '/' + this.modelsDirectory, 'user' + '.' + ext), {'Model': emptyModel, 'backbone_model': 'User', 'modelEndPoint': ''});
+    this.template('../../model/templates/model.' + ext, path.join(baseDir + '/' + this.modelsDirectory, 'comment' + '.' + ext), {'Model': emptyModel, 'backbone_model': 'Comment', 'modelEndPoint': ''});
+    this.template('../../model/templates/model.' + ext, path.join(baseDir + '/' + this.modelsDirectory, 'file' + '.' + ext), {'Model': emptyModel, 'backbone_model': 'File', 'modelEndPoint': ''});
 
     this.template('../../model/templates/test_model.' + ext, path.join(baseDir + '/' + this.testDirectory + '/spec/' + this.modelsDirectory, emptyModel + '_spec.' + ext), {'Model': emptyModel, 'backbone_model': ''});
 
     // Set Models
-    this.config.set('models', [{name: emptyModel, type: 'none'}]);
+    this.models = [{name: emptyModel, type: 'none'},
+                   {name: 'node', type: 'node'},
+                   {name: 'user', type: 'user'},
+                   {name: 'comment', type: 'comment'},
+                   {name: 'file', type: 'file'},
+                  ];
+
+    this.config.set('models', this.models);
 
     // App Views
     this.mkdir(this.appDirectory + '/views');
@@ -260,7 +273,7 @@ var MarionetteDrupalGenerator = yeoman.generators.Base.extend({
     this.template('../../view/templates/test_view.' + ext, path.join(baseDir + '/' + this.testDirectory + '/spec/' + this.viewsDirectory, mainView + '_spec.' + ext), {'View': mainView});
 
     // Set MVC
-    this.config.set('MVC', [{model: emptyModel, view: mainView}]);
+    this.config.set('MVC', [{type: 'view', model: emptyModel, view: mainView}]);
 
     // App others
     this.mkdir(this.appDirectory + '/styles');

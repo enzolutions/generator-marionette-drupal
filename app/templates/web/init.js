@@ -22,7 +22,7 @@ require.config({
           deps: ['backbone.drupal']
         },
         backform: {
-          deps: ['backbone']
+          deps: ['backbone', 'bootstrap2.3', 'bootstrap-datepicker']
         },
         main: {
           deps: ['backbone.drupal.services', 'productionjs', 'backform']
@@ -42,8 +42,12 @@ require.config({
         'backbone.drupal.services': '../<%= bowerDirectory %>/backbone.drupal/backbone.drupal.services',
         /* backform */
         backform : '../<%= bowerDirectory %>/backform/src/backform',
+        'bootstrap2.3': '../vendor/backform/3rd/bootstrap2.3.min',
+        'bootstrap-datepicker': '../<%= bowerDirectory %>/backform/3rd/bootstrap-datepicker',
         /* twig.js */
         twig: '../<%= bowerDirectory %>/twig.js/twig',
+        /* modernizr */
+        'modernizr': '../<%= bowerDirectory %>/modernizr/modernizr',
 
         /* Alias text.js for template loading and shortcut the templates dir to tmpl */
         text: '../<%= bowerDirectory %>/requirejs-text/text',

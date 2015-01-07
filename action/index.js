@@ -4,6 +4,7 @@ var yeoman = require('yeoman-generator');
 var validDir = require('../helpers/validateDirectory');
 var listDir = require('../helpers/listDirectory');
 var _ = require('underscore');
+var inquirer = require('inquirer');
 
 module.exports = ActionGenerator;
 
@@ -19,6 +20,7 @@ ActionGenerator.prototype.askFor = function () {
   this.actionsDirectory = this.config.get('actionsDirectory');
   this.viewsDirectory = this.config.get('viewsDirectory');
   this.regions = this.config.get('regions');
+  this.MVC = this.config.get('MVC');
 
   this.regionsName = [];
 
@@ -28,9 +30,21 @@ ActionGenerator.prototype.askFor = function () {
 
   this.actions =  this.config.get('actions');
 
-  var viewsDir = validDir.getValidatedFolder(this.viewsDirectory);
+  var views = _.where(this.MVC, {type: 'view'});
+  var forms = _.where(this.MVC, {type: 'form'});
 
-  var views = listDir.getListFolder(viewsDir);
+  var viewsForms = [];
+
+  views.forEach(function (view) {
+    viewsForms.push({'name': 'View: ' + view.view , 'value': 'view:' + view.view});
+  }.bind(this));
+
+  if (!_.isEmpty(forms)) {
+    viewsForms.push(new inquirer.Separator());
+    forms.forEach(function (form) {
+      viewsForms.push({'name': 'Form: ' + form.form, 'value': 'form:' + form.form});
+    }.bind(this));
+  }
 
   this.conflictAction = null;
   this.Action = null;
@@ -48,9 +62,9 @@ ActionGenerator.prototype.askFor = function () {
     },
     {
       type: 'list',
-      name: 'actionView',
-      message: 'Choose what view must be included in new action?',
-      choices: views
+      name: 'viewForm',
+      message: 'Choose what view or form must be included in new action?',
+      choices: viewsForms
     },
     {
       type: 'list',
@@ -77,11 +91,26 @@ ActionGenerator.prototype.askFor = function () {
     else {
       this.appDirectory = this.config.get('appDirectory');
 
+    var actionViewForm = props.viewForm.split(':');
+      this.actionView = '';
+      this.actionForm = '';
+
       this.MVC = this.config.get('MVC');
-      this.selectedMVC = _.findWhere(this.MVC, {view: props.actionView});
 
-      this.Action = {'Route': props.actionRoute, 'Action': props.actionName, 'Region': props.actionRegion, 'View': props.actionView};
+      if (actionViewForm[0] === 'view') {
+        this.actionView = actionViewForm[1];
+        this.selectedMVC = _.findWhere(this.MVC, { type:'view', view: this.actionView});
+        this.Action = {'Route': props.actionRoute, 'Action': props.actionName, 'Region': props.actionRegion, 'View': this.actionView};
+      }
+      else {
+        this.actionForm = actionViewForm[1];
+        console.log(this.MVC);
+        console.log({ type:'form', view: this.actionForm});
+        this.selectedMVC = _.findWhere(this.MVC, { type:'form', form: this.actionForm});
+        this.Action = {'Route': props.actionRoute, 'Action': props.actionName, 'Region': props.actionRegion, 'Form': this.actionForm};
+      }
 
+      console.log(this.selectedMVC);
       this.Action.Model = this.selectedMVC.model;
       this.Action.Collection = this.selectedMVC.collection;
 

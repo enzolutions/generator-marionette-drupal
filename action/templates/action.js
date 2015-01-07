@@ -1,9 +1,10 @@
 define(
   ['backbone.marionette',<% if (!_.isEmpty(Action.Model)) { %>
   'model/<%= Action.Model %>',<% } %><% if (!_.isEmpty(Action.Collection)) { %>
-  'collection/<%= Action.Collection %>',<% } %>
-  '!view/<%= Action.View %>'],
-  function (Marionette ,<% if (!_.isEmpty(Action.Model)) { %> <%= _.classify(Action.Model) %>Model,<% } %><% if (!_.isEmpty(Action.Collection)) { %><%= _.classify(Action.Collection) %>Collection,<% } %><%= _.classify(Action.View) %>View) {
+  'collection/<%= Action.Collection %>',<% } %><% if (!_.isEmpty(Action.View)) { %>
+  '!view/<%= Action.View %>'],<% } %><% if (!_.isEmpty(Action.Form)) { %>
+  '!form/<%= Action.Form %>'],<% } %>
+  function (Marionette ,<% if (!_.isEmpty(Action.Model)) { %> <%= _.classify(Action.Model) %>Model,<% } %><% if (!_.isEmpty(Action.Collection)) { %><%= _.classify(Action.Collection) %>Collection,<% } %><% if (!_.isEmpty(Action.View)) { %><%= _.classify(Action.View) %>View<% } %><% if (!_.isEmpty(Action.Form)) { %><%= _.classify(Action.Form) %>Form<% } %>) {
     'use strict';
 
     var <%= _.classify(Action.Action) %> = function (App) {
@@ -14,16 +15,26 @@ define(
       console.log("initialize a <%= _.classify(Action.Action) %> Action");
 
       <% if (_.isEmpty(Action.Model) && _.isEmpty(Action.Collection)) { %>
+        <% if (!_.isEmpty(Action.View)) { %>
         var <%= _.underscored(Action.View) %> = new <%= _.classify(Action.View) %>View({model: null});
         region.show(<%= _.underscored(Action.View) %>);
+        <% } %>
+        <% if (!_.isEmpty(Action.View)) { %>
+        var <%= _.underscored(Action.Form) %> = new <%= _.classify(Action.Form) %>Form({model: null});
+        region.show(<%= _.underscored(Action.View) %>);
+        <% } %>
       <% } %>
 
       <% if (!_.isEmpty(Action.Model)) { %>
-      //The model should be passed when the view is instantiated in action.
-      //For instance copy inside the action:
+      //The model should be passed when is instantiated in action.
 
       // New model
+      <% if (!_.isEmpty(Action.View)) { %>
       /*var <%= _.classify(Action.View) %>  = new <%= _.classify(Action.View) %>View({
+      <% } %>
+      <% if (!_.isEmpty(Action.Form)) { %>
+      /*var <%= _.classify(Action.Form) %>  = new <%= _.classify(Action.Form) %>Form({
+      <% } %>
         // Don't send model parameters for new items
         model: new <%= _.classify(Action.Model) %>Model()
       });*/
@@ -33,8 +44,14 @@ define(
 
       viewModel.fetch({
         success: function (Model) {
+          <% if (!_.isEmpty(Action.View)) { %>
           var <%= _.underscored(Action.View) %> = new <%= _.classify(Action.View) %>View({model: Model});
           region.show(<%= _.underscored(Action.View) %>);
+          <% } %>
+          <% if (!_.isEmpty(Action.Form)) { %>
+          var <%= _.underscored(Action.Form) %> = new <%= _.classify(Action.Form) %>Form({model: Model});
+          region.show(<%= _.underscored(Action.Form) %>);
+          <% } %>
         }
       });
 

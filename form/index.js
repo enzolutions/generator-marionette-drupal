@@ -5,6 +5,7 @@ var yosay = require('yosay');
 var requestSync = require('sync-request');
 var validDir = require('../helpers/validateDirectory');
 var listDir = require('../helpers/listDirectory');
+var _s = require('underscore.string');
 
 module.exports = ActionGenerator;
 
@@ -22,6 +23,7 @@ ActionGenerator.prototype.askFor = function () {
   this.backendAuthToken = this.config.get('backendAuthToken');
   this.viewsDirectory = this.config.get('viewsDirectory');
   this.regions = this.config.get('regions');
+  this.MVC = this.config.get('MVC');
 
   this.regionsName = [];
 
@@ -78,7 +80,7 @@ ActionGenerator.prototype.askFor = function () {
         }
         catch (ex) {
           if (typeof(res) === 'undefined') {
-            this.log(yosay('Backend Server is not available, execute: $ yo marionette-drupal:server to update information'));
+            this.log(yosay('Backend Server is not available, execute: $ yo marionette-drupal:settings to update information'));
           } else {
             this.log(yosay('Backend Server ' + this.backendServer  + ' Error code: ' + res.statusCode));
           }
@@ -116,7 +118,7 @@ ActionGenerator.prototype.askFor = function () {
             return viewModes;
           }
           else {
-            this.log(yosay('Backend Server ' + this.backendServer + '/view_modes/' + response.entity  + ' Error code: ' + res.statusCode));
+            this.log(yosay('Backend Server ' + this.backendServer + '/view_modes/' + response.entity  + '/' + response.bundle + ' Error code: ' + res.statusCode));
             process.kill();
           }
         }
@@ -159,14 +161,20 @@ ActionGenerator.prototype.askFor = function () {
             text_textarea_with_summary: 'textarea',
             boolean_checkbox: 'boolean',
             datetime_timestamp: 'datepicker',
+            datetime_default: 'datepicker',
             image_image: 'button',
+            email_default: 'input',
+            number: 'input',
+            options_select: 'select'
             //'select', 'radio', 'spacer', 'button'
           };
 
           res = JSON.parse(res.body.toString());
           for (var field in res.content ) {
             if (ignoreFields.indexOf(field) < 0) {
-              fields.push({id: field, type: inputTypes[res.content[field].type], settings: res.content[field]});
+              if(typeof(inputTypes[res.content[field].type]) != 'undefined') {
+                fields.push({id: field, label: _s.humanize(_s.strRight(field, 'field_')), type: inputTypes[res.content[field].type], options: JSON.stringify({}), settings: res.content[field]});
+              }
             }
           }
 
@@ -189,6 +197,10 @@ ActionGenerator.prototype.askFor = function () {
 
 ActionGenerator.prototype.generateActions = function () {
   this.formsDirectory = this.config.get('formsDirectory');
+
+  //Set MVC
+  this.MVC.push({type: 'form', model: this.model, form: this.name});
+  this.config.set('MVC', this.MVC);
 
   var ext = 'js';
   this.template('form.js', this.formsDirectory + '/' + this.name + '.' + ext);

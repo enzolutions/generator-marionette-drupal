@@ -21,20 +21,35 @@ module.exports = function (grunt) {
             }               // target
         },
         concat: {
-            dist: {
+            js: {
                 src: [
-                    yeomanConfig.app + '/' + yeomanConfig.vendor + '/bootstrap-sass-official/assets/javascripts/bootstrap.js', // Bootstrap JS
                     yeomanConfig.app + '/js/*.js', // All JS in the libs folder
                     yeomanConfig.app + '/js/global.js'  // This specific file
                 ],
                 dest: yeomanConfig.app + '/js/dist/production.js',
-            }
+            },
+            css: {
+                src: [
+                    yeomanConfig.app + '/' + yeomanConfig.vendor + '/backform/3rd/bootstrap2.3.min.css', // Bootstrap CSS
+                    yeomanConfig.app + '/' + yeomanConfig.vendor + '/backform/3rd/bootstrap-datepicker.css', // Bootstrap Datapicker CSS
+                    yeomanConfig.app + '/css/main.css', // All JS in the libs folder
+                ],
+                dest: yeomanConfig.app + '/css/dist/production.css',
+            },
         },
         uglify: {
             build: {
                 src: yeomanConfig.app + '/js/dist/production.js',
                 dest: yeomanConfig.app + '/js/dist/production.min.js'
             }
+        },
+        cssmin: {
+          target: {
+            files: [{
+              src: [yeomanConfig.app + '/css/dist/production.css'],
+              dest: yeomanConfig.app + '/css/dist/production.min.css',
+            }]
+          }
         },
         imagemin: {
             dynamic: {
@@ -67,7 +82,7 @@ module.exports = function (grunt) {
                     livereload:true
                 },
             },
-            css: {
+            js: {
                 files: [
                     yeomanConfig.app + '/js/*.js',
                     yeomanConfig.app + '/scripts/*.js',
@@ -120,6 +135,7 @@ module.exports = function (grunt) {
 
     // Where we tell Grunt we plan to use some plug-ins.
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-compass');
@@ -131,6 +147,7 @@ module.exports = function (grunt) {
     grunt.registerTask('default',[
         'concat',
         'uglify',
+        'cssmin',
         'imagemin',
         'compass',
         'connect:livereload',

@@ -37,6 +37,13 @@ ModelGenerator.prototype.askFor = function () {
       type: 'string',
       name: 'modelName',
       message: 'What is the name for new model?',
+      validate: function( value ){
+        if(value.trim()){
+          return true;
+        }else{
+          return  "Model name can’t be empty";
+        }
+      },
     },
     {
       type: 'list',

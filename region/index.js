@@ -18,11 +18,25 @@ RegionGenerator.prototype.askFor = function () {
       type: 'string',
       name: 'regionName',
       message: 'What is the name for new region?',
+      validate: function( value ){
+        if(value.trim()){
+          return true;
+        }else{
+          return  "Region name can’t be empty";
+        }
+      },
     },
     {
       type: 'string',
       name: 'regionID',
       message: 'What is the HTML id for new region?',
+      validate: function( value ){
+        if(value.trim()){
+          return true;
+        }else{
+          return  "Region HTML id can’t be empty";
+        }
+      },
     },
   ];
 

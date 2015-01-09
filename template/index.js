@@ -28,6 +28,13 @@ TemplateGenerator.prototype.askFor = function () {
         type: 'string',
         name: 'templateName',
         message: 'What is the name for new template?',
+        validate: function( value ){
+          if(value.trim()){
+            return true;
+          }else{
+            return  "Template name can’t be empty";
+          }
+        },
       },
       {
         type: 'list',

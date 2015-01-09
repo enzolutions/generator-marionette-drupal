@@ -35,6 +35,13 @@ CollectionGenerator.prototype.askFor = function () {
       type: 'string',
       name: 'collectionName',
       message: 'What is the name for new collection?',
+      validate: function( value ){
+        if(value.trim()){
+          return true;
+        }else{
+          return  "Collection name can’t be empty";
+        }
+      },
     },
     {
       type: 'list',

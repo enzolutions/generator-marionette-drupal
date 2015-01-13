@@ -327,4 +327,3 @@ Monitor when SASS files are modified to generate new CSS files.
 - [ ] Create RoadMap
 - [ ] Update Forms project to enable image fields
 - [ ] Create Layout Scaffolding command
-- [ ] Add validation in inquirer command to avoid empty values

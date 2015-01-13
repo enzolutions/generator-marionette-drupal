@@ -63,6 +63,13 @@ ViewGenerator.prototype.askFor = function () {
       type: 'string',
       name: 'viewName',
       message: 'What is the name for new view?',
+      validate: function( value ){
+        if(value.trim()){
+          return true;
+        }else{
+          return  "View name can’t be empty";
+        }
+      },
     },
     {
       type: 'list',

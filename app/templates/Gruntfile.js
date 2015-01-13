@@ -32,7 +32,7 @@ module.exports = function (grunt) {
                 src: [
                     yeomanConfig.app + '/' + yeomanConfig.vendor + '/backform/3rd/bootstrap2.3.min.css', // Bootstrap CSS
                     yeomanConfig.app + '/' + yeomanConfig.vendor + '/backform/3rd/bootstrap-datepicker.css', // Bootstrap Datapicker CSS
-                    yeomanConfig.app + '/css/main.css', // All JS in the libs folder
+                    yeomanConfig.app + '/styles/main.css', // All JS in the libs folder
                 ],
                 dest: yeomanConfig.app + '/css/dist/production.css',
             },
@@ -82,13 +82,9 @@ module.exports = function (grunt) {
                     livereload:true
                 },
             },
-            js: {
-                files: [
-                    yeomanConfig.app + '/js/*.js',
-                    yeomanConfig.app + '/scripts/*.js',
-                    yeomanConfig.app + '/scripts/*/*.js'
-                ],
-                tasks: ['compass'],
+            css: {
+                files: [yeomanConfig.app + '/styles/sass/*.scss'],
+                tasks: ['compass:dist', 'concat:css', 'cssmin'],
                 options: {
                     spawn: false,
                     livereload:true

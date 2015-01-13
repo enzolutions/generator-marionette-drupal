@@ -21,7 +21,7 @@ Model debug <br/>
 <% } %>
 <% if (templateType == 'collection') { %>
 {% for model in items %}
-  Model debug <br/>
+  Collection debug <br/>
   {% for key in model|keys %}
     {% set current_property = model[key] %} <br/>
     Property: {{ key }}<br/>

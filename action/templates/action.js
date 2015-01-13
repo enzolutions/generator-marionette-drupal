@@ -19,9 +19,9 @@ define(
         var <%= _.underscored(Action.View) %> = new <%= _.classify(Action.View) %>View({model: null});
         region.show(<%= _.underscored(Action.View) %>);
         <% } %>
-        <% if (!_.isEmpty(Action.View)) { %>
+        <% if (!_.isEmpty(Action.Form)) { %>
         var <%= _.underscored(Action.Form) %> = new <%= _.classify(Action.Form) %>Form({model: null});
-        region.show(<%= _.underscored(Action.View) %>);
+        region.show(<%= _.underscored(Action.Form) %>);
         <% } %>
       <% } %>
 

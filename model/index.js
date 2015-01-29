@@ -24,9 +24,7 @@ ModelGenerator.prototype.askFor = function () {
 
   this.modelDrupalTypes = ['Comment', 'File', 'Node', 'User', 'None'];
 
-  // Generate a list of modules avaiable base in files insde model directory
-  var modelsDir = validDir.getValidatedFolder(this.modelsDirectory);
-  this.models = listDir.getListFolder(modelsDir);
+  this.models = this.config.get('models');
 
   this.conflictModel = null;
   this.Model = null;
@@ -71,8 +69,8 @@ ModelGenerator.prototype.askFor = function () {
 
   this.prompt(prompts, function (props) {
     this.models.forEach(function (model) {
-      if (model === _s.underscored(_s.camelize(props.modelName))) {
-        this.conflictModel = model;
+      if (model.name === _s.underscored(_s.camelize(props.modelName))) {
+        this.conflictModel = model.name;
         return true;
       }
     }.bind(this));

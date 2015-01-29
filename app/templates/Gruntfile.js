@@ -91,7 +91,7 @@ module.exports = function (grunt) {
                 }
             },
             test: {
-                files: ['test/spec/**/*.js', yeomanConfig.app + '/js/**/*.js', 'test/SpecRunner.js'],
+                files: ['test/spec/**/*.js', 'test/SpecRunner.js'],
                 tasks: 'exec'
             },
             all: {

@@ -223,7 +223,7 @@ This subgenerator is still in progress, and the process to push back info to Dru
 
 In order to use this command the Drupal 8 Module [Entity REST extra](https://github.com/enzolutions/entity_rest_extra) must be installed and enabled in your Drupal 8 Backed Server.
 
-Right now there is an issue in Drupal 8 to enable Config Entities via REST, but we did a patch [here](https://www.drupal.org/node/2300677#comment-9456919) to fix that problem so just apply the patch.
+Right now there is an issue in Drupal 8 to enable Config Entities via REST, but we did a patch [here](https://www.drupal.org/node/2300677#comment-9674295) to fix that problem so just apply the patch.
 
 Drupal 8 will not support CORS until 8.1 release, for that reason if you are need your Marionette JS App runs in a different domain apply the patch [https://www.drupal.org/node/1869548#comment-9120317](https://www.drupal.org/node/1869548#comment-9120317) recommended by [Backbone.Drupal](https://github.com/enzolutions/backbone.drupal#cross-origin)
 

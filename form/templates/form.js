@@ -30,7 +30,7 @@ function (<%= _.classify('marionette') %>){
       console.log("initialize a <%= _.classify(name) %> Form");
       Backform.Form.prototype.initialize.apply(this, arguments);
     },
-    fields: [<% _.each(fields, function (field) { %>
+    fields: [{name: 'title', label: 'Title', control: 'textarea'},<% _.each(fields, function (field) { %>
       {name: "<%= field.id %>", label: "<%= field.label %>", control: "<%= _.classify(field.type) %>", options: <%= field.options %>},<% }); %>
       // Add submit button
       {name: 'Submit', id: 'submit', control: 'button'}

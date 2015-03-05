@@ -5,6 +5,7 @@ var yosay = require('yosay');
 var requestSync = require('sync-request');
 var validDir = require('../helpers/validateDirectory');
 var listDir = require('../helpers/listDirectory');
+var _ = require('underscore');
 var _s = require('underscore.string');
 
 module.exports = ActionGenerator;
@@ -64,7 +65,7 @@ ActionGenerator.prototype.askFor = function () {
 
         var res;
         try {
-          res = requestSync('GET', this.backendServer + '/bundles/' + response.entity, options);
+          res = requestSync('GET', this.backendServer + '/entity/' + response.entity + '/bundles', options);
           if (res.statusCode === 200) {
             var bundles = [];
             res = JSON.parse(res.body.toString());
@@ -92,50 +93,6 @@ ActionGenerator.prototype.askFor = function () {
       }.bind(this),
       filter: function (val) { return val.toLowerCase(); }
     },
-    {
-      type: 'list',
-      name: 'viewMode',
-      message: 'What view mode you want use to generate a form?',
-      choices: function (response) {
-        var values = [];
-        var auth = 'Basic ' + this.backendAuthToken;
-        var options = {
-          headers: {
-            'Authorization': auth,
-            'Accept': 'application/json'
-          }
-        };
-
-        var res;
-        try {
-          res = requestSync('GET', this.backendServer + '/view_modes/' + response.entity + '/' + response.bundle, options);
-          if (res.statusCode === 200) {
-            var viewModes = [];
-            res = JSON.parse(res.body.toString());
-            for (var index in res ) {
-              viewModes.push({value: index, name: res[index]});
-            }
-            return viewModes;
-          }
-          else {
-            this.log(yosay('Backend Server ' + this.backendServer + '/view_modes/' + response.entity  + '/' + response.bundle + ' Error code: ' + res.statusCode));
-            process.kill();
-          }
-        }
-        catch (ex) {
-          if (typeof(res) === 'undefined') {
-            this.log(yosay('Backend Server is not available, execute: $ yo marionette-drupal:server to update information'));
-          } else {
-            this.log(yosay('Backend Server ' + this.backendServer  + ' Error code: ' + res.statusCode));
-          }
-
-          process.kill();
-        }
-
-        return values;
-      }.bind(this),
-      filter: function (val) { return val.toLowerCase(); }
-    },
   ];
 
   this.prompt(prompts, function (props) {
@@ -150,7 +107,7 @@ ActionGenerator.prototype.askFor = function () {
 
     var res;
     try {
-      res = requestSync('GET', this.backendServer + '/entity/entity_form_display/' + props.viewMode, options);
+      res = requestSync('GET', this.backendServer + '/entity/' + props.entity + '/' + props.bundle + '/fields', options);
        if (res.statusCode === 200) {
           var fields = [];
           var ignoreFields = ['uid', 'created', 'comment', 'path'];
@@ -163,7 +120,9 @@ ActionGenerator.prototype.askFor = function () {
             text_textfield: 'textarea',
             text_textarea: 'textarea',
             text_textarea_with_summary: 'textarea',
+            text_with_summary: 'textarea',
             boolean_checkbox: 'boolean',
+            datetime: 'datepicker',
             datetime_timestamp: 'datepicker',
             datetime_default: 'datepicker',
             image_image: 'button',
@@ -172,11 +131,10 @@ ActionGenerator.prototype.askFor = function () {
           };
 
           res = JSON.parse(res.body.toString());
-          for (var field in res.content ) {
-            if (ignoreFields.indexOf(field) < 0) {
-              console.log(res.content[field].type);
-              if(typeof(inputTypes[res.content[field].type]) != 'undefined') {
-                fields.push({id: field, label: _s.humanize(_s.strRight(field, 'field_')), type: inputTypes[res.content[field].type], options: JSON.stringify({}), settings: res.content[field]});
+          for (var field in res ) {
+            if (ignoreFields.indexOf(res[field].field_type) < 0) {
+              if(typeof(inputTypes[res[field].field_type]) != 'undefined') {
+                fields.push({id: field, label: res[field].label, type: inputTypes[res[field].field_type], options: JSON.stringify({}), settings: res[field].settings});
               }
             }
           }
@@ -186,7 +144,7 @@ ActionGenerator.prototype.askFor = function () {
           this.fields = fields;
        }
        else {
-            this.log(yosay('Backend Server ' + this.backendServer + '/entity/entity_form_display/' + props.viewMode  + ' Error code: ' + res.statusCode));
+            this.log(yosay('Backend Server ' + this.backendServer + '/entity/' + response.entity + '/' + response.bundle + '/fields'  + ' Error code: ' + res.statusCode));
             process.kill();
           }
     }
@@ -202,8 +160,11 @@ ActionGenerator.prototype.generateActions = function () {
   this.formsDirectory = this.config.get('formsDirectory');
 
   //Set MVC
-  this.MVC.push({type: 'form', model: this.model, form: this.name});
-  this.config.set('MVC', this.MVC);
+  var exits = _.findWhere(this.MVC, {type: 'form', model: this.model, form: this.name});
+  if(typeof(exits) == 'undefined') {
+    this.MVC.push({type: 'form', model: this.model, form: this.name});
+    this.config.set('MVC', this.MVC);
+  }
 
   var ext = 'js';
   this.template('form.js', this.formsDirectory + '/' + this.name + '.' + ext);

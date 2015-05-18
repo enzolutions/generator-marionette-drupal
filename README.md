@@ -11,6 +11,7 @@ Compass is used to generate CSS using bootstrap-sass.
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/enzolutions/generator-marionette-drupal?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 - [Application Structure](#application-structure)
+- [Drupal Configuration](#drupal-configuration)
 - [Getting Started](#getting-started)
     - [Install Generator](#install-generator)
     - [Create a Marionett + Drupal Project](#create-a-marionette-drupal-project)
@@ -45,6 +46,10 @@ Compass is used to generate CSS using bootstrap-sass.
     ├── vendor ( Configurable: vendor is recommended)
     └── views
 ```
+
+##Drupal Configuration##
+
+The step zero is configure and prepare your Drupal installation to accept request specially if you are planning to execute your HTML5 application in another domain, all details about how to do this could be check in page project of [Backbone Drupal](https://github.com/enzolutions/backbone.drupal)
 
 ##Getting Started##
 
